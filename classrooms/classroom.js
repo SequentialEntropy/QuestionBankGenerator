@@ -102,14 +102,4 @@ class Classroom {
     }
 }
 
-let a = new Classroom({ id: 12345 });
-console.log(a);
-let b = new Classroom({
-    name: "Computer Science",
-    description: "A new classroom",
-    sets: [],
-    owner: 12345,
-    teachers: [],
-    students: []
-})
-console.log(b);
+module.exports.Classroom = Classroom;

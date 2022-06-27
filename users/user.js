@@ -97,24 +97,6 @@ class User {
         let userRawData = JSON.stringify(userData, null, 4);
         fs.writeFileSync(filePath, userRawData);
     }
-    dump(prefix = "") { // Print all class details to the console
-        let questions = "";
-        for (let i = 0; i < this.questions.length; i++) {
-            questions += `\n${prefix}    ${this.questions[i].toString()}`;
-        }
-        let sets = "";
-        for (let i = 0; i < this.sets.length; i++) {
-            sets += `\n${prefix}    ${this.sets[i].toString()}`;
-        }
-        return `${prefix}id: ${this.id}\n${prefix}username: ${this.username}\n${prefix}email: ${this.email}\n${prefix}password: ${this.password}\n${prefix}questions: ${questions}\n${prefix}sets: ${sets}`;
-    }
 }
 
-// let a = new User({
-//     username: "Test",
-//     email: "email",
-//     password: "0x0",
-//     questions: [],
-//     sets: []
-// });
-// console.log(a.dump());
+module.exports.User = User;
