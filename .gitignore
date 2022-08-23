@@ -4,6 +4,9 @@ classrooms/classroomList.json
 users/userFiles/*
 users/userList.json
 
+sets/setFiles/*
+sets/setList.json
+
 /test/
 
 # Lines below taken from https://github.com/github/gitignore/blob/main/Node.gitignore
