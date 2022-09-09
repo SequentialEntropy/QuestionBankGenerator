@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { Tracker } from "../database/idTracker.mjs";
+import { jsonReader } from "../database/jsonReader.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -30,6 +31,9 @@ class User {
             data = await User._readFromFile(filePath);
         } else { // Create new user by fields and auto id
             options.id = counter.create();
+            nameToId.data[options.username] = options.id;
+            nameToId.save();
+
             filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
             data = {
                 id: options.id || defaults.id,
@@ -72,5 +76,18 @@ class User {
     }
 }
 
+function getUserByName(username) {
+    return getUserById(getIdByName(username));
+}
+
+function getUserById(id) {
+    return User.init({ id: id });
+}
+
+function getIdByName(username) {
+    return nameToId.data[username];
+}
+
 const counter = await Tracker.init(join(__dirname, "userList.json"));
-export { User };
+const nameToId = await jsonReader.init(join(__dirname, "nameToId.json"));
+export { User, getUserByName, getUserById, getIdByName};
