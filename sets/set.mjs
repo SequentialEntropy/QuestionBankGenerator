@@ -27,7 +27,7 @@ class Set {
     static async init(options) {
         let filePath;
         let data;
-        if (options.id) { // Load existing set by id
+        if (options.hasOwnProperty(id)) { // Load existing set by id
             filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
             data = await Set._readFromFile(filePath);
         } else { // Create new set by fields and auto id
