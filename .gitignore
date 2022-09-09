@@ -9,6 +9,7 @@ sets/setList.json
 
 /test/
 
+.DS_Store
 # Lines below taken from https://github.com/github/gitignore/blob/main/Node.gitignore
 
 # Logs
