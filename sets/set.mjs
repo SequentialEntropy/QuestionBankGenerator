@@ -93,5 +93,5 @@ class Set {
     }
 }
 
-const counter = await Tracker.init(join(__dirname, `setList.json`));
+const counter = await Tracker.init(join(__dirname, `setList.json`), true);
 export { Set };

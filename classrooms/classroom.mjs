@@ -101,5 +101,5 @@ class Classroom {
     }
 }
 
-const counter = await Tracker.init(join(__dirname, "classroomList.json"));
+const counter = await Tracker.init(join(__dirname, "classroomList.json"), true);
 export { Classroom };

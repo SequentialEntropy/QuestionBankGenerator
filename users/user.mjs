@@ -97,5 +97,5 @@ class User {
     }
 }
 
-const counter = await Tracker.init(join(__dirname, "userList.json"));
+const counter = await Tracker.init(join(__dirname, "userList.json"), true);
 export { User };
