@@ -20,11 +20,12 @@ const defaults = {
 };
 
 class Set {
-    constructor(data, filePath) {
+    constructor(data, filePath, logEnabled) {
         this._filePath = filePath;
         this._load(data);
+        this._logEnabled = logEnabled;
     }
-    static async init(options) {
+    static async init(options, logEnabled=false) {
         let filePath;
         let data = defaults;
         if (options.hasOwnProperty("id")) { // Load existing set by id
@@ -39,7 +40,7 @@ class Set {
             data.questions = options.questions;
             Set._writeToFile(data, filePath);
         }
-        return new Set(data, filePath);
+        return new Set(data, filePath, logEnabled);
     }
     static async _readFromFile(filePath) {
         const rawData = await fs.readFile(filePath);
@@ -63,6 +64,11 @@ class Set {
             description: this._description,
             questions: this._questions
         };
+    }
+    _log(text) {
+        if (this._logEnabled) {
+            log(`Set ${this._id}`, text, this._filePath);
+        }
     }
 }
 
