@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { Tracker } from "../database/idTracker.mjs";
+import { log } from "../logger.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -19,11 +20,12 @@ const defaults = {
 };
 
 class Classroom {
-    constructor(data, filePath) {
+    constructor(data, filePath, logEnabled) {
         this._filePath = filePath;
         this._load(data);
+        this._logEnabled = logEnabled;
     }
-    static async init(options) {
+    static async init(options, logEnabled=false) {
         let filePath;
         let data = defaults;
         if (options.hasOwnProperty("id")) {
@@ -41,7 +43,7 @@ class Classroom {
             data.students = options.students;
             Classroom._writeToFile(data, filePath);
         }
-        return new Classroom(data, filePath);
+        return new Classroom(data, filePath, logEnabled);
     }
     readFromFile(filePath) {
         let classroomRawData = fs.readFileSync(filePath);
@@ -95,6 +97,11 @@ class Classroom {
             teachers: this._teachers,
             students: this._students
         };
+    }
+    _log(text) {
+        if (this._logEnabled) {
+            log(`User ${this._id}`, text, this._filePath);
+        }
     }
 }
 
