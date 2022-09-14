@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { Tracker } from "../database/idTracker.mjs";
+import { log } from "../logger.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -18,11 +19,12 @@ const defaults = {
 };
 
 class User {
-    constructor(data, filePath) {
+    constructor(data, filePath, logEnabled) {
         this._filePath = filePath;
         this._load(data);
+        this._logEnabled = logEnabled;
     }
-    static async init(options) {
+    static async init(options, logEnabled=false) {
         let filePath;
         let data = defaults;
         if (options.hasOwnProperty("id")) { // Load existing user by id
@@ -39,7 +41,7 @@ class User {
             data.sets = options.sets;
             User._writeToFile(data, filePath);
         }
-        return new User(data, filePath);
+        return new User(data, filePath, logEnabled);
     }
     static async _readFromFile(filePath) {
         const rawData = await fs.readFile(filePath);
@@ -67,6 +69,11 @@ class User {
             questions: this._questions,
             sets: this._sets
         };
+    }
+    _log(text) {
+        if (this._logEnabled) {
+            log(`User ${this._id}`, text, this._filePath);
+        }
     }
 }
 
