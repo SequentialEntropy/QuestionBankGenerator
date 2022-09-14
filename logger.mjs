@@ -23,13 +23,12 @@ function getDateTimeNow() {
     return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`
 }
 
-function logger(req, res, next) {
-    log("Listener", req.url);
-    next();
+function log(prefix, text, postfix=false) {
+    if (!postfix) {
+        console.log(`[${getDateTimeNow()}] (${prefix}) ${text}`);
+        return
+    }
+    console.log(`[${getDateTimeNow()}] (${prefix}) ${text} @ ${postfix}`);
 }
 
-function log(mod, text) {
-    console.log(`[${getDateTimeNow()}] (${mod}) ${text}`);
-}
-
-export { logger, getDateTimeNow, log };
+export { getDateTimeNow, log };

@@ -5,7 +5,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import sessions from "express-session";
 
-import { logger, log } from "./logger.mjs";
+import { log } from "../logger.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -39,7 +39,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Log all incoming requests
-app.use('/', logger);
+app.use('/', (req, res, next) => {
+    log("Listener", req.url);
+    next();
+});
 
 app.get('/', (req, res) => {
     testSession = req.session;
