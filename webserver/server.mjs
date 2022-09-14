@@ -84,6 +84,15 @@ app.get("/logout", (req, res) => {
     res.redirect("/login");
 })
 
+app.get("/stop", (req, res) => {
+    res.send("Server Closing");
+    res.end();
+    server.close(() => {
+        log("Server", "Closed");
+    });
+    return;
+})
+
 app.use('/', express.static(
     join(__dirname, 'public'),
     {
@@ -91,6 +100,6 @@ app.use('/', express.static(
     }
 ));
 
-app.listen(port, () => {
-    console.log(`Server listening on port: ${port}`);
+const server = app.listen(port, () => {
+    log("Server", `Listening on port: ${port}`);
 });
