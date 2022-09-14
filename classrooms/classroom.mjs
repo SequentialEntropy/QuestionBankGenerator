@@ -100,7 +100,7 @@ class Classroom {
     }
     _log(text) {
         if (this._logEnabled) {
-            log(`User ${this._id}`, text, this._filePath);
+            log(`Classroom ${this._id}`, text, this._filePath);
         }
     }
 }
