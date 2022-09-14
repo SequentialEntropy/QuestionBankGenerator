@@ -24,21 +24,19 @@ class User {
     }
     static async init(options) {
         let filePath;
-        let data;
-        if (options.id) { // Load existing user by id
+        let data = defaults;
+        if (options.hasOwnProperty("id")) { // Load existing user by id
             filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
             data = await User._readFromFile(filePath);
         } else { // Create new user by fields and auto id
             options.id = counter.create();
             filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
-            data = {
-                id: options.id || defaults.id,
-                username: options.username || defaults.username,
-                email: options.email || defaults.email,
-                password: options.password || defaults.password,
-                questions: options.questions || defaults.questions,
-                sets: options.sets || defaults.sets
-            };
+            data.id = options.id;
+            data.username = options.username;
+            data.email = options.email;
+            data.password = options.password;
+            data.questions = options.questions;
+            data.sets = options.sets;
             User._writeToFile(data, filePath);
         }
         return new User(data, filePath);

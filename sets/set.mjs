@@ -26,19 +26,17 @@ class Set {
     }
     static async init(options) {
         let filePath;
-        let data;
-        if (options.hasOwnProperty(id)) { // Load existing set by id
+        let data = defaults;
+        if (options.hasOwnProperty("id")) { // Load existing set by id
             filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
             data = await Set._readFromFile(filePath);
         } else { // Create new set by fields and auto id
             options.id = counter.create();
             filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
-            data = {
-                id: options.id || defaults.id,
-                name: options.name || defaults.name,
-                description: options.description || defaults.description,
-                questions: options.questions || defaults.questions
-            };
+            data.id = options.id;
+            data.name = options.name;
+            data.description = options.description;
+            data.questions = options.questions;
             Set._writeToFile(data, filePath);
         }
         return new Set(data, filePath);

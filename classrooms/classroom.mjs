@@ -25,22 +25,20 @@ class Classroom {
     }
     static async init(options) {
         let filePath;
-        let data;
-        if (options.id) {
+        let data = defaults;
+        if (options.hasOwnProperty("id")) {
             filePath = join(__dirname, "classroomFiles", `classroom${options.id.toString()}.json`);
             data = await Classroom._readFromFile(filePath);
         } else {
             options.id = counter.create();
             filePath = join(__dirname, "classroomFiles", `classroom${options.id.toString()}.json`);
-            data = {
-                id: options.id || defaults.id,
-                name: options.name || defaults.name,
-                description: options.description || defaults.description,
-                sets: options.sets || defaults.sets,
-                owner: options.owner || defaults.owner,
-                teachers: options.teachers || defaults.teachers,
-                students: options.students || defaults.students
-            };
+            data.id = options.id;
+            data.name = options.name;
+            data.description = options.description;
+            data.sets = options.sets;
+            data.owner = options.owner;
+            data.teachers = options.teachers;
+            data.students = options.students;
             Classroom._writeToFile(data, filePath);
         }
         return new Classroom(data, filePath);
