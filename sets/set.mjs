@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { Tracker } from "../database/idTracker.mjs";
+import { log } from "../logger.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
