@@ -78,8 +78,6 @@ class User {
         log("User static", "JSON -> String - Prepared stringified data for writing");
         fs.writeFile(filePath, rawData);
         log("User static", "File written", filePath);
-
-        return fs.writeFile(filePath, rawData);
     }
     async _save() {
         this._log("Save function called");
