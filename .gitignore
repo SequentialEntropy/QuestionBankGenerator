@@ -3,6 +3,7 @@ classrooms/classroomList.json
 
 users/userFiles/*
 users/userList.json
+users/nameToId.json
 
 sets/setFiles/*
 sets/setList.json
