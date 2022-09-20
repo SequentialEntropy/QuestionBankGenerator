@@ -20,14 +20,13 @@ const defaults = {
 };
 
 class User {
-    constructor(data, filePath, logEnabled) {
+    constructor(data, filePath) {
         this._filePath = filePath;
         this._load(data);
-        this._logEnabled = logEnabled;
 
         this._log("Initialised");
     }
-    static async init(options, logEnabled=false) {
+    static async init(options) {
         log("User static", "Initialising User");
         let filePath;
         let data = defaults;
@@ -43,7 +42,7 @@ class User {
             nameToId.data[options.username] = options.id;
             nameToId.save();
             log("User static", `New ID ${options.id} generated`);
-            
+
             filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
 
             data.id = options.id;
@@ -55,7 +54,7 @@ class User {
 
             User._writeToFile(data, filePath);
         }
-        return new User(data, filePath, logEnabled);
+        return new User(data, filePath);
     }
     static async _readFromFile(filePath) {
         log("User static", "Read function called", filePath);
@@ -99,9 +98,7 @@ class User {
         };
     }
     _log(text) {
-        if (this._logEnabled) {
-            log(`User ${this._id}`, text, this._filePath);
-        }
+        log(`User ${this._id}`, text, this._filePath);
     }
 }
 

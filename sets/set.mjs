@@ -21,14 +21,13 @@ const defaults = {
 };
 
 class Set {
-    constructor(data, filePath, logEnabled) {
+    constructor(data, filePath) {
         this._filePath = filePath;
         this._load(data);
-        this._logEnabled = logEnabled;
 
         this._log("Initialised");
     }
-    static async init(options, logEnabled=false) {
+    static async init(options) {
         log("Set static", "Initialising User");
         let filePath;
         let data = defaults;
@@ -49,10 +48,10 @@ class Set {
             data.name = options.name;
             data.description = options.description;
             data.questions = options.questions;
-            
+
             Set._writeToFile(data, filePath);
         }
-        return new Set(data, filePath, logEnabled);
+        return new Set(data, filePath);
     }
     static async _readFromFile(filePath) {
         log("Set static", "Read function called", filePath);
@@ -92,9 +91,7 @@ class Set {
         };
     }
     _log(text) {
-        if (this._logEnabled) {
-            log(`Set ${this._id}`, text, this._filePath);
-        }
+        log(`Set ${this._id}`, text, this._filePath);
     }
 }
 

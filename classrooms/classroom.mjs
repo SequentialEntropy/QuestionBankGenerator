@@ -20,14 +20,13 @@ const defaults = {
 };
 
 class Classroom {
-    constructor(data, filePath, logEnabled) {
+    constructor(data, filePath) {
         this._filePath = filePath;
         this._load(data);
-        this._logEnabled = logEnabled;
 
         this._log("Initialised");
     }
-    static async init(options, logEnabled=false) {
+    static async init(options) {
         log("Classroom static", "Initialising Classroom");
         let filePath;
         let data = defaults;
@@ -41,7 +40,7 @@ class Classroom {
             log("Classroom static", "ID not passed when initialising");
             options.id = counter.create();
             log("Classroom static", `New ID ${options.id} generated`);
-            
+
             filePath = join(__dirname, "classroomFiles", `classroom${options.id.toString()}.json`);
 
             data.id = options.id;
@@ -54,7 +53,7 @@ class Classroom {
 
             Classroom._writeToFile(data, filePath);
         }
-        return new Classroom(data, filePath, logEnabled);
+        return new Classroom(data, filePath);
     }
     static async _readFromFile(filePath) {
         log("Classroom static", "Read function called", filePath);
@@ -100,9 +99,7 @@ class Classroom {
         };
     }
     _log(text) {
-        if (this._logEnabled) {
-            log(`Classroom ${this._id}`, text, this._filePath);
-        }
+        log(`Classroom ${this._id}`, text, this._filePath);
     }
 }
 

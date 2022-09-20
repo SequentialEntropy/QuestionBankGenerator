@@ -14,14 +14,13 @@ const defaults = {
 }
 
 class Tracker {
-    constructor(data, filePath, logEnabled) {
+    constructor(data, filePath) {
         this._filePath = filePath;
         this._load(data);
-        this._logEnabled = logEnabled;
 
         this._log("Initialised");
     };
-    static async init(filePath, logEnabled=false) {
+    static async init(filePath) {
         log("ID Tracker static", "Initialising Tracker");
         let data = defaults;
         try {
@@ -35,7 +34,7 @@ class Tracker {
                 throw err;
             }
         };
-        return new Tracker(data, filePath, logEnabled);
+        return new Tracker(data, filePath);
     }
     create() {
         this._log("Create function called");
@@ -99,9 +98,7 @@ class Tracker {
         };
     }
     _log(text) {
-        if (this._logEnabled) {
-            log(`ID Tracker`, text, this._filePath);
-        }
+        log(`ID Tracker`, text, this._filePath);
     }
 }
 
