@@ -31,23 +31,28 @@ class User {
         log("User static", "Initialising User");
         let filePath;
         let data = defaults;
+
         if (options.hasOwnProperty("id")) { // Load existing user by id
-            log("User static", `ID ${options.id} passed when initialising`);
+            log("User static", `ID ${options.id} passed when initialising, opening existing file`);
             filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
             data = await User._readFromFile(filePath);
+
         } else { // Create new user by fields and auto id
             log("User static", "ID not passed when initialising");
             options.id = counter.create();
             nameToId.data[options.username] = options.id;
             nameToId.save();
             log("User static", `New ID ${options.id} generated`);
+            
             filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
+
             data.id = options.id;
             data.username = options.username;
             data.email = options.email;
             data.password = options.password;
             data.questions = options.questions;
             data.sets = options.sets;
+
             User._writeToFile(data, filePath);
         }
         return new User(data, filePath, logEnabled);

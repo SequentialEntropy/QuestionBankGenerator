@@ -32,19 +32,24 @@ class Set {
         log("Set static", "Initialising User");
         let filePath;
         let data = defaults;
+
         if (options.hasOwnProperty("id")) { // Load existing set by id
             log("Set static", `ID ${options.id} passed when initialising`);
             filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
             data = await Set._readFromFile(filePath);
+
         } else { // Create new set by fields and auto id
             log("Set static", "ID not passed when initialising");
             options.id = counter.create();
             log("Set static", `New ID ${options.id} generated`);
+
             filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
+
             data.id = options.id;
             data.name = options.name;
             data.description = options.description;
             data.questions = options.questions;
+            
             Set._writeToFile(data, filePath);
         }
         return new Set(data, filePath, logEnabled);

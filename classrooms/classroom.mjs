@@ -31,15 +31,19 @@ class Classroom {
         log("Classroom static", "Initialising Classroom");
         let filePath;
         let data = defaults;
+
         if (options.hasOwnProperty("id")) {
-            log("Classroom static", `ID ${options.id} passed when initialising`);
+            log("Classroom static", `ID ${options.id} passed when initialising, opening existing file`);
             filePath = join(__dirname, "classroomFiles", `classroom${options.id.toString()}.json`);
             data = await Classroom._readFromFile(filePath);
+
         } else {
             log("Classroom static", "ID not passed when initialising");
             options.id = counter.create();
             log("Classroom static", `New ID ${options.id} generated`);
+            
             filePath = join(__dirname, "classroomFiles", `classroom${options.id.toString()}.json`);
+
             data.id = options.id;
             data.name = options.name;
             data.description = options.description;
@@ -47,6 +51,7 @@ class Classroom {
             data.owner = options.owner;
             data.teachers = options.teachers;
             data.students = options.students;
+
             Classroom._writeToFile(data, filePath);
         }
         return new Classroom(data, filePath, logEnabled);
