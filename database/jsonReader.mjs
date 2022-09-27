@@ -1,13 +1,6 @@
 import { promises as fs } from "fs";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 
 import { log } from "../logger.mjs";
-
-const __filename = fileURLToPath(
-    import.meta.url);
-
-const __dirname = dirname(__filename);
 
 class jsonReader {
     constructor(data, filePath) {
