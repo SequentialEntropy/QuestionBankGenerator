@@ -36,7 +36,7 @@ class User {
             options.id = counter.create();
             nameToId.data[options.username] = options.id;
             nameToId.save();
-            log(`User user${options.id}`, "Creating new user");
+            log(`User user${options.id}.json`, "Creating new user");
         }
         let jsonRW = jsonReader.init(join(__dirname, "userFiles", `user${options.id}.json`), options);
         return new User(await jsonRW);
@@ -48,7 +48,7 @@ class User {
         this._jsonRW.save();
     }
     _log(text, postfix=false) {
-        log(`User user${this._data().id}`, text, postfix);
+        log(`User user${this._data().id}.json`, text, postfix);
     }
 
     getPasswordHash() {
