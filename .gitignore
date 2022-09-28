@@ -1,5 +1,6 @@
 classrooms/classroomFiles/*
 classrooms/classroomList.json
+classrooms/nameToId.json
 
 users/userFiles/*
 users/userList.json
@@ -7,6 +8,7 @@ users/nameToId.json
 
 sets/setFiles/*
 sets/setList.json
+sets/nameToId.json
 
 /test/
 
