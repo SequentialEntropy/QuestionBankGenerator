@@ -1,101 +1,85 @@
-import { promises as fs } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { Tracker } from "../database/idTracker.mjs";
-import { log } from "../logger.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
 
 const __dirname = dirname(__filename);
 
+import { log } from "../logger.mjs";
+
+import { Tracker } from "../database/idTracker.mjs";
+import { jsonReader } from "../database/jsonReader.mjs";
+
 const defaults = {
     id: -1,
     username: "New User",
-    email: "",
     password: "0x0",
     questions: [],
     sets: []
 };
 
 class User {
-    constructor(data, filePath, logEnabled) {
-        this._filePath = filePath;
-        this._load(data);
-        this._logEnabled = logEnabled;
+    constructor(jsonRW) {
+        this._jsonRW = jsonRW;
 
         this._log("Initialised");
     }
-    static async init(options, logEnabled=false) {
-        log("User static", "Initialising User");
-        let filePath;
-        let data = defaults;
-        if (options.hasOwnProperty("id")) { // Load existing user by id
-            log("User static", `ID ${options.id} passed when initialising`);
-            filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
-            data = await User._readFromFile(filePath);
-        } else { // Create new user by fields and auto id
-            log("User static", "ID not passed when initialising");
+    static async init(options) {
+        if (!("id" in options)) {
+            log("User", "ID not specified");
+            options = Object.assign(defaults, options);
+            if (options.username in nameToId.data) {
+                log("User", "Entered username already exists", options.username);
+                return false;
+            }
             options.id = counter.create();
-            log("User static", `New ID ${options.id} generated`);
-            filePath = join(__dirname, "userFiles", `user${options.id.toString()}.json`);
-            data.id = options.id;
-            data.username = options.username;
-            data.email = options.email;
-            data.password = options.password;
-            data.questions = options.questions;
-            data.sets = options.sets;
-            User._writeToFile(data, filePath);
+            nameToId.data[options.username] = options.id;
+            nameToId.save();
+            log(`User user${options.id}.json`, "Creating new user");
         }
-        return new User(data, filePath, logEnabled);
+        let jsonRW = jsonReader.init(join(__dirname, "userFiles", `user${options.id}.json`), options);
+        return new User(await jsonRW);
     }
-    static async _readFromFile(filePath) {
-        log("User static", "Read function called", filePath);
+    _data() {
+        return this._jsonRW.data;
+    }
+    _save() {
+        this._jsonRW.save();
+    }
+    _log(text, postfix=false) {
+        log(`User user${this._data().id}.json`, text, postfix);
+    }
 
-        const rawData = await fs.readFile(filePath);
-        log("User static", "File read", rawData);
-        const data = JSON.parse(rawData);
-        log("User static", "String -> JSON - Parsed read file", data);
-
-        return data;
+    getPasswordHash() {
+        return this._data().password;
     }
-    async _load(data) {
-        this._log("Load function called");
-        
-        this._id = data.id;
-        this._username = data.username;
-        this._email = data.email;
-        this._password = data.password;
-        this._questions = data.questions;
-        this._sets = data.sets;
-
-        this._log("Load done");
+    getQuestions() {
+        return this._data().questions;
     }
-    static async _writeToFile(data, filePath) {
-        log("User static", "Write function called", filePath);
-
-        const rawData = JSON.stringify(await data, null, 4);
-        log("User static", "JSON -> String - Prepared stringified data for writing");
-        fs.writeFile(filePath, rawData);
-        log("User static", "File written", filePath);
-    }
-    async _save() {
-        this._log("Save function called");
-        return {
-            id: this._id,
-            username: this._username,
-            email: this._email,
-            password: this._password,
-            questions: this._questions,
-            sets: this._sets
-        };
-    }
-    _log(text) {
-        if (this._logEnabled) {
-            log(`User ${this._id}`, text, this._filePath);
-        }
+    getSets() {
+        return this._data().sets;
     }
 }
 
-const counter = await Tracker.init(join(__dirname, "userList.json"), true);
-export { User };
+function getUserByName(username) {
+    return getUserById(getIdByName(username));
+}
+
+function getUserById(id) {
+    if (id in counter._data().list) {
+        return User.init({ id: id });
+    }
+    return false;
+}
+
+function getIdByName(username) {
+    if (username in nameToId.data) {
+        return nameToId.data[username];
+    }
+    return false;
+}
+
+const counter = await Tracker.init(join(__dirname, "userList.json"));
+const nameToId = await jsonReader.init(join(__dirname, "nameToId.json"));
+export { User, getUserByName, getUserById, getIdByName };
