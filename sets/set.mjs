@@ -1,97 +1,81 @@
-import { promises as fs } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { Tracker } from "../database/idTracker.mjs";
-import { log } from "../logger.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
 
 const __dirname = dirname(__filename);
 
+import { log } from "../logger.mjs";
+
+import { Tracker } from "../database/idTracker.mjs";
+import { jsonReader } from "../database/jsonReader.mjs";
+
 const defaults = {
-    id: 12345,
-    name: "Example Set",
+    id: -1,
+    name: "New Set",
     description: "An example set description.",
-    questions: [
-        12345,
-        55555,
-        98765
-    ]
+    questions: []
 };
 
 class Set {
-    constructor(data, filePath, logEnabled) {
-        this._filePath = filePath;
-        this._load(data);
-        this._logEnabled = logEnabled;
+    constructor(jsonRW) {
+        this._jsonRW = jsonRW;
 
         this._log("Initialised");
     }
-    static async init(options, logEnabled=false) {
-        log("Set static", "Initialising User");
-        let filePath;
-        let data = defaults;
-        if (options.hasOwnProperty("id")) { // Load existing set by id
-            log("Set static", `ID ${options.id} passed when initialising`);
-            filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
-            data = await Set._readFromFile(filePath);
-        } else { // Create new set by fields and auto id
-            log("Set static", "ID not passed when initialising");
+    static async init(options) {
+        if (!("id" in options)) {
+            log("Set", "ID not specified");
+            options = Object.assign(defaults, options);
+            if (options.name in nameToId.data) {
+                log("Set", "Entered set name already exists", options.name);
+                return false;
+            }
             options.id = counter.create();
-            log("Set static", `New ID ${options.id} generated`);
-            filePath = join(__dirname, "setFiles", `set${options.id.toString()}.json`);
-            data.id = options.id;
-            data.name = options.name;
-            data.description = options.description;
-            data.questions = options.questions;
-            Set._writeToFile(data, filePath);
+            nameToId.data[options.name] = options.id;
+            nameToId.save();
+            log(`Set set${options.id}.json`, "Creating new set");
         }
-        return new Set(data, filePath, logEnabled);
+        let jsonRW = jsonReader.init(join(__dirname, "setFiles", `set${options.id}.json`), options);
+        return new Set(await jsonRW);
     }
-    static async _readFromFile(filePath) {
-        log("Set static", "Read function called", filePath);
-
-        const rawData = await fs.readFile(filePath);
-        log("Set static", "File read", rawData);
-        const data = JSON.parse(rawData);
-        log("Set static", "String -> JSON - Parsed read file", data);
-
-        return data;
+    _data() {
+        return this._jsonRW.data;
     }
-    async _load(data) {
-        this._log("Load function called");
-
-        this._id = data.id;
-        this._name = data.name;
-        this._description = data.description;
-        this._questions = data.questions;
-
-        this._log("Load done");
+    _save() {
+        this._jsonRW.save();
     }
-    static async _writeToFile(data, filePath) {
-        log("Set static", "Write function called", filePath);
+    _log(text, postfix=false) {
+        log(`Set set${this._data().id}.json`, text, postfix);
+    }
 
-        const rawData = JSON.stringify(await data, null, 4);
-        log("Set static", "JSON -> String - Prepared stringified data for writing");
-        fs.writeFile(filePath, rawData);
-        log("Set static", "File written", filePath);
+    getDescription() {
+        return this._data().description;
     }
-    async _save() {
-        this._log("Save function called");
-        return {
-            id: this._id,
-            name: this._name,
-            description: this._description,
-            questions: this._questions
-        };
-    }
-    _log(text) {
-        if (this._logEnabled) {
-            log(`Set ${this._id}`, text, this._filePath);
-        }
+    getQuestions() {
+        return this._data().questions;
     }
 }
 
-const counter = await Tracker.init(join(__dirname, `setList.json`), true);
-export { Set };
+function getSetByName(name) {
+    return getSetById(getIdByName(name));
+}
+
+function getSetById(id) {
+    if (id in counter._data().list) {
+        return Set.init({ id: id });
+    }
+    return false;
+}
+
+function getIdByName(name) {
+    if (name in nameToId.data) {
+        return nameToId.data[name];
+    }
+    return false;
+}
+
+const counter = await Tracker.init(join(__dirname, "setList.json"));
+const nameToId = await jsonReader.init(join(__dirname, "nameToId.json"));
+export { Set, getSetByName, getSetById, getIdByName };

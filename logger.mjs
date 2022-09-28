@@ -1,3 +1,9 @@
+let isLogging = false;
+
+function enableLog() {
+    isLogging = true;
+}
+
 function getDateTimeNow() {
     let dateNow = new Date();
 
@@ -24,11 +30,14 @@ function getDateTimeNow() {
 }
 
 function log(prefix, text, postfix=false) {
+    if (!isLogging) {
+        return;
+    }
     if (!postfix) {
         console.log(`[${getDateTimeNow()}] (${prefix}) ${text}`);
-        return
+        return;
     }
     console.log(`[${getDateTimeNow()}] (${prefix}) ${text} @ ${postfix}`);
 }
 
-export { getDateTimeNow, log };
+export { getDateTimeNow, log, enableLog };
