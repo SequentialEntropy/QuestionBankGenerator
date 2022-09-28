@@ -5,7 +5,11 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import sessions from "express-session";
 
-import { log } from "../logger.mjs";
+import { getUserByName } from "../users/user.mjs";
+
+import { log, enableLog } from "../logger.mjs";
+
+enableLog();
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -16,13 +20,6 @@ const app = express();
 const port = 8080;
 
 const oneDay = 1000 * 60 * 60 * 24;
-
-//username and password
-const testUsername = 'test'
-const testPassword = 'test'
-
-// a variable to save a session
-let testSession;
 
 app.use(sessions({
     secret: "Test",
@@ -45,8 +42,8 @@ app.use('/', (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    testSession = req.session;
-    if (testSession.userid) {
+    let currentSession = req.session;
+    if (currentSession.userid) {
         // res.sendFile(join(__dirname, "public", "dashboard.html"));
         res.send(`
         <!DOCTYPE html>
@@ -58,7 +55,7 @@ app.get('/', (req, res) => {
             <title>Dashboard</title>
         </head>
         <body>
-            <h1>Welcome Back, ${testSession.userid}</h1>
+            <h1>Welcome Back, ${currentSession.userid}</h1>
             <a href="/logout">Logout</a>
         </body>
         </html>
@@ -68,10 +65,10 @@ app.get('/', (req, res) => {
     }
 })
 
-app.post("/auth", (req, res) => {
-    if (req.body.username == testUsername && req.body.password == testPassword) {
-        testSession = req.session;
-        testSession.userid = req.body.username;
+app.post("/auth", async (req, res) => {
+    if ((await getUserByName(req.body.username)).getPasswordHash() == req.body.password) {
+        let currentSession = req.session;
+        currentSession.userid = req.body.username;
         log("Auth", req.session.userid);
         res.redirect("/");
     } else {
