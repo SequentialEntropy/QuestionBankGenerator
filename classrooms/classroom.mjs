@@ -71,7 +71,7 @@ class Classroom {
 }
 
 function getClassroomByName(name) {
-    return getClassroomById(getIdByName(name));
+    return getClassroomById(getClassroomIdByName(name));
 }
 
 function getClassroomById(id) {
@@ -81,7 +81,7 @@ function getClassroomById(id) {
     return false;
 }
 
-function getIdByName(name) {
+function getClassroomIdByName(name) {
     if (name in nameToId.data) {
         return nameToId.data[name];
     }
@@ -90,4 +90,4 @@ function getIdByName(name) {
 
 const counter = await Tracker.init(join(__dirname, "classroomList.json"));
 const nameToId = await jsonReader.init(join(__dirname, "nameToId.json"));
-export { Classroom, getClassroomByName, getClassroomById, getIdByName };
+export { Classroom, getClassroomByName, getClassroomById, getClassroomIdByName };

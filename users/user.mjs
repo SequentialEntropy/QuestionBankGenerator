@@ -14,7 +14,7 @@ import { jsonReader } from "../database/jsonReader.mjs";
 const defaults = {
     id: -1,
     username: "New User",
-    password: "0x0",
+    password: "",
     questions: [],
     sets: []
 };
@@ -63,7 +63,7 @@ class User {
 }
 
 function getUserByName(username) {
-    return getUserById(getIdByName(username));
+    return getUserById(getUserIdByName(username));
 }
 
 function getUserById(id) {
@@ -73,7 +73,7 @@ function getUserById(id) {
     return false;
 }
 
-function getIdByName(username) {
+function getUserIdByName(username) {
     if (username in nameToId.data) {
         return nameToId.data[username];
     }
@@ -82,4 +82,4 @@ function getIdByName(username) {
 
 const counter = await Tracker.init(join(__dirname, "userList.json"));
 const nameToId = await jsonReader.init(join(__dirname, "nameToId.json"));
-export { User, getUserByName, getUserById, getIdByName };
+export { User, getUserByName, getUserById, getUserIdByName };

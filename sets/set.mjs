@@ -59,7 +59,7 @@ class Set {
 }
 
 function getSetByName(name) {
-    return getSetById(getIdByName(name));
+    return getSetById(getSetIdByName(name));
 }
 
 function getSetById(id) {
@@ -69,7 +69,7 @@ function getSetById(id) {
     return false;
 }
 
-function getIdByName(name) {
+function getSetIdByName(name) {
     if (name in nameToId.data) {
         return nameToId.data[name];
     }
@@ -78,4 +78,4 @@ function getIdByName(name) {
 
 const counter = await Tracker.init(join(__dirname, "setList.json"));
 const nameToId = await jsonReader.init(join(__dirname, "nameToId.json"));
-export { Set, getSetByName, getSetById, getIdByName };
+export { Set, getSetByName, getSetById, getSetIdByName };

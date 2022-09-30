@@ -5,7 +5,9 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import sessions from "express-session";
 
-import { getUserByName } from "../users/user.mjs";
+import bcrypt from "bcrypt";
+
+import { getUserByName, getUserIdByName } from "../users/user.mjs";
 
 import { log, enableLog } from "../logger.mjs";
 
@@ -23,7 +25,7 @@ const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(sessions({
     secret: "Test",
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { maxAge: oneDay, httpOnly: false},
     resave: false 
 }));
@@ -42,8 +44,7 @@ app.use('/', (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    let currentSession = req.session;
-    if (currentSession.userid) {
+    if (req.session.id) {
         // res.sendFile(join(__dirname, "public", "dashboard.html"));
         res.send(`
         <!DOCTYPE html>
@@ -55,7 +56,8 @@ app.get('/', (req, res) => {
             <title>Dashboard</title>
         </head>
         <body>
-            <h1>Welcome Back, ${currentSession.userid}</h1>
+            <h1>Welcome Back, ${req.session.id}</h1>
+            <p>${req.sessionID}</p>
             <a href="/logout">Logout</a>
         </body>
         </html>
@@ -66,14 +68,22 @@ app.get('/', (req, res) => {
 })
 
 app.post("/auth", async (req, res) => {
-    if ((await getUserByName(req.body.username)).getPasswordHash() == req.body.password) {
-        let currentSession = req.session;
-        currentSession.userid = req.body.username;
-        log("Auth", req.session.userid);
-        res.redirect("/");
-    } else {
+    let user = await getUserByName(req.body.username);
+
+    if (!user) {
         res.send("Invalid credentials");
+        return
     }
+
+    bcrypt.compare(req.body.password, user.getPasswordHash(), (err, validCredentials) => {
+        if (validCredentials) {
+            req.session.id = getUserIdByName(req.body.username);
+            log("Auth", req.session.id);
+            res.redirect("/");
+        } else {
+            res.send("Invalid credentials");
+        }
+    })
 })
 
 app.get("/logout", (req, res) => {
