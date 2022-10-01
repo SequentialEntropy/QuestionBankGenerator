@@ -8,10 +8,13 @@
 </head>
 <body>
     <form action="/auth" method="post">
-        <h2>Login</h2>
+        <h1>Login</h2>
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">        
+        <input type="submit" value="Login">
+        <% if (isInvalid) { %>
+            <p>Invalid Credentials</p>
+        <% }; %>
     </form>
 </body>
 </html>

@@ -37,6 +37,9 @@ app.use(express.urlencoded({ extended: true }));
 // Parse cookies
 app.use(cookieParser());
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
 // Log all incoming requests
 app.use('/', (req, res, next) => {
     log("Listener", req.url);
@@ -44,24 +47,11 @@ app.use('/', (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    if (req.session.id) {
-        // res.sendFile(join(__dirname, "public", "dashboard.html"));
-        res.send(`
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Dashboard</title>
-        </head>
-        <body>
-            <h1>Welcome Back, ${req.session.id}</h1>
-            <p>${req.sessionID}</p>
-            <a href="/logout">Logout</a>
-        </body>
-        </html>
-        `)
+    if (req.session.hasOwnProperty("userId")) {
+        res.render("pages/dashboard", {
+            userId: req.session.userId,
+            sessionId: req.sessionID
+        });
     } else {
         res.redirect("/login");
     }
@@ -71,19 +61,28 @@ app.post("/auth", async (req, res) => {
     let user = await getUserByName(req.body.username);
 
     if (!user) {
-        res.send("Invalid credentials");
+        req.session.isInvalid = true;
+        res.redirect("/login");
         return
     }
 
     bcrypt.compare(req.body.password, user.getPasswordHash(), (err, validCredentials) => {
         if (validCredentials) {
-            req.session.id = getUserIdByName(req.body.username);
-            log("Auth", req.session.id);
+            req.session.userId = getUserIdByName(req.body.username);
+            req.session.isInvalid = false;
+            log("Auth", req.session.userId);
             res.redirect("/");
         } else {
-            res.send("Invalid credentials");
+            req.session.isInvalid = true;
+            res.redirect("/login");
         }
     })
+})
+
+app.get("/login", (req, res) => {
+    res.render("pages/login", {
+        isInvalid: req.session.isInvalid
+    });
 })
 
 app.get("/logout", (req, res) => {
