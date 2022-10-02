@@ -16,7 +16,7 @@ const router = express.Router();
 
 
 
-router.get("/", (req, res) => {
+router.get("/:questionId", auth, (req, res) => {
     res.render("pages/question");
 })
 
