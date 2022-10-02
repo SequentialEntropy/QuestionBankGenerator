@@ -19,34 +19,29 @@ router.get("/", (req, res) => {
     res.render("pages/question");
 })
 
-router.get("/api/:questionId", async (req, res) => {
-    const question = await auth(req, res);
-
-    if (!question) {
-        return;
-    }
-
-    res.json(question._data());
+router.get("/api/:questionId", auth, async (req, res) => {
+    res.json(req.question._data());
 })
 
 
 
 
 
-async function auth(req, res) {
+async function auth(req, res, next) {
     const question = await getQuestionById(req.params.questionId);
 
     if (!question) {
         res.sendStatus(404);
-        return false;
+        return;
     }
 
     if (req.session.userId != question.getOwner()) {
         res.sendStatus(403);
-        return false;
+        return;
     }
 
-    return question;
+    req.question = question;
+    next();
 }
 
 export { router };
