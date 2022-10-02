@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 import { getUserByName, getUserIdByName } from "../users/user.mjs";
 
 import { log, enableLog } from "../logger.mjs";
+import { router as questionRouter } from "./routes/questionRouter.mjs";
 
 enableLog();
 
@@ -41,6 +42,13 @@ app.use('/', (req, res, next) => {
     log("Listener", req.url);
     next();
 });
+
+app.use("/question", questionRouter);
+
+
+
+
+
 
 app.get('/', (req, res) => {
     if (req.session.hasOwnProperty("userId")) {
