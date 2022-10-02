@@ -29,13 +29,7 @@ class Question {
         if (!("id" in options)) {
             log("Question", "ID not specified");
             options = Object.assign(defaults, options);
-            if (options.name in nameToId.data) {
-                log("Question", "Entered question name already exists", options.name);
-                return false;
-            }
             options.id = counter.create();
-            nameToId.data[options.name] = options.id;
-            nameToId.save();
             log(`Question question${options.id}.json`, "Creating new question");
         }
         let jsonRW = jsonReader.init(join(__dirname, "questionFiles", `question${options.id}.json`), options);
@@ -66,6 +60,13 @@ class Question {
     getSteps() {
         return this._data().steps;
     }
+}
+
+function getQuestionById(id) {
+    if (id in counter._data().list) {
+        return Question.init({ id: id });
+    }
+    return false;
 }
 
 const counter = await Tracker.init(join(__dirname, "questionList.json"));
