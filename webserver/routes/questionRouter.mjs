@@ -15,12 +15,22 @@ const router = express.Router();
 
 
 
+
 router.get("/", (req, res) => {
     res.render("pages/question");
 })
 
-router.get("/api/:questionId", auth, async (req, res) => {
+router.get("/api/:questionId", auth, (req, res) => {
     res.json(req.question._data());
+})
+
+router.get("/api/:questionId/createStep", auth, (req, res) => {
+    res.set('Content-Type', 'text/plain');
+    res.send(req.question.createStep().toString());
+})
+
+router.get("/api/:questionId/getSteps", auth, (req, res) => {
+    res.json({length: req.question.getSteps().length});
 })
 
 

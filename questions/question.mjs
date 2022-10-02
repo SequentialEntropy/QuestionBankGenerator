@@ -65,6 +65,11 @@ class Question {
     getSteps() {
         return this._data().steps;
     }
+    createStep() {
+        const length = this.getSteps().push({}); // Return index of new step
+        this._save();
+        return length;
+    }
 }
 
 function getQuestionById(id) {
