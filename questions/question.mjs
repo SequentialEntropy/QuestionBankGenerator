@@ -13,6 +13,7 @@ import { jsonReader } from "../database/jsonReader.mjs";
 
 const defaults = {
     id: -1,
+    owner: -1,
     variables: [],
     type: "numerical",
     prompt: [],
@@ -45,6 +46,10 @@ class Question {
         log(`Question question${this._data().id}.json`, text, postfix);
     }
 
+    getOwner() {
+        return this._data().owner;
+    }
+
     getVariables() {
         return this._data().variables;
     }
@@ -70,4 +75,4 @@ function getQuestionById(id) {
 }
 
 const counter = await Tracker.init(join(__dirname, "questionList.json"));
-export { Question };
+export { Question, getQuestionById };
