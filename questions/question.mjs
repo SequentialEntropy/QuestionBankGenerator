@@ -70,6 +70,26 @@ class Question {
         this._save();
         return length;
     }
+    moveStep(selected, targeted) {
+        if (selected < 0 || selected > (this.getSteps().length - 1) || targeted < 0 || targeted > this.getSteps().length) {
+            return false;
+        }
+
+        if (selected == targeted || selected == (targeted - 1)) {
+            return false;
+        }
+
+        const step = this.getSteps()[selected];
+
+        if (selected > targeted) {
+            selected++;
+        }
+        this.getSteps().splice(targeted, 0, step);
+        this.getSteps().splice(selected, 1);
+        this._save();
+
+        return true;
+    }
 }
 
 function getQuestionById(id) {

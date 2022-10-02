@@ -30,7 +30,23 @@ router.get("/api/:questionId/createStep", auth, (req, res) => {
 })
 
 router.get("/api/:questionId/getSteps", auth, (req, res) => {
-    res.json({length: req.question.getSteps().length});
+    res.json(req.question.getSteps());
+})
+
+router.get("/api/:questionId/moveStep/:selected/:targeted", auth, (req, res) => {
+    const selected = parseInt(req.params.selected);
+    const targeted = parseInt(req.params.targeted);
+
+    if (isNaN(selected) || isNaN(targeted)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    if (req.question.moveStep(selected, targeted)) {
+        res.sendStatus(200);
+        return;
+    };
+    res.sendStatus(400);
 })
 
 
@@ -46,7 +62,7 @@ async function auth(req, res, next) {
     }
 
     if (req.session.userId != question.getOwner()) {
-        res.sendStatus(403);
+        res.sendStatus(401);
         return;
     }
 
