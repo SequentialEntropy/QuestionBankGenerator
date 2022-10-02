@@ -10,6 +10,9 @@ sets/setFiles/*
 sets/setList.json
 sets/nameToId.json
 
+sets/questionFiles/*
+sets/questionList.json
+
 /test/
 
 .DS_Store
