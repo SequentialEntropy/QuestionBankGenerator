@@ -76,7 +76,7 @@ class Question {
         }
 
         if (selected == targeted || selected == (targeted - 1)) {
-            return false;
+            return true;
         }
 
         const step = this.getSteps()[selected];
@@ -85,6 +85,16 @@ class Question {
             selected++;
         }
         this.getSteps().splice(targeted, 0, step);
+        this.getSteps().splice(selected, 1);
+        this._save();
+
+        return true;
+    }
+    deleteStep(selected) {
+        if (selected < 0 || selected > (this.getSteps().length - 1)) {
+            return false;
+        }
+
         this.getSteps().splice(selected, 1);
         this._save();
 

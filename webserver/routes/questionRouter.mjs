@@ -46,7 +46,15 @@ router.get("/api/:questionId/moveStep/:selected/:targeted", auth, (req, res) => 
         res.sendStatus(200);
         return;
     };
-    res.sendStatus(400);
+    res.sendStatus(404);
+})
+
+router.get("/api/:questionId/deleteStep/:selected", auth, (req, res) => {
+    if (req.question.deleteStep(req.params.selected)) {
+        res.sendStatus(200);
+        return;
+    }
+    res.sendStatus(404);
 })
 
 
