@@ -2,7 +2,6 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import express from "express";
-import cookieParser from "cookie-parser";
 import sessions from "express-session";
 
 import bcrypt from "bcrypt";
@@ -33,9 +32,6 @@ app.use(sessions({
 // Parse POST json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Parse cookies
-app.use(cookieParser());
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
