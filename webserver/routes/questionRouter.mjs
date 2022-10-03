@@ -57,6 +57,10 @@ router.get("/api/:questionId/deleteStep/:selected", auth, (req, res) => {
     res.sendStatus(404);
 })
 
+router.get("/api/:questionId/getPrompt", auth, (req, res) => {
+    res.json(req.question.getPrompt());
+})
+
 
 
 
