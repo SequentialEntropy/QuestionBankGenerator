@@ -16,9 +16,13 @@ console.log(questionId);
 
 // getSteps();
 
-const sectionShelf = await SectionsShelf.init(
-    document.querySelector(".SectionsShelf"),
-    questionId
-);
+// const sectionShelf = await SectionsShelf.init(
+//     document.querySelector(".SectionsShelf"),
+//     questionId
+// );
 
-console.log(sectionShelf);
+// console.log(sectionShelf);
+
+const sectionEditor = await SectionsShelf.init(
+    questionId
+)
