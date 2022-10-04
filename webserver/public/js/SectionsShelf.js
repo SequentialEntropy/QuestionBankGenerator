@@ -1,6 +1,7 @@
 import Section from "./Section.js";
 
 export default class SectionsShelf {
+
     createElement() {
         const range = document.createRange();
 
@@ -10,41 +11,64 @@ export default class SectionsShelf {
         <div class="SectionsEditor">
             <div class="SectionsShelf"></div>
             <div class="SectionsShelf-addArea Section-area">
-                <button class="SectionsShelf-add">+ Add Step</button>
+                <button class="SectionsShelf-createSection">+ Create Step</button>
             </div>
         </div>
         `).children[0];
     }
 
     constructor(questionId) {
+        this.questionId = questionId;
+
         this.shelfEditorElement = this.createElement();
         this.shelfElement = this.shelfEditorElement.querySelector(".SectionsShelf");
         this.sections = [];
-        this.addElement = this.shelfEditorElement.querySelector(".SectionsShelf-add");
+        this.createSectionElement = this.shelfEditorElement.querySelector(".SectionsShelf-createSection");
+
+        this.createSectionElement.addEventListener("click", async () => {
+            this.renderSection();
+
+            fetch(`/question/api/${await questionId}/createStep`);
+        })
 
         document.body.appendChild(this.shelfEditorElement);
     }
 
-    static async init(questionId) {
-        console.log("Init Called, " + questionId);
-        const newShelf = new SectionsShelf(await questionId);
+    async init() {
 
-        const prompt = (await fetch(`/question/api/${await questionId}/getPrompt`)).json();
-        const steps = (await fetch(`/question/api/${await questionId}/getSteps`)).json();
+        const prompt = (await fetch(`/question/api/${this.questionId}/getPrompt`)).json();
+        const steps = (await fetch(`/question/api/${this.questionId}/getSteps`)).json();
 
-        let newSection = await Section.init(newShelf, await prompt);
-        newShelf.sections.push(newSection);
-        newSection.updateTitle();
-        newShelf.shelfElement.appendChild(newSection.sectionElement);
+        const promptSection = this.renderSection(await prompt);
+        promptSection.sectionElement.draggable = false;
+        promptSection.sectionElement.querySelector(".Section-delete").remove();
 
         for (let step = 0; step < (await steps).length; step++) {
-
-            let newSection = await Section.init(newShelf, (await steps)[step]);
-            newShelf.sections.push(newSection);
-            newSection.updateTitle();
-            newShelf.shelfElement.appendChild(newSection.sectionElement);
+            this.renderSection((await steps)[step]);
         }
 
-        return newShelf;
+        return this;
+    }
+
+    updateSectionTitles(start = 1) {
+        for (let index = start; index < this.sections.length; index++) {
+            this.sections[index].updateTitle();
+        }
+    }
+
+    renderSection(content = {}) {
+        let newSection = new Section(this, content);
+        this.sections.push(newSection);
+        newSection.init();
+        this.shelfElement.appendChild(newSection.sectionElement);
+        return newSection;
+    }
+
+    deleteSection(index) {
+        this.sections[index].sectionElement.remove();
+        this.sections.splice(index, 1);
+        this.updateSectionTitles(index);
+
+        fetch(`/question/api/${this.questionId}/deleteStep/${index - 1}`);
     }
 }
