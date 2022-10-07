@@ -39,12 +39,14 @@ export default class SectionsShelf {
         const prompt = (await fetch(`/question/api/${this.questionId}/getPrompt`)).json();
         const steps = (await fetch(`/question/api/${this.questionId}/getSteps`)).json();
 
-        const promptSection = this.renderSection(await prompt);
-        promptSection.sectionElement.draggable = false;
-        promptSection.sectionElement.querySelector(".Section-delete").remove();
+        this.renderSection(await prompt, (section) => {
+            section.sectionElement.draggable = false;
+            section.sectionElement.querySelector(".Section-delete").remove();
+        });
 
         for (let step = 0; step < (await steps).length; step++) {
-            this.renderSection((await steps)[step]);
+            let section = this.renderSection((await steps)[step]);
+            // section.create();
         }
 
         return this;
@@ -56,11 +58,12 @@ export default class SectionsShelf {
         }
     }
 
-    renderSection(content = {}) {
+    renderSection(content = {}, intermediate = () => {}) {
         let newSection = new Section(this, content);
         this.sections.push(newSection);
-        newSection.init();
         this.shelfElement.appendChild(newSection.sectionElement);
+        intermediate(newSection);
+        newSection.init();
         return newSection;
     }
 

@@ -9,6 +9,19 @@ export default class SectionDropZone {
         </div>
         `).children[0];
 
+		dropZone.addEventListener("dragover", e => {
+			e.preventDefault();
+			dropZone.classList.add("SectionDropZone__active");
+		});
+
+		dropZone.addEventListener("dragleave", () => {
+			dropZone.classList.remove("SectionDropZone__active");
+		});
+
+        dropZone.addEventListener("drop", () => {
+			dropZone.classList.remove("SectionDropZone__active");
+		});
+
         return dropZone;
     }
 }
