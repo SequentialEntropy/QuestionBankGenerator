@@ -1,5 +1,5 @@
 import QuestionAPI from "./QuestionAPI.js";
-import SectionsShelf from "./SectionsShelf.js";
+import SectionShelf from "./SectionShelf.js";
 
 console.log(await QuestionAPI.get());
 
@@ -11,4 +11,4 @@ console.log(await QuestionAPI.getSteps());
 //     questionId
 // )).init();
 
-SectionsShelf.init();
+SectionShelf.init();
