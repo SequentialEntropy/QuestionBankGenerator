@@ -35,6 +35,8 @@ export default class SectionShelf {
         const promptData = await QuestionAPI.getPrompt();
         const stepsData = await QuestionAPI.getSteps();
 
+        init.renderSection(promptData);
+
         stepsData.forEach(data => {
             init.renderSection(data);
         });
@@ -44,6 +46,6 @@ export default class SectionShelf {
     }
 
     async renderSection(data) {
-        const section = await Section.init(this.shelf);
+        const section = await Section.init(this.shelf, data);
     }
 }

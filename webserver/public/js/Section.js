@@ -27,7 +27,7 @@ export default class Section {
         this.dropZone = SectionDropZone.init();
         this.root.appendChild(this.dropZone);
     }
-    static async init(parent) {
+    static async init(parent, content="") {
         const newSection = new Section();
         parent.appendChild(newSection.root);
         console.log(newSection.getIndex());
@@ -38,6 +38,7 @@ export default class Section {
         } else {
             newSection.title.textContent = `Step ${newSection.getIndex()}`;
         }
+        newSection.shelf.innerHTML = content;
         return newSection;
     }
 
@@ -68,7 +69,7 @@ function createAnimation(section) {
     section.sectionElement.addEventListener('transitionend', onEnd);
 }
 
-function deleteAnimation(section, callback) {
+function deleteAnimation(section, callback = () => {}) {
     const height = section.sectionElement.scrollHeight;
     const transition = section.sectionElement.style.transition;
 
@@ -89,6 +90,7 @@ function deleteAnimation(section, callback) {
             section.sectionElement.classList.contains("Section__transition")
         ) {
             section.root.remove();
+            callback();
         }
     }
 
