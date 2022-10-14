@@ -25,16 +25,13 @@ export default class SectionDropZone {
 
             const data = JSON.parse(e.dataTransfer.getData("text/plain"));
 
-            console.log(data);
-
             if (data.type != "Section") {
                 return;
             }
 
-            const selected = data.id;
-
             const shelf = document.querySelector(".SectionsShelf");
 
+            const selected = data.id;
             const targeted = Array.from(shelf.querySelectorAll(".SectionDropZone")).indexOf(dropZone);
 
             QuestionAPI.moveStep(selected, targeted);
@@ -42,21 +39,13 @@ export default class SectionDropZone {
             let sections = Array.from(shelf.querySelectorAll(".Section"));
 
             const selectedSection = sections.at(selected + 1);
-
             const targetedSection = sections.at(targeted);
-
-            console.log(selected);
-            console.log(selectedSection);
-
-            console.log(targeted);
-            console.log(targetedSection);
 
             targetedSection.after(selectedSection);
 
             sections = Array.from(shelf.querySelectorAll(".Section"));
 
             let title;
-
             for (let index = 1; index < sections.length; index++) {
                 title = sections[index].querySelector(".Section-title");
                 title.textContent = `Step ${index}`;
