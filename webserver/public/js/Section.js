@@ -16,6 +16,9 @@ export default class Section {
                 </div>
                 <div class="FunctionsShelf"></div>
             </div>
+            <!--
+            <div class="SectionDropZone"></div>
+            -->
         </div>
         `).children[0];
     }
