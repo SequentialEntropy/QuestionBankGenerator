@@ -1,3 +1,4 @@
+import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
 
 export default class Section {
@@ -38,11 +39,13 @@ export default class Section {
             newSection.root.draggable = false;
         } else {
             newSection.title.textContent = `Step ${parentLength}`;
-            newSection.root.querySelector(".Section-delete").addEventListener("click", () => {
+            newSection.root.querySelector(".Section-delete").addEventListener("click", async () => {
+                await QuestionAPI.deleteStep(newSection.getIndex() - 1);
                 newSection.deleteAnimation();
             })
         }
-        newSection.shelf.innerHTML = content;
+
+        newSection.shelf.innerHTML = JSON.stringify(content, null, 4) || content;
 
         if (animate) {
             newSection.createAnimation(parent);

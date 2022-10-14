@@ -24,6 +24,7 @@ export default class SectionShelf {
         this.createButton = this.root.querySelector(".SectionsShelf-createSection");
 
         this.createButton.addEventListener("click", async () => {
+            await QuestionAPI.createStep();
             const newSection = await Section.init(this.shelf, {}, true);
         })
 
