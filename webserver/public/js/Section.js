@@ -1,8 +1,8 @@
+import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
 
 export default class Section {
-
-    createElement() {
+    createRoot() {
         const range = document.createRange();
 
         range.selectNode(document.body);
@@ -16,103 +16,120 @@ export default class Section {
                 </div>
                 <div class="FunctionsShelf"></div>
             </div>
+            <!--
+            <div class="SectionDropZone"></div>
+            -->
         </div>
         `).children[0];
     }
+    constructor() {
+        this.root = this.createRoot();
+        this.section = this.root.querySelector(".Section-area");
+        this.title = this.root.querySelector(".Section-title");
+        this.shelf = this.root.querySelector(".FunctionsShelf");
 
-    constructor(parent, content="") {
-        this.parent = parent;
-        this.sectionElement = this.createElement();
-        this.titleElement = this.sectionElement.querySelector(".Section-title");
-        this.functionsShelfElement = this.sectionElement.querySelector(".FunctionsShelf");
         this.dropZone = SectionDropZone.init();
-
-        this.sectionElement.appendChild(this.dropZone);
-
-        this.content = content;
-
-        this.functionsShelfElement.innerHTML = content;
-
-        createSection(this);
-
-        const button = this.sectionElement.querySelector(".Section-delete");
-
-        button.addEventListener("click", () => {
-            deleteSection(this);
-        })
-
-        button.addEventListener("transitionend", e => {
-            e.stopPropagation();
-        })
+        this.root.appendChild(this.dropZone);
     }
+    static async init(parent, content="", animate=false) {
+        const newSection = new Section();
 
-    init() {
-        this.updateTitle();
-        createSection(this);
-    }
+        const parentLength = Array.from(parent.querySelectorAll(".Section")).length;
 
-    create() {
-        createSection(this);
-    }
-
-    updateTitle() {
-        const index = this.getIndex();
-        if (index == 0) {
-            this.titleElement.textContent = "Prompt";
+        if (parentLength == 0) {
+            newSection.title.textContent = "Prompt";
+            newSection.root.querySelector(".Section-delete").remove();
+            newSection.root.draggable = false;
         } else {
-            this.titleElement.textContent = `Step ${index}`;
+            newSection.title.textContent = `Step ${parentLength}`;
+            newSection.root.querySelector(".Section-delete").addEventListener("click", async () => {
+                await QuestionAPI.deleteStep(newSection.getIndex() - 1);
+                newSection.deleteAnimation();
+            })
+            newSection.root.addEventListener("dragstart", e => {
+                const data = {
+                    type: "Section",
+                    id: newSection.getIndex() - 1
+                };
+                e.dataTransfer.setData("text/plain", JSON.stringify(data));
+            })
         }
+
+        newSection.shelf.innerHTML = JSON.stringify(content, null, 4) || content;
+
+        if (animate) {
+            newSection.createAnimation(parent);
+        } else {
+            parent.appendChild(newSection.root);
+        }
+
+        return newSection;
     }
 
     getIndex() {
-        return this.parent.sections.indexOf(this);
+        const items = Array.from(this.root.parentElement.querySelectorAll(".Section"));
+        return items.indexOf(this.root);
     }
 
-}
-
-function createSection(section) {
-    const height = section.sectionElement.scrollHeight;
-
-    section.sectionElement.style.height = height + 'px';
-
-    section.sectionElement.classList.add("Section__transition");
-
-    const onEnd = function(e) {
-        if (
-            section.sectionElement.classList.contains("Section__transition")
-        ) {
-            section.sectionElement.removeEventListener('transitionend', onEnd);
-            console.log("Removing Property");
-            section.sectionElement.style.removeProperty("height");
+    updateIndexes(start = 1, parent = false) {
+        if (parent === false) {
+            parent = this.root.parentElement;
+        }
+        const items = Array.from(parent.querySelectorAll(".Section"));
+        let title;
+        for (let index = start; index < items.length; index++) {
+            title = items[index].querySelector(".Section-title");
+            title.textContent = `Step ${index}`;
         }
     }
 
-    section.sectionElement.addEventListener('transitionend', onEnd);
-}
+    createAnimation(parent) {
+        const onEnd = function(e) {
+            if (
+                e.target.classList.contains("Section__transition")
+            ) {
+                e.target.removeEventListener("transitionend", onEnd);
+                e.target.style.removeProperty("height");
+                e.target.classList.remove("Section__transition");
+            }
+        }
 
-function deleteSection(section) {
-    const height = section.sectionElement.scrollHeight;
-    const transition = section.sectionElement.style.transition;
+        this.root.style.height = "0px";
+        parent.appendChild(this.root);
+        let height = this.root.scrollHeight;
+        this.root.style.height = height + "px";
+        this.root.classList.add("Section__transition");
+        this.root.addEventListener("transitionend", onEnd);
+    }
 
-    section.sectionElement.style.transition = '';
-    requestAnimationFrame(function() {
-        section.sectionElement.style.height = height + 'px';
-        section.sectionElement.style.transition = transition;
-    
-        requestAnimationFrame(function() {
-            section.sectionElement.style.height = 0 + 'px';
+    deleteAnimation() {
+        const height = this.root.scrollHeight;
+        const transition = this.root.style.transition;
+
+        this.root.style.transition = '';
+
+        requestAnimationFrame(() => {
+            this.root.style.height = height + 'px';
+            this.root.style.transition = transition;
+            requestAnimationFrame(() => {
+                this.root.style.height = 0 + 'px';
+            });
         });
-    });
 
-    section.sectionElement.classList.add("Section__transition");
+        this.root.classList.add("Section__transition");
 
-    const onEnd = (e) => {
-        if (
-            section.sectionElement.classList.contains("Section__transition")
-        ) {
-            section.parent.deleteSection(section.getIndex());
+        const onEnd = (e) => {
+            if (
+                this.root.classList.contains("Section__transition") &&
+                e.propertyName == "height"
+            ) {
+                const parent = this.root.parentElement;
+                const index = this.getIndex();
+                this.root.remove();
+                this.updateIndexes(index, parent);
+            }
         }
-    }
 
-    section.sectionElement.addEventListener('transitionend', onEnd);
+        this.root.addEventListener('transitionend', onEnd);
+    }
 }

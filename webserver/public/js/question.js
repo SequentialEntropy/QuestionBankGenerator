@@ -1,7 +1,3 @@
-import SectionsShelf from "./SectionsShelf.js";
+import SectionShelf from "./SectionShelf.js";
 
-const questionId = parseInt(window.location.pathname.match(/([0-9]+)$/g)[0]);
-
-const sectionEditor = (new SectionsShelf(
-    questionId
-)).init();
+SectionShelf.init();

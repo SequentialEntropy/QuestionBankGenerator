@@ -1,3 +1,5 @@
+import QuestionAPI from "./QuestionAPI.js";
+
 export default class SectionDropZone {
     static init() {
         const range = document.createRange();
@@ -5,8 +7,7 @@ export default class SectionDropZone {
         range.selectNode(document.body);
 
         const dropZone = range.createContextualFragment(`
-        <div class="SectionDropZone">
-        </div>
+        <div class="SectionDropZone"></div>
         `).children[0];
 
 		dropZone.addEventListener("dragover", e => {
@@ -18,8 +19,48 @@ export default class SectionDropZone {
 			dropZone.classList.remove("SectionDropZone__active");
 		});
 
-        dropZone.addEventListener("drop", () => {
+        dropZone.addEventListener("drop", async e => {
+            e.preventDefault();
 			dropZone.classList.remove("SectionDropZone__active");
+
+            const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+
+            console.log(data);
+
+            if (data.type != "Section") {
+                return;
+            }
+
+            const selected = data.id;
+
+            const shelf = document.querySelector(".SectionsShelf");
+
+            const targeted = Array.from(shelf.querySelectorAll(".SectionDropZone")).indexOf(dropZone);
+
+            QuestionAPI.moveStep(selected, targeted);
+
+            let sections = Array.from(shelf.querySelectorAll(".Section"));
+
+            const selectedSection = sections.at(selected + 1);
+
+            const targetedSection = sections.at(targeted);
+
+            console.log(selected);
+            console.log(selectedSection);
+
+            console.log(targeted);
+            console.log(targetedSection);
+
+            targetedSection.after(selectedSection);
+
+            sections = Array.from(shelf.querySelectorAll(".Section"));
+
+            let title;
+
+            for (let index = 1; index < sections.length; index++) {
+                title = sections[index].querySelector(".Section-title");
+                title.textContent = `Step ${index}`;
+            }
 		});
 
         return dropZone;
