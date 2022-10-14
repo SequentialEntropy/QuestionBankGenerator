@@ -43,6 +43,13 @@ export default class Section {
                 await QuestionAPI.deleteStep(newSection.getIndex() - 1);
                 newSection.deleteAnimation();
             })
+            newSection.root.addEventListener("dragstart", e => {
+                const data = {
+                    type: "Section",
+                    id: newSection.getIndex() - 1
+                };
+                e.dataTransfer.setData("text/plain", JSON.stringify(data));
+            })
         }
 
         newSection.shelf.innerHTML = JSON.stringify(content, null, 4) || content;
