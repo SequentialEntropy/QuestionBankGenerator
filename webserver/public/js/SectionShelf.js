@@ -22,9 +22,11 @@ export default class SectionShelf {
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".SectionsShelf");
         this.createButton = this.root.querySelector(".SectionsShelf-createSection");
+
         this.createButton.addEventListener("click", async () => {
-            const section = await Section.init({});
+            const newSection = await Section.init(this.shelf, {}, true);
         })
+
         document.body.appendChild(this.root);
     }
 

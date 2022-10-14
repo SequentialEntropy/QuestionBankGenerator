@@ -27,18 +27,29 @@ export default class Section {
         this.dropZone = SectionDropZone.init();
         this.root.appendChild(this.dropZone);
     }
-    static async init(parent, content="") {
+    static async init(parent, content="", animate=false) {
         const newSection = new Section();
-        parent.appendChild(newSection.root);
-        console.log(newSection.getIndex());
-        if (newSection.getIndex() == 0) {
+
+        const parentLength = Array.from(parent.querySelectorAll(".Section")).length;
+
+        if (parentLength == 0) {
             newSection.title.textContent = "Prompt";
             newSection.root.querySelector(".Section-delete").remove();
             newSection.root.draggable = false;
         } else {
-            newSection.title.textContent = `Step ${newSection.getIndex()}`;
+            newSection.title.textContent = `Step ${parentLength}`;
+            newSection.root.querySelector(".Section-delete").addEventListener("click", () => {
+                newSection.deleteAnimation();
+            })
         }
         newSection.shelf.innerHTML = content;
+
+        if (animate) {
+            newSection.createAnimation(parent);
+        } else {
+            parent.appendChild(newSection.root);
+        }
+
         return newSection;
     }
 
@@ -46,53 +57,66 @@ export default class Section {
         const items = Array.from(this.root.parentElement.querySelectorAll(".Section"));
         return items.indexOf(this.root);
     }
-}
 
-function createAnimation(section) {
-    const height = section.sectionElement.scrollHeight;
-
-    section.sectionElement.style.height = height + 'px';
-
-    section.sectionElement.classList.add("Section__transition");
-
-    const onEnd = function(e) {
-        if (
-            section.sectionElement.classList.contains("Section__transition")
-        ) {
-            section.sectionElement.removeEventListener('transitionend', onEnd);
-            console.log("Removing Property");
-            section.sectionElement.style.removeProperty("height");
-            section.root.classList.remove("Section__transition");
+    updateIndexes(start = 1, parent = false) {
+        if (parent === false) {
+            parent = this.root.parentElement;
+        }
+        const items = Array.from(parent.querySelectorAll(".Section"));
+        let title;
+        for (let index = start; index < items.length; index++) {
+            title = items[index].querySelector(".Section-title");
+            title.textContent = `Step ${index}`;
         }
     }
 
-    section.sectionElement.addEventListener('transitionend', onEnd);
-}
+    createAnimation(parent) {
+        const onEnd = function(e) {
+            if (
+                e.target.classList.contains("Section__transition")
+            ) {
+                e.target.removeEventListener("transitionend", onEnd);
+                e.target.style.removeProperty("height");
+                e.target.classList.remove("Section__transition");
+            }
+        }
 
-function deleteAnimation(section, callback = () => {}) {
-    const height = section.sectionElement.scrollHeight;
-    const transition = section.sectionElement.style.transition;
+        this.root.style.height = "0px";
+        parent.appendChild(this.root);
+        let height = this.root.scrollHeight;
+        this.root.style.height = height + "px";
+        this.root.classList.add("Section__transition");
+        this.root.addEventListener("transitionend", onEnd);
+    }
 
-    section.sectionElement.style.transition = '';
-    requestAnimationFrame(function() {
-        section.sectionElement.style.height = height + 'px';
-        section.sectionElement.style.transition = transition;
-    
-        requestAnimationFrame(function() {
-            section.sectionElement.style.height = 0 + 'px';
+    deleteAnimation() {
+        const height = this.root.scrollHeight;
+        const transition = this.root.style.transition;
+
+        this.root.style.transition = '';
+
+        requestAnimationFrame(() => {
+            this.root.style.height = height + 'px';
+            this.root.style.transition = transition;
+            requestAnimationFrame(() => {
+                this.root.style.height = 0 + 'px';
+            });
         });
-    });
 
-    section.sectionElement.classList.add("Section__transition");
+        this.root.classList.add("Section__transition");
 
-    const onEnd = (e) => {
-        if (
-            section.sectionElement.classList.contains("Section__transition")
-        ) {
-            section.root.remove();
-            callback();
+        const onEnd = (e) => {
+            if (
+                this.root.classList.contains("Section__transition") &&
+                e.propertyName == "height"
+            ) {
+                const parent = this.root.parentElement;
+                const index = this.getIndex();
+                this.root.remove();
+                this.updateIndexes(index, parent);
+            }
         }
-    }
 
-    section.sectionElement.addEventListener('transitionend', onEnd);
+        this.root.addEventListener('transitionend', onEnd);
+    }
 }

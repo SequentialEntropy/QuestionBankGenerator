@@ -16,14 +16,8 @@
 }
 
 .Section {
-    /* display: flex;
-    flex-direction: column; */
-    /* transform: scaleY(1);    
-    transform-origin: top; */
-    /* transition: transform 0.5s ease; */
     transition-duration: 0.5s;
     overflow: hidden;
-    /* height: 10rem; */
 }
 
 .Section-area {
