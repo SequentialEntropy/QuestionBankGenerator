@@ -11,6 +11,8 @@
     font-family: sans-serif;
 }
 
+/* Delete Button */
+
 .deleteButton {
     font-size: var(--button-text-size);
 
@@ -24,9 +26,47 @@
     transition-duration: 0.1s;
     cursor: pointer;
 }
-
 .deleteButton:hover {
     background-color: #ff7474;
+}
+
+/* Drop Down */
+
+.dropDown-toggle {
+    min-height: var(--block-height);
+    background-color: white;
+    border-radius: var(--radius);
+    padding: 1rem;
+    font-size: var(--button-text-size);
+    border: none;
+}
+
+.dropDown-toggle:hover, .dropDown-toggle:focus {
+    background-color: rgb(245, 245, 245);
+}
+
+.dropDown-list {
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white;
+    border-radius: var(--radius);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+.dropDown-list__show {
+    display: flex;
+}
+
+.dropDown-choice {
+    min-height: var(--block-height);
+    background-color: white;
+    padding: 1rem;
+    font-size: var(--button-text-size);
+    border: none;
+}
+.dropDown-choice:hover {
+    background-color: rgb(245, 245, 245);
 }
 
 
