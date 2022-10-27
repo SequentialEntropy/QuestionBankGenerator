@@ -12,7 +12,7 @@ export default class Section {
             <div class="Section-area">
                 <div class="Section-heading">
                     <div class="Section-title">Step #</div>
-                    <button class="Section-delete">Delete</button>
+                    <button class="Section-delete deleteButton">Delete</button>
                 </div>
                 <div class="FunctionsShelf"></div>
             </div>

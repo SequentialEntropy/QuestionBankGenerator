@@ -11,6 +11,32 @@
     font-family: sans-serif;
 }
 
+.deleteButton {
+    font-size: var(--button-text-size);
+
+    padding: 0.5rem 0.5rem;
+    margin: 0 1rem;
+
+    color: white;
+    background-color: #ffa0a0;
+    border: none;
+    border-radius: var(--radius);
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #ff7474;
+}
+
+
+
+
+
+
+
+/* Sections */
+
 .SectionsShelf {
     width: 100%;
 }
@@ -50,24 +76,6 @@
 
     color: rgb(100, 100, 100);
     user-select: none;
-}
-
-.Section-delete {
-    font-size: var(--button-text-size);
-
-    padding: 0.5rem 0.5rem;
-    margin: 0 1rem;
-
-    color: white;
-    background-color: #ffa0a0;
-    border: none;
-    border-radius: var(--radius);
-    transition-duration: 0.1s;
-    cursor: pointer;
-}
-
-.Section-delete:hover {
-    background-color: #ff7474;
 }
 
 .FunctionsShelf {
