@@ -11,9 +11,9 @@ export default class DropDown {
             </button>
 
             <div class="dropDown-list">
-            <button class="dropDown-choice">A</button>
-            <button class="dropDown-choice">B</button>
-            <button class="dropDown-choice">C</button>
+                <!--
+                <button class="dropDown-choice">A</button>
+                -->
             </div>
         </div>
         `).children[0];

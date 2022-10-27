@@ -18,4 +18,7 @@ export default class QuestionAPI {
     static deleteStep(selected) {
         return fetch(`/question/api/${QuestionAPI.questionId}/deleteStep/${selected}`);
     }
+    static async getVariables() {
+        return (await fetch(`/question/api/${QuestionAPI.questionId}/getVariables`)).json();
+    }
 }

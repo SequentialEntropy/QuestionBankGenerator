@@ -61,6 +61,10 @@ router.get("/api/:questionId/getPrompt", auth, (req, res) => {
     res.json(req.question.getPrompt());
 })
 
+router.get("/api/:questionId/getVariables", auth, (req, res) => {
+    res.json(req.question.getVariables());
+})
+
 
 
 

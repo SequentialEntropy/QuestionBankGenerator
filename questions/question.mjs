@@ -100,6 +100,9 @@ class Question {
 
         return true;
     }
+    getVariables() {
+        return this._data().variables;
+    }
 }
 
 function getQuestionById(id) {

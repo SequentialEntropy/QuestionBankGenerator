@@ -1,5 +1,7 @@
 import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
+import DropDown from "./DropDown.js";
+import VariableInput from "./VariableInput.js";
 
 export default class Section {
     createRoot() {
@@ -58,7 +60,9 @@ export default class Section {
             })
         }
 
-        newSection.shelf.innerHTML = JSON.stringify(content, null, 4) || content;
+        // newSection.shelf.innerHTML = JSON.stringify(content, null, 4) || content;
+        newSection.shelf.appendChild((new DropDown()).root);
+        newSection.shelf.appendChild((new VariableInput()).root);
 
         if (animate) {
             newSection.createAnimation(parent);
