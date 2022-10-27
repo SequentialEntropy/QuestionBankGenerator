@@ -74,7 +74,8 @@ async function auth(req, res, next) {
     }
 
     if (req.session.userId != question.getOwner()) {
-        res.sendStatus(401);
+        req.session.redirect = `/question${req.url}`;
+        res.redirect("/login");
         return;
     }
 

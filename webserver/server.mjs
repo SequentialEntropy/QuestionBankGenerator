@@ -75,7 +75,13 @@ app.post("/auth", async (req, res) => {
             req.session.userId = getUserIdByName(req.body.username);
             req.session.isInvalid = false;
             log("Auth", req.session.userId);
-            res.redirect("/");
+            if (!req.session.redirect) {
+                res.redirect("/");
+            } else {
+                const address = req.session.redirect;
+                delete req.session.redirect;
+                res.redirect(address);
+            }
         } else {
             req.session.isInvalid = true;
             res.redirect("/login");
