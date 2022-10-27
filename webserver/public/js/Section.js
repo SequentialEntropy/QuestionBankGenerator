@@ -43,6 +43,9 @@ export default class Section {
         } else {
             newSection.title.textContent = `Step ${parentLength}`;
             newSection.root.querySelector(".Section-delete").addEventListener("click", async () => {
+                if (!confirm(`Are you sure you want to delete Step ${parentLength}?`)) {
+                    return;
+                }
                 await QuestionAPI.deleteStep(newSection.getIndex() - 1);
                 newSection.deleteAnimation();
             })
