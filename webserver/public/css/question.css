@@ -141,3 +141,23 @@
 .SectionsShelf-createSection:hover {
     background-color: #74caff;
 }
+
+
+
+
+
+.block__variable {
+    background-color: #a0fea0;
+    color: white;
+}
+.block__variable:hover {
+    background-color: #74fe74;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.block__operation {
+    background-color: #a0dbff;
+    color: white;
+}
+.block__operation:hover {
+    background-color: #74caff;
+}

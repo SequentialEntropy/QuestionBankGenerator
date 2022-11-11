@@ -19,6 +19,7 @@ export default class VariableInput extends DropDown {
     static variableChoice(v, toggle) {
         const choice = document.createElement("button");
         choice.classList.add("dropDown-choice");
+        choice.classList.add("block__variable");
 
         choice.textContent = v;
 
