@@ -27,7 +27,7 @@
     cursor: pointer;
 }
 .deleteButton:hover {
-    background-color: #ff7474;
+    filter: brightness(0.9) saturate(150%);
 }
 
 /* Drop Down */
@@ -42,7 +42,7 @@
 }
 
 .dropDown-toggle:hover, .dropDown-toggle:focus {
-    background-color: rgb(245, 245, 245);
+    filter: brightness(0.95);
 }
 
 .dropDown-list {
@@ -66,7 +66,7 @@
     border: none;
 }
 .dropDown-choice:hover {
-    background-color: rgb(245, 245, 245);
+    filter: brightness(0.9) saturate(150%);
 }
 
 
@@ -147,16 +147,10 @@
 
 
 .block__variable {
-    background-color: #a0fea0;
+    background-color: #ff9e9e;
     color: white;
-}
-.block__variable:hover {
-    background-color: #74fe74;
 }
 .block__operation {
-    background-color: #a0dbff;
-    color: white;
-}
-.block__operation:hover {
     background-color: #74caff;
+    color: white;
 }
