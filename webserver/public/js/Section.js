@@ -4,6 +4,10 @@ import DropDown from "./DropDown.js";
 import VariableInput from "./VariableInput.js";
 import OperationInput from "./OperationInput.js";
 import Block from "./Block.js";
+import Addition from "./OperationBlocks/Addition.js";
+import Subtraction from "./OperationBlocks/Subtraction.js"
+import Multiplication from "./OperationBlocks/Multiplication.js";
+import Division from "./OperationBlocks/Division.js";
 
 export default class Section {
     createRoot() {
@@ -67,6 +71,10 @@ export default class Section {
         newSection.shelf.appendChild((new VariableInput()).root);
         newSection.shelf.appendChild((new OperationInput()).root);
         newSection.shelf.appendChild((new Block()).root);
+        newSection.shelf.appendChild((new Addition()).root);
+        newSection.shelf.appendChild((new Subtraction()).root);
+        newSection.shelf.appendChild((new Multiplication()).root);
+        newSection.shelf.appendChild((new Division()).root);
 
         if (animate) {
             newSection.createAnimation(parent);

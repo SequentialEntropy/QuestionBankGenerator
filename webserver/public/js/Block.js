@@ -13,7 +13,7 @@ export default class Block {
                 <div class="Block-field">
                 </div>
                 <div class="Block-text">
-                    +
+                    ?
                 </div>
                 <div class="Block-field">
                 </div>
