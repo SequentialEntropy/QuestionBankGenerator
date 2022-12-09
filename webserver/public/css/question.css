@@ -71,6 +71,15 @@
 
 
 
+.hidden {
+    display: none;
+}
+
+
+
+
+
+
 
 
 
@@ -153,4 +162,42 @@
 .block__operation {
     background-color: #74caff;
     color: white;
+}
+
+.Block {
+    min-height: var(--block-height);
+    border-radius: var(--radius);
+    width: fit-content;
+    border: none;
+    display: flex;
+    overflow: hidden;
+}
+.Block-shelf {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+.Block-text {
+    text-align: center;
+    font-size: calc(var(--button-text-size) * 1.5);
+    padding: 0 1rem;
+}
+.Block-delete {
+    font-size: var(--button-text-size);
+
+    padding: 0.5rem 0.5rem;
+
+    color: white;
+    background-color: #ffa0a0;
+    border: none;
+    transition-duration: 0.1s;
+    cursor: pointer;
+    text-align: center;
+    display: none;
+}
+.Block-delete:hover {
+    filter: brightness(0.9) saturate(150%);
+}
+.Block-delete__show {
+    display: block;
 }

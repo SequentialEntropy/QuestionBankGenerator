@@ -25,6 +25,13 @@ export default class VariableInput extends DropDown {
 
         choice.addEventListener("click", () => {
             toggle.textContent = v;
+
+            const field = choice.closest(".Block-field");
+            const event = new CustomEvent("select-variable", {
+                detail: v
+            });
+
+            field.dispatchEvent(event);
         });
 
         return choice;

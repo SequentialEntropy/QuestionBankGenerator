@@ -8,6 +8,7 @@ export default class OperationInput extends DropDown {
         this.toggle.textContent = "Add Block";
 
         this.toggle.addEventListener("click", async () => {
+
             this.list.textContent = "";
 
             this.list.appendChild(OperationInput.numberChoice(this.toggle));
@@ -38,6 +39,11 @@ export default class OperationInput extends DropDown {
 
         choice.addEventListener("click", () => {
             toggle.textContent = "Number";
+
+            const field = choice.closest(".Block-field");
+            const event = new Event("select-number");
+
+            field.dispatchEvent(event);
         });
 
         return choice;
@@ -51,7 +57,15 @@ export default class OperationInput extends DropDown {
 
         choice.addEventListener("click", () => {
             toggle.textContent = operation;
-        });
+
+            const field = choice.closest(".Block-field");
+            const event = new CustomEvent("select-operation", {
+                detail: operation
+            });
+
+            field.dispatchEvent(event);
+
+        })
 
         return choice;
     }

@@ -3,6 +3,7 @@ import SectionDropZone from "./SectionDropZone.js";
 import DropDown from "./DropDown.js";
 import VariableInput from "./VariableInput.js";
 import OperationInput from "./OperationInput.js";
+import Block from "./Block.js";
 
 export default class Section {
     createRoot() {
@@ -65,6 +66,7 @@ export default class Section {
         newSection.shelf.appendChild((new DropDown()).root);
         newSection.shelf.appendChild((new VariableInput()).root);
         newSection.shelf.appendChild((new OperationInput()).root);
+        newSection.shelf.appendChild((new Block()).root);
 
         if (animate) {
             newSection.createAnimation(parent);
