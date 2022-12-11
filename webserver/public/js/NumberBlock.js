@@ -9,7 +9,7 @@ export default class NumberBlock extends Block {
         return range.createContextualFragment(`
 
         <div class="Block" draggable="false">
-            <input class="Block-shelf block__default Block-number" type="number" placeholder="Number"/>
+            <input class="Block-shelf block__default Block-input" type="number" placeholder="Number"/>
             <button class="Block-delete">
             ×
             </button>

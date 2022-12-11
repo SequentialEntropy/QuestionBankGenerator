@@ -176,6 +176,8 @@
     width: fit-content;
 }
 
+
+
 .Block-shelf {
     min-height: var(--block-height);
     border-radius: var(--radius);
@@ -188,20 +190,23 @@
     border-color: rgba(0, 0, 0, 0.5);
 }
 
+
+
 .Block-text {
     text-align: center;
     font-size: calc(var(--button-text-size) * 1.5);
     padding: 0 1rem;
 }
 
-.Block-number {
-    min-width: fit-content;
+.Block-input {
     font-size: var(--button-text-size);
     outline: none;
 }
-.Block-number:focus {
+.Block-input:focus {
     border-color: rgba(0, 0, 0, 0.5);
 }
+
+
 
 .Block-delete {
     position: absolute;
