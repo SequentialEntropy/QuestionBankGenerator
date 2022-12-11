@@ -2,26 +2,33 @@ import VariableInput from "./VariableInput.js";
 import OperationInput from "./OperationInput.js";
 
 export default class Block {
+    shelfContent() { return `
+
+    <div class="Block-field">
+    </div>
+    <div class="Block-text">
+        ?
+    </div>
+    <div class="Block-field">
+    </div>
+
+    ` }
     createRoot() {
         const range = document.createRange();
 
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
+
         <div class="Block block__operation" draggable="false">
             <div class="Block-shelf">
-                <div class="Block-field">
-                </div>
-                <div class="Block-text">
-                    ?
-                </div>
-                <div class="Block-field">
-                </div>
+                ${this.shelfContent()}
             </div>
             <button class="Block-delete">
             Delete
             </button>
         </div>
+        
         `).children[0];
     }
     constructor() {
