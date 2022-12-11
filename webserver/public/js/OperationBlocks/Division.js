@@ -5,7 +5,7 @@ export default class Division extends Block {
     
     <div class="Block-field">
     </div>
-    <div class="Block-text">
+    <div class="Block-prompt">
         ÷
     </div>
     <div class="Block-field">
