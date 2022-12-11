@@ -25,10 +25,10 @@ export default class Block {
                 ${this.shelfContent()}
             </div>
             <button class="Block-delete">
-            Delete
+            ×
             </button>
         </div>
-        
+
         `).children[0];
     }
     constructor() {
@@ -41,10 +41,12 @@ export default class Block {
 
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
+            this.root.classList.add("Block__hover");
             this.deleteButton.classList.add("Block-delete__show");
         });
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
+            this.root.classList.remove("Block__hover");
             this.deleteButton.classList.remove("Block-delete__show");
         })
     }

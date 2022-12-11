@@ -1,6 +1,6 @@
 :root {
     --block-height: 3rem;
-    --radius: 5px;
+    --radius: 0.5rem;
     --section-title-height: 1.5rem;
     --button-text-size: 1rem;
 }
@@ -39,6 +39,7 @@
     padding: 1rem;
     font-size: var(--button-text-size);
     border: none;
+    cursor: pointer;
 }
 
 .dropDown-toggle:hover, .dropDown-toggle:focus {
@@ -53,6 +54,7 @@
     display: none;
     flex-direction: column;
     overflow: hidden;
+    z-index: 1;
 }
 .dropDown-list__show {
     display: flex;
@@ -64,6 +66,7 @@
     padding: 1rem;
     font-size: var(--button-text-size);
     border: none;
+    cursor: pointer;
 }
 .dropDown-choice:hover {
     filter: brightness(0.9) saturate(150%);
@@ -92,7 +95,6 @@
 
 .Section {
     transition-duration: 0.5s;
-    overflow: hidden;
 }
 
 .Section-area {
@@ -168,9 +170,13 @@
     min-height: var(--block-height);
     border-radius: var(--radius);
     width: fit-content;
-    border: 0.1rem solid white;
+    border: 0.2rem solid white;
     display: flex;
-    overflow: hidden;
+    position: relative;
+}
+.Block__hover {
+    /* border-color: #ffa0a0; */
+    border-color: black;
 }
 .Block-shelf {
     padding: 0.5rem;
@@ -183,17 +189,20 @@
     padding: 0 1rem;
 }
 .Block-delete {
+    position: absolute;
+    display: none;
+    right: -0.5rem;
+    top: -0.5rem;
     font-size: var(--button-text-size);
-
-    padding: 0.5rem 0.5rem;
 
     color: white;
     background-color: #ffa0a0;
     border: none;
+    border-radius: 50%;
     transition-duration: 0.1s;
     cursor: pointer;
-    text-align: center;
-    display: none;
+
+    aspect-ratio: 1 / 1;
 }
 .Block-delete:hover {
     filter: brightness(0.9) saturate(150%);
