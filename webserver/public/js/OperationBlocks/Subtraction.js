@@ -6,7 +6,7 @@ export default class Subtraction extends Block {
     <div class="Block-field">
     </div>
     <div class="Block-text">
-        -
+        −
     </div>
     <div class="Block-field">
     </div>
