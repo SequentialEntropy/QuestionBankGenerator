@@ -52,6 +52,10 @@ export default class Block {
         })
 
         this.deleteButton.addEventListener("click", e => {
+            if (!confirm(`Are you sure you want to delete the selected Block?`)) {
+                return;
+            }
+
             const event = new Event("delete");
 
             const parentField = this.root.closest(".Block-field");
