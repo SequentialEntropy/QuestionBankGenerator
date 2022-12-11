@@ -50,15 +50,25 @@ export default class Block {
             this.shelf.classList.remove("Block-shelf__hover");
             this.deleteButton.classList.remove("Block-delete__show");
         })
+
+        this.deleteButton.addEventListener("click", e => {
+            const event = new Event("delete");
+
+            const parentField = this.root.closest(".Block-field");
+
+            console.log(parentField);
+
+            parentField.dispatchEvent(event);
+        })
     }
     insertFields() {
         this.shelf.querySelectorAll(".Block-field").forEach(field => {
-            field.appendChild((new OperationInput()).root);
+            const input = field.appendChild((new OperationInput()).root);
 
             field.addEventListener("select-number", e => {
                 const newBlock = CreateNumberBlock();
 
-                field.querySelector(".dropDown").classList.add("hidden");
+                input.classList.add("hidden");
 
                 field.appendChild(newBlock.root);
             })
@@ -66,7 +76,7 @@ export default class Block {
             field.addEventListener("select-variable", e => {
                 const newBlock = e.detail;
 
-                field.querySelector(".dropDown").classList.add("hidden");
+                input.classList.add("hidden");
             
                 field.appendChild(newBlock.root);
             })
@@ -74,11 +84,15 @@ export default class Block {
             field.addEventListener("select-operation", e => {
                 const newBlock = e.detail;
 
-                const blockShelf = field.closest(".Block");
-
-                field.querySelector(".dropDown").classList.add("hidden");
+                input.classList.add("hidden");
 
                 field.appendChild(newBlock.root);
+            })
+
+            field.addEventListener("delete", e => {
+                field.removeChild(field.querySelector(".Block"));
+
+                input.classList.remove("hidden");
             })
         })
     }
