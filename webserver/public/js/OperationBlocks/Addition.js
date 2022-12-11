@@ -23,4 +23,8 @@ export default class Addition extends Block {
         </div>
         `).children[0];
     }
+    constructor() {
+        super();
+        this.type = "Addition";
+    }
 }

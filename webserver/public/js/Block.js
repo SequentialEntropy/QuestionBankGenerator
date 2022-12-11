@@ -25,6 +25,8 @@ export default class Block {
         `).children[0];
     }
     constructor() {
+        this.type = "?";
+
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".Block-shelf");
         this.insertFields();
@@ -52,7 +54,13 @@ export default class Block {
             })
 
             field.addEventListener("select-operation", e => {
+                const newBlock = e.detail;
+
+                const blockShelf = field.closest(".Block");
+
                 field.querySelector(".dropDown").classList.add("hidden");
+
+                field.appendChild(newBlock.root);
             })
         })
     }

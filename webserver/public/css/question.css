@@ -168,7 +168,7 @@
     min-height: var(--block-height);
     border-radius: var(--radius);
     width: fit-content;
-    border: none;
+    border: 0.1rem solid white;
     display: flex;
     overflow: hidden;
 }

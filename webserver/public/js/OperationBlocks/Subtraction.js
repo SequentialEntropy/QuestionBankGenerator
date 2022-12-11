@@ -23,4 +23,8 @@ export default class Subtraction extends Block {
         </div>
         `).children[0];
     }
+    constructor() {
+        super();
+        this.type = "Subtraction";
+    }
 }

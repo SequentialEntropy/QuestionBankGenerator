@@ -23,4 +23,8 @@ export default class Division extends Block {
         </div>
         `).children[0];
     }
+    constructor() {
+        super();
+        this.type = "Division";
+    }
 }

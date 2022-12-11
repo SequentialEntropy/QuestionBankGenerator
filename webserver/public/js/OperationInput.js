@@ -1,6 +1,7 @@
 import DropDown from "./DropDown.js";
 import QuestionAPI from "./QuestionAPI.js";
 import VariableInput from "./VariableInput.js";
+import { CreateBlock, operationTypes } from "./OperationBlocks/ModifyBlock.js";
 
 export default class OperationInput extends DropDown {
     constructor() {
@@ -19,14 +20,7 @@ export default class OperationInput extends DropDown {
                 this.list.appendChild(VariableInput.variableChoice(v, this.toggle));
             });
 
-            const operations = {
-                Addition: null,
-                Subtraction: null,
-                Multiplication: null,
-                Division: null
-            }
-
-            for (const [key, value] of Object.entries(operations)) {
+            for (const [key, value] of Object.entries(operationTypes)) {
                 this.list.appendChild(OperationInput.operationChoice(key, this.toggle));
             }
         })
@@ -48,23 +42,24 @@ export default class OperationInput extends DropDown {
 
         return choice;
     }
-    static operationChoice(operation, toggle) {
+    static operationChoice(operationType, toggle) {
         const choice = document.createElement("button");
         choice.classList.add("dropDown-choice");
         choice.classList.add("block__operation");
 
-        choice.textContent = operation;
+        choice.textContent = operationType;
 
         choice.addEventListener("click", () => {
-            toggle.textContent = operation;
+            toggle.textContent = operationType;
+
+            const newBlock = CreateBlock(operationType);
 
             const field = choice.closest(".Block-field");
             const event = new CustomEvent("select-operation", {
-                detail: operation
+                detail: newBlock
             });
 
             field.dispatchEvent(event);
-
         })
 
         return choice;
