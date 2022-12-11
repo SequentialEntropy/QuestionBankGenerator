@@ -59,7 +59,11 @@ export default class Block {
             })
 
             field.addEventListener("select-variable", e => {
+                const newBlock = e.detail;
+
                 field.querySelector(".dropDown").classList.add("hidden");
+            
+                field.appendChild(newBlock.root);
             })
 
             field.addEventListener("select-operation", e => {

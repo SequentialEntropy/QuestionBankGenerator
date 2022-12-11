@@ -1,5 +1,6 @@
 import DropDown from "./DropDown.js";
 import QuestionAPI from "./QuestionAPI.js";
+import { CreateVariableBlock } from "./OperationBlocks/ModifyBlock.js";
 
 export default class VariableInput extends DropDown {
     constructor() {
@@ -24,11 +25,11 @@ export default class VariableInput extends DropDown {
         choice.textContent = v;
 
         choice.addEventListener("click", () => {
-            toggle.textContent = v;
+            const newBlock = CreateVariableBlock(v);
 
             const field = choice.closest(".Block-field");
             const event = new CustomEvent("select-variable", {
-                detail: v
+                detail: newBlock
             });
 
             field.dispatchEvent(event);

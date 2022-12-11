@@ -50,8 +50,6 @@ export default class OperationInput extends DropDown {
         choice.textContent = operationType;
 
         choice.addEventListener("click", () => {
-            toggle.textContent = operationType;
-
             const newBlock = CreateBlock(operationType);
 
             const field = choice.closest(".Block-field");
