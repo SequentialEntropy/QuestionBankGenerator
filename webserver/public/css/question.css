@@ -166,31 +166,43 @@
     background-color: #74caff;
     color: white;
 }
+.block__default {
+    background-color: white;
+    color: black;
+}
 
 .Block {
+    position: relative;
+    width: fit-content;
+}
+
+.Block-shelf {
     min-height: var(--block-height);
     border-radius: var(--radius);
-    width: fit-content;
     border: 0.2rem solid white;
     display: flex;
-    position: relative;
-}
-.Block__hover {
-    border-color: rgba(0, 0, 0, 0.5);
-}
-.Block-shelf {
     padding: 0.5rem;
-    display: flex;
     align-items: center;
 }
+.Block-shelf__hover {
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
 .Block-text {
     text-align: center;
     font-size: calc(var(--button-text-size) * 1.5);
     padding: 0 1rem;
 }
-.Block-variable {
-    text-align: center;
+
+.Block-number {
+    min-width: fit-content;
+    font-size: var(--button-text-size);
+    outline: none;
 }
+.Block-number:focus {
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
 .Block-delete {
     position: absolute;
     display: none;

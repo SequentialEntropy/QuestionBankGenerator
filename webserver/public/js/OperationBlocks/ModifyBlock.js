@@ -3,6 +3,7 @@ import Subtraction from "./Subtraction.js";
 import Multiplication from "./Multiplication.js";
 import Division from "./Division.js";
 import VariableBlock from "../VariableBlock.js";
+import NumberBlock from "../NumberBlock.js";
 
 const operationTypes = {
     Addition: Addition,
@@ -19,4 +20,8 @@ function CreateVariableBlock(variable) {
     return new VariableBlock(variable);
 }
 
-export { CreateVariableBlock, CreateBlock, operationTypes };
+function CreateNumberBlock() {
+    return new NumberBlock();
+}
+
+export { CreateNumberBlock, CreateVariableBlock, CreateBlock, operationTypes };

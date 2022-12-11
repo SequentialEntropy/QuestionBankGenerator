@@ -1,6 +1,6 @@
 import Block from "./Block.js";
 
-export default class VariableBlock extends Block {
+export default class NumberBlock extends Block {
     createRoot() {
         const range = document.createRange();
 
@@ -9,10 +9,7 @@ export default class VariableBlock extends Block {
         return range.createContextualFragment(`
 
         <div class="Block" draggable="false">
-            <div class="Block-shelf block__variable">
-                <div class="Block-variable">
-                </div>
-            </div>
+            <input class="Block-shelf block__default Block-number" type="number" placeholder="Number"/>
             <button class="Block-delete">
             ×
             </button>
@@ -20,9 +17,8 @@ export default class VariableBlock extends Block {
 
         `).children[0];
     }
-    constructor(variable) {
+    constructor() {
         super();
-        this.type = "variable";
-        this.root.querySelector(".Block-variable").textContent = variable;
+        this.type = "number";
     }
 }

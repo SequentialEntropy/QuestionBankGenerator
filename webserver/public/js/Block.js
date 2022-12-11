@@ -1,5 +1,6 @@
 import VariableInput from "./VariableInput.js";
 import OperationInput from "./OperationInput.js";
+import { CreateNumberBlock } from "./OperationBlocks/ModifyBlock.js";
 
 export default class Block {
     shelfContent() { return `
@@ -20,8 +21,8 @@ export default class Block {
 
         return range.createContextualFragment(`
 
-        <div class="Block block__operation" draggable="false">
-            <div class="Block-shelf">
+        <div class="Block" draggable="false">
+            <div class="Block-shelf block__operation">
                 ${this.shelfContent()}
             </div>
             <button class="Block-delete">
@@ -41,12 +42,12 @@ export default class Block {
 
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
-            this.root.classList.add("Block__hover");
+            this.shelf.classList.add("Block-shelf__hover");
             this.deleteButton.classList.add("Block-delete__show");
         });
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
-            this.root.classList.remove("Block__hover");
+            this.shelf.classList.remove("Block-shelf__hover");
             this.deleteButton.classList.remove("Block-delete__show");
         })
     }
@@ -55,7 +56,11 @@ export default class Block {
             field.appendChild((new OperationInput()).root);
 
             field.addEventListener("select-number", e => {
+                const newBlock = CreateNumberBlock();
+
                 field.querySelector(".dropDown").classList.add("hidden");
+
+                field.appendChild(newBlock.root);
             })
 
             field.addEventListener("select-variable", e => {
