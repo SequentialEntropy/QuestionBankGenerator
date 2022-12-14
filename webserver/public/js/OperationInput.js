@@ -7,6 +7,7 @@ export default class OperationInput extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "Add Block";
+        this.toggle.classList.add("dropDown-toggle__default");
 
         this.toggle.addEventListener("click", async () => {
 
@@ -28,7 +29,7 @@ export default class OperationInput extends DropDown {
     static numberChoice(toggle) {
         const choice = document.createElement("button");
         choice.classList.add("dropDown-choice");
-        choice.classList.add("block__default")
+        choice.classList.add("block__default");
 
         choice.textContent = "Number";
 

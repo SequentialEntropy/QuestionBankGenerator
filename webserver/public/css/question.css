@@ -41,6 +41,9 @@
     border: none;
     cursor: pointer;
 }
+.dropDown-toggle__default {
+    color: #757575;
+}
 
 .dropDown-toggle:hover, .dropDown-toggle:focus {
     filter: brightness(0.95);
