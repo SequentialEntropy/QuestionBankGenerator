@@ -40,6 +40,7 @@
     font-size: var(--button-text-size);
     border: none;
     cursor: pointer;
+    transition-duration: 0.1s;
 }
 .dropDown-toggle__default {
     color: #757575;
@@ -70,6 +71,7 @@
     font-size: var(--button-text-size);
     border: none;
     cursor: pointer;
+    transition-duration: 0.1s;
 }
 .dropDown-choice:hover {
     filter: brightness(0.9) saturate(150%);
@@ -188,6 +190,7 @@
     display: flex;
     padding: 0.5rem;
     align-items: center;
+    transition-duration: 0.1s;
 }
 .Block-shelf__hover {
     border-color: rgba(0, 0, 0, 0.5);
