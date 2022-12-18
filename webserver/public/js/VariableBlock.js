@@ -9,9 +9,7 @@ export default class VariableBlock extends Block {
         return range.createContextualFragment(`
 
         <div class="Block" draggable="false">
-            <div class="Block-shelf block__variable">
-                <div class="Block-variable">
-                </div>
+            <div class="Block-shelf Block-variable block__variable">
             </div>
             <button class="Block-delete">
             ×

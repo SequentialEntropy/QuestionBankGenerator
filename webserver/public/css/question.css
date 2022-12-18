@@ -1,5 +1,7 @@
 :root {
     --block-height: 3rem;
+    --block-padding: 0.75rem;
+    --block-padding-vertical: 0.75rem;
     --radius: 0.5rem;
     --section-title-height: 1.5rem;
     --button-text-size: 1rem;
@@ -36,7 +38,7 @@
     min-height: var(--block-height);
     background-color: white;
     border-radius: var(--radius);
-    padding: 1rem;
+    padding: var(--block-padding-vertical) var(--block-padding);
     font-size: var(--button-text-size);
     border: none;
     cursor: pointer;
@@ -67,7 +69,7 @@
 .dropDown-choice {
     min-height: var(--block-height);
     background-color: white;
-    padding: 1rem;
+    padding: var(--block-padding-vertical) var(--block-padding);
     font-size: var(--button-text-size);
     border: none;
     cursor: pointer;
@@ -214,9 +216,14 @@
 .Block-input {
     font-size: var(--button-text-size);
     outline: none;
+    max-width: 7rem;
+    padding: var(--block-padding-vertical) var(--block-padding);
 }
 .Block-input:focus {
     border-color: rgba(0, 0, 0, 0.5);
+}
+.Block-variable {
+    padding: var(--block-padding-vertical) var(--block-padding);
 }
 
 
