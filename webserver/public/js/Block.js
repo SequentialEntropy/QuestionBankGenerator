@@ -1,29 +1,20 @@
-import VariableInput from "./VariableInput.js";
-import OperationInput from "./OperationInput.js";
-import { CreateNumberBlock } from "./OperationBlocks/ModifyBlock.js";
+import { OperationField, Prompt } from "./Field.js";
 
 export default class Block {
-    shelfContent() { return `
-
-    <div class="Block-field">
-    </div>
-    <div class="Block-prompt">
-        ?
-    </div>
-    <div class="Block-field">
-    </div>
-
-    ` }
+    shelfContent() { return [
+        new OperationField(),
+        new Prompt("?"),
+        new OperationField()
+    ]}
     createRoot() {
         const range = document.createRange();
 
         range.selectNode(document.body);
 
-        return range.createContextualFragment(`
+        const root = range.createContextualFragment(`
 
         <div class="Block" draggable="false">
             <div class="Block-shelf block__operation">
-                ${this.shelfContent()}
             </div>
             <button class="Block-delete">
             ×
@@ -31,13 +22,18 @@ export default class Block {
         </div>
 
         `).children[0];
+
+        this.shelfContent().forEach(e => {
+            root.querySelector(".Block-shelf").appendChild(e.root);
+        });
+        
+        return root;
     }
     constructor() {
         this.type = "?";
 
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".Block-shelf");
-        this.insertFields();
         this.deleteButton = this.root.querySelector(".Block-delete");
 
         this.root.addEventListener("mouseover", e => {
@@ -60,44 +56,7 @@ export default class Block {
 
             const parentField = this.root.closest(".Block-field");
 
-            console.log(parentField);
-
             parentField.dispatchEvent(event);
-        })
-    }
-    insertFields() {
-        this.shelf.querySelectorAll(".Block-field").forEach(field => {
-            const input = field.appendChild((new OperationInput()).root);
-
-            field.addEventListener("select-number", e => {
-                const newBlock = CreateNumberBlock();
-
-                input.classList.add("hidden");
-
-                field.appendChild(newBlock.root);
-            })
-
-            field.addEventListener("select-variable", e => {
-                const newBlock = e.detail;
-
-                input.classList.add("hidden");
-            
-                field.appendChild(newBlock.root);
-            })
-
-            field.addEventListener("select-operation", e => {
-                const newBlock = e.detail;
-
-                input.classList.add("hidden");
-
-                field.appendChild(newBlock.root);
-            })
-
-            field.addEventListener("delete", e => {
-                field.removeChild(field.querySelector(".Block"));
-
-                input.classList.remove("hidden");
-            })
         })
     }
 }

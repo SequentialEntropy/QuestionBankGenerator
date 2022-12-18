@@ -101,6 +101,9 @@
 .Section {
     transition-duration: 0.5s;
 }
+.Section__transition {
+    overflow: hidden;
+}
 
 .Section-area {
     min-height: 3rem;

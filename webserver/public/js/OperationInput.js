@@ -1,7 +1,7 @@
 import DropDown from "./DropDown.js";
 import QuestionAPI from "./QuestionAPI.js";
 import VariableInput from "./VariableInput.js";
-import { CreateBlock, operationTypes } from "./OperationBlocks/ModifyBlock.js";
+import { operationTypes } from "./OperationBlocks/ModifyBlock.js";
 
 export default class OperationInput extends DropDown {
     constructor() {
@@ -50,11 +50,9 @@ export default class OperationInput extends DropDown {
         choice.textContent = operationType;
 
         choice.addEventListener("click", () => {
-            const newBlock = CreateBlock(operationType);
-
             const field = choice.closest(".Block-field");
             const event = new CustomEvent("select-operation", {
-                detail: newBlock
+                detail: operationType
             });
 
             field.dispatchEvent(event);
