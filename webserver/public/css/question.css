@@ -16,10 +16,11 @@
 /* Delete Button */
 
 .deleteButton {
+    min-height: var(--block-height);
     font-size: var(--button-text-size);
 
-    padding: 0.5rem 0.5rem;
-    margin: 0 1rem;
+    padding: var(--block-padding-vertical) var(--block-padding);
+    margin: 0 2rem;
 
     color: white;
     background-color: #ffa0a0;
@@ -132,6 +133,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    min-height: var(--block-height);
 }
 
 .Section-title {
@@ -166,6 +168,14 @@
 
 .SectionsShelf-createSection:hover {
     background-color: #74caff;
+}
+
+.Section-delete {
+    opacity: 0;
+}
+
+.Section-area:hover .Section-delete {
+    opacity: 1;
 }
 
 
