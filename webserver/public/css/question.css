@@ -302,7 +302,7 @@
 
 .Block-delete {
     position: absolute;
-    display: none;
+    opacity: 0;
     right: -0.5rem;
     top: -0.5rem;
     font-size: var(--field-font-size);
@@ -320,5 +320,5 @@
     filter: brightness(0.9) saturate(150%);
 }
 .Block-delete__show {
-    display: block;
+    opacity: 1;
 }
