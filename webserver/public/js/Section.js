@@ -1,7 +1,6 @@
 import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
 import DropDown from "./DropDown.js";
-import { VariableField, OperationField } from "./Field.js";
 import { RenderFunction, SetFunction } from "./Function.js";
 
 export default class Section {
