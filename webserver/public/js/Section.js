@@ -1,6 +1,6 @@
 import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
-import DropDown from "./DropDown.js";
+import DropDown, { createChoice } from "./DropDown.js";
 import { RenderFunction, SetFunction } from "./Function.js";
 
 export default class Section {
@@ -148,13 +148,13 @@ class CreateFunction extends DropDown {
         this.toggle.textContent = "+ Create Function";
         this.root.classList.add("FunctionsShelf-createFunction");
 
-        const renderChoice = CreateFunction.functionChoice("Render");
+        const renderChoice = createChoice("Render");
         renderChoice.addEventListener("click", e => {
             this.getFunctionsShelf().appendChild((new RenderFunction()).root);
         });
         this.list.appendChild(renderChoice);
 
-        const setChoice = CreateFunction.functionChoice("Set");
+        const setChoice = createChoice("Set");
         setChoice.addEventListener("click", e => {
             this.getFunctionsShelf().appendChild((new SetFunction()).root);
         })

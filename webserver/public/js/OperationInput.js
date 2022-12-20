@@ -1,6 +1,6 @@
-import DropDown from "./DropDown.js";
+import DropDown, { createChoice } from "./DropDown.js";
 import QuestionAPI from "./QuestionAPI.js";
-import VariableInput from "./VariableInput.js";
+import { createVariableChoice } from "./VariableInput.js";
 import { operationTypes } from "./OperationBlocks/ModifyBlock.js";
 
 export default class OperationInput extends DropDown {
@@ -13,51 +13,47 @@ export default class OperationInput extends DropDown {
 
             this.list.textContent = "";
 
-            this.list.appendChild(OperationInput.numberChoice(this.toggle));
+            this.list.appendChild(createNumberChoice());
 
             const variables = await QuestionAPI.getVariables();
 
             variables.forEach(v => {
-                this.list.appendChild(VariableInput.variableChoice(v, this.toggle));
+                this.list.appendChild(createVariableChoice(v));
             });
 
-            for (const [key, value] of Object.entries(operationTypes)) {
-                this.list.appendChild(OperationInput.operationChoice(key, this.toggle));
+            for (const [operationName, _] of Object.entries(operationTypes)) {
+                this.list.appendChild(createOperationChoice(operationName));
             }
         })
     }
-    static numberChoice(toggle) {
-        const choice = document.createElement("button");
-        choice.classList.add("dropDown-choice");
-        choice.classList.add("block__default");
+}
 
-        choice.textContent = "Number";
+function createNumberChoice() {
+    const choice = createChoice("Number");
+    choice.classList.add("block__default");
 
-        choice.addEventListener("click", () => {
-            const field = choice.closest(".Block-field");
-            const event = new Event("select-number");
+    choice.addEventListener("click", () => {
+        const field = choice.closest(".Block-field");
+        const event = new Event("select-number");
 
-            field.dispatchEvent(event);
-        });
+        field.dispatchEvent(event);
+    })
 
-        return choice;
-    }
-    static operationChoice(operationType, toggle) {
-        const choice = document.createElement("button");
-        choice.classList.add("dropDown-choice");
-        choice.classList.add("block__operation");
+    return choice;
+}
 
-        choice.textContent = operationType;
+function createOperationChoice(operationName) {
+    const choice = createChoice(operationName);
+    choice.classList.add("block__operation");
 
-        choice.addEventListener("click", () => {
-            const field = choice.closest(".Block-field");
-            const event = new CustomEvent("select-operation", {
-                detail: operationType
-            });
-
-            field.dispatchEvent(event);
+    choice.addEventListener("click", () => {
+        const field = choice.closest(".Block-field");
+        const event = new CustomEvent("select-operation", {
+            detail: operationName
         })
 
-        return choice;
-    }
+        field.dispatchEvent(event);
+    })
+
+    return choice;
 }

@@ -1,4 +1,4 @@
-import DropDown from "./DropDown.js";
+import DropDown, { createChoice } from "./DropDown.js";
 import QuestionAPI from "./QuestionAPI.js";
 
 export default class VariableInput extends DropDown {
@@ -13,26 +13,23 @@ export default class VariableInput extends DropDown {
             const variables = await QuestionAPI.getVariables();
 
             variables.forEach(v => {
-                this.list.appendChild(VariableInput.variableChoice(v, this.toggle));
+                this.list.appendChild(createVariableChoice(v, this.toggle));
             });
         })
     }
-    static variableChoice(v, toggle) {
-        const choice = document.createElement("button");
-        choice.classList.add("dropDown-choice");
-        choice.classList.add("block__variable");
+}
 
-        choice.textContent = v;
-
-        choice.addEventListener("click", () => {
-            const field = choice.closest(".Block-field");
-            const event = new CustomEvent("select-variable", {
-                detail: v
-            });
-
-            field.dispatchEvent(event);
+export function createVariableChoice(variableName) {
+    const choice = createChoice(variableName);
+    choice.classList.add("block__variable");
+    choice.addEventListener("click", () => {
+        const field = choice.closest(".Block-field");
+        const event = new CustomEvent("select-variable", {
+            detail: variableName
         });
 
-        return choice;
-    }
+        field.dispatchEvent(event);
+    })
+    
+    return choice;
 }

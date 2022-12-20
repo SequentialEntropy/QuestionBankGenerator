@@ -34,3 +34,17 @@ export default class DropDown {
         })
     }
 }
+
+/**
+ * Create a choice element for the dropdown
+ * @param {String} prompt
+ * @returns {Node} Button element, add to the dropdown by invoking this.list.appendChild()
+ */
+export function createChoice(prompt) {
+    const choice = document.createElement("button");
+    choice.classList.add("dropDown-choice");
+    
+    choice.textContent = prompt;
+
+    return choice;
+}
