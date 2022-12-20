@@ -2,9 +2,12 @@
     --block-height: 3rem;
     --block-padding: 0.75rem;
     --block-padding-vertical: 0.75rem;
+    --field-font-size: 1rem;
+    /* --function-font-size: calc(var(--field-font-size) * 1.5); */
+    --function-font-size: 1.5rem;
+
     --radius: 0.5rem;
     --section-title-height: 1.5rem;
-    --button-text-size: 1rem;
 }
 
 * {
@@ -17,7 +20,7 @@
 
 .deleteButton {
     min-height: var(--block-height);
-    font-size: var(--button-text-size);
+    font-size: var(--field-font-size);
 
     padding: var(--block-padding-vertical) var(--block-padding);
     margin: 0 2rem;
@@ -40,7 +43,7 @@
     background-color: white;
     border-radius: var(--radius);
     padding: var(--block-padding-vertical) var(--block-padding);
-    font-size: var(--button-text-size);
+    font-size: var(--field-font-size);
     border: none;
     cursor: pointer;
     transition-duration: 0.1s;
@@ -71,7 +74,7 @@
     min-height: var(--block-height);
     background-color: white;
     padding: var(--block-padding-vertical) var(--block-padding);
-    font-size: var(--button-text-size);
+    font-size: var(--field-font-size);
     border: none;
     cursor: pointer;
     transition-duration: 0.1s;
@@ -238,11 +241,11 @@
 
 
 .Block-prompt {
-    font-size: calc(var(--button-text-size) * 1.5);
+    font-size: var(--function-font-size);
 }
 
 .Block-input {
-    font-size: var(--button-text-size);
+    font-size: var(--field-font-size);
     outline: none;
     max-width: 7rem;
     padding: var(--block-padding-vertical) var(--block-padding);
@@ -261,7 +264,7 @@
     display: none;
     right: -0.5rem;
     top: -0.5rem;
-    font-size: var(--button-text-size);
+    font-size: var(--field-font-size);
 
     color: white;
     background-color: #ffa0a0;
@@ -289,4 +292,7 @@
     align-items: center;
     align-content: space-between;
     gap: 0.5rem;
+}
+.FunctionsShelf-createFunction {
+    /* font-size: var(--function-font-size); */
 }
