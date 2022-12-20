@@ -2,6 +2,7 @@ import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
 import DropDown from "./DropDown.js";
 import { VariableField, OperationField } from "./Field.js";
+import { RenderFunction, SetFunction } from "./Function.js";
 
 export default class Section {
     createRoot() {
@@ -16,7 +17,9 @@ export default class Section {
                     <div class="Section-title">Step #</div>
                     <button class="Section-delete deleteButton">Delete</button>
                 </div>
-                <div class="FunctionsShelf"></div>
+                <div class="FunctionsEditor">
+                    <div class="FunctionsShelf"></div>
+                </div>
             </div>
             <!--
             <div class="SectionDropZone"></div>
@@ -62,6 +65,8 @@ export default class Section {
         newSection.shelf.appendChild((new DropDown()).root);
         newSection.shelf.appendChild((new VariableField()).root);
         newSection.shelf.appendChild((new OperationField()).root);
+        newSection.shelf.appendChild((new RenderFunction()).root);
+        newSection.shelf.appendChild((new SetFunction()).root);
 
         if (animate) {
             newSection.createAnimation(parent);

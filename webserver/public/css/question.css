@@ -143,7 +143,7 @@
     user-select: none;
 }
 
-.FunctionsShelf {
+.FunctionsEditor {
     min-height: var(--block-height);
     background-color: white;
     border-radius: var(--radius);
@@ -195,9 +195,25 @@
     background-color: white;
     color: black;
 }
+.block__render {
+    /* background-color: rgb(250, 250, 250); */
+    color: #757575;
+    border: 0.1rem solid #757575;
+}
+.block__render > .Block-field > .dropDown >
+.dropDown-toggle,
+.block__render > .Block-field > .Block >
+.Block-input:not(.Block-shelf__hover)
+{
+    border: 0.1rem solid rgb(200, 200, 200);
+}
 
 .Block {
     position: relative;
+    width: fit-content;
+}
+
+.Block-field {
     width: fit-content;
 }
 
@@ -210,7 +226,10 @@
     display: flex;
     padding: 0.5rem;
     align-items: center;
+    align-content: space-between;
+    gap: 0.5rem;
     transition-duration: 0.1s;
+    flex-wrap: wrap;
 }
 .Block-shelf__hover {
     border-color: rgba(0, 0, 0, 0.5);
@@ -220,7 +239,6 @@
 
 .Block-prompt {
     font-size: calc(var(--button-text-size) * 1.5);
-    padding: 0 1rem;
 }
 
 .Block-input {
@@ -234,6 +252,13 @@
 }
 .Block-variable {
     padding: var(--block-padding-vertical) var(--block-padding);
+}
+.Block-spacer {
+    padding: 0 0rem;
+}
+.Block-break {
+    width: auto;
+    height: 0;
 }
 
 
@@ -259,4 +284,16 @@
 }
 .Block-delete__show {
     display: block;
+}
+
+
+
+.Function {
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-between;
+    gap: 0.5rem;
 }

@@ -1,4 +1,4 @@
-import { OperationField, Prompt } from "./Field.js";
+import { OperationField, Prompt, Spacer } from "./Field.js";
 
 export default class Block {
     shelfContent() { return [
