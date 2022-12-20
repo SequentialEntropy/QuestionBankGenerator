@@ -3,13 +3,12 @@
     --block-padding: 0.75rem;
     --block-padding-vertical: 0.75rem;
     --field-font-size: 1rem;
-    /* --function-font-size: calc(var(--field-font-size) * 1.5); */
     --function-font-size: 1.5rem;
 
     --radius: 0.5rem;
     --section-title-height: 1.5rem;
 
-    --default-border-color: rgb(200, 200, 200);
+    --default-outline-color: rgb(200, 200, 200);
     --default-text-color: #757575
 }
 
@@ -107,7 +106,7 @@
 .block__render {
     background-color: white;
     color: var(--default-text-color);
-    outline: 0.1rem solid var(--default-border-color);
+    outline: 0.1rem solid var(--default-outline-color);
 }
 
 
@@ -204,7 +203,7 @@
     background-color: white;
     border-radius: var(--radius);
     padding: 1rem;
-    outline: 0.1rem solid var(--default-border-color);
+    outline: 0.1rem solid var(--default-outline-color);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -229,7 +228,7 @@
 .FunctionsShelf-createFunction .dropDown-toggle {
     width: 100%;
     font-size: var(--function-font-size);
-    outline: 0.1rem dashed var(--default-border-color);
+    outline: 0.1rem dashed var(--default-outline-color);
     color: var(--default-text-color);
 }
 .Function-shelf__hover {
@@ -248,7 +247,7 @@
 .block__render > .Block-field > .Block >
 .Block-input:not(.Block-shelf__hover)
 {
-    outline: 0.1rem solid var(--default-border-color);
+    outline: 0.1rem solid var(--default-outline-color);
 }
 
 .Block {
