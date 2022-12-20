@@ -65,18 +65,4 @@ class Prompt {
     }
 }
 
-class Break {
-    constructor() {
-        this.root = document.createElement("div");
-        this.root.classList.add("Block-break");
-    }
-}
-
-class Spacer {
-    constructor() {
-        this.root = document.createElement("div");
-        this.root.classList.add("Block-spacer");
-    }
-}
-
-export { VariableField, OperationField, Prompt, Break, Spacer };
+export { VariableField, OperationField, Prompt };

@@ -1,4 +1,4 @@
-import { VariableField, OperationField, Prompt, Break, Spacer } from "./Field.js";
+import { VariableField, OperationField, Prompt } from "./Field.js";
 
 class RenderFunction {
     builder(className, shelf) {
@@ -13,7 +13,6 @@ class RenderFunction {
     createRoot() {
         return this.builder("block__render", [
             new Prompt("Render"),
-            // new Break(),
             new OperationField()
         ]);
     }

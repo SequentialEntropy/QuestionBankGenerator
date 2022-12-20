@@ -253,13 +253,6 @@
 .Block-variable {
     padding: var(--block-padding-vertical) var(--block-padding);
 }
-.Block-spacer {
-    padding: 0 0rem;
-}
-.Block-break {
-    width: auto;
-    height: 0;
-}
 
 
 
