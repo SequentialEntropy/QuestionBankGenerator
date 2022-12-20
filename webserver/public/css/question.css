@@ -92,6 +92,24 @@
     display: none;
 }
 
+.block__variable {
+    background-color: #9eb0ff;
+    color: white;
+}
+.block__operation {
+    background-color: #74caff;
+    color: white;
+}
+.block__default {
+    background-color: white;
+    color: black;
+}
+.block__render {
+    background-color: white;
+    color: var(--default-text-color);
+    outline: 0.1rem solid var(--default-border-color);
+}
+
 
 
 
@@ -186,9 +204,7 @@
     background-color: white;
     border-radius: var(--radius);
     padding: 1rem;
-    border-color: var(--default-border-color);
-    border-width: 0.1rem;
-    border-style: solid;
+    outline: 0.1rem solid var(--default-border-color);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -213,43 +229,26 @@
 .FunctionsShelf-createFunction .dropDown-toggle {
     width: 100%;
     font-size: var(--function-font-size);
-    border: 0.1rem dashed var(--default-border-color);
+    outline: 0.1rem dashed var(--default-border-color);
     color: var(--default-text-color);
 }
 .Function-shelf__hover {
-    border-width: 0.2rem;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.5);
+    outline-width: 0.2rem;
+    outline-style: solid;
+    outline-color: rgba(0, 0, 0, 0.5);
 }
 
 
 
 
 
-.block__variable {
-    /* background-color: #ff9e9e; */
-    background-color: #9eb0ff;
-    color: white;
-}
-.block__operation {
-    background-color: #74caff;
-    color: white;
-}
-.block__default {
-    background-color: white;
-    color: black;
-}
-.block__render {
-    /* background-color: rgb(250, 250, 250); */
-    color: var(--default-text-color);
-    outline: 0.1rem solid var(--default-border-color);
-}
+
 .block__render > .Block-field > .dropDown >
 .dropDown-toggle,
 .block__render > .Block-field > .Block >
 .Block-input:not(.Block-shelf__hover)
 {
-    border: 0.1rem solid var(--default-border-color);
+    outline: 0.1rem solid var(--default-border-color);
 }
 
 .Block {
@@ -265,17 +264,18 @@
 .Block-shelf {
     min-height: var(--block-height);
     border-radius: var(--radius);
-    border: 0.2rem solid white;
+    outline: 0.2rem solid white;
     display: flex;
     padding: 0.5rem;
     align-items: center;
-    align-content: space-between;
+    justify-content: center;
     gap: 0.5rem;
     transition-duration: 0.1s;
     flex-wrap: wrap;
+    outline-offset: -0.2rem;
 }
 .Block-shelf__hover {
-    border-color: rgba(0, 0, 0, 0.5);
+    outline-color: rgba(0, 0, 0, 0.5);
 }
 
 
@@ -286,12 +286,13 @@
 
 .Block-input {
     font-size: var(--field-font-size);
-    outline: none;
+    border: none;
+    /* outline: none; */
     max-width: 7rem;
     padding: var(--block-padding-vertical) var(--block-padding);
 }
 .Block-input:focus {
-    border-color: rgba(0, 0, 0, 0.5);
+    outline-color: rgba(0, 0, 0, 0.5);
 }
 .Block-variable {
     padding: var(--block-padding-vertical) var(--block-padding);
