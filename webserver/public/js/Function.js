@@ -25,11 +25,8 @@ class SetFunction extends RenderFunction {
     createRoot() {
         return this.builder("block__operation", [
             new Prompt("Set the value of"),
-            // new Spacer(),
             new VariableField(),
-            // new Spacer(),
             new Prompt("to"),
-            // new Spacer(),
             new OperationField()
         ])
     }
