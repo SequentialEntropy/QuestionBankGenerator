@@ -32,6 +32,9 @@ export default class Section {
         this.section = this.root.querySelector(".Section-area");
         this.title = this.root.querySelector(".Section-title");
         this.shelf = this.root.querySelector(".FunctionsShelf");
+        this.createButton = (new CreateFunction()).root;
+        this.root.querySelector(".FunctionsEditor").appendChild(this.createButton);
+
 
         this.dropZone = SectionDropZone.init();
         this.root.appendChild(this.dropZone);
@@ -62,11 +65,6 @@ export default class Section {
                 e.dataTransfer.setData("text/plain", JSON.stringify(data));
             })
         }
-        newSection.shelf.appendChild((new DropDown()).root);
-        newSection.shelf.appendChild((new VariableField()).root);
-        newSection.shelf.appendChild((new OperationField()).root);
-        newSection.shelf.appendChild((new RenderFunction()).root);
-        newSection.shelf.appendChild((new SetFunction()).root);
 
         if (animate) {
             newSection.createAnimation(parent);
@@ -142,5 +140,36 @@ export default class Section {
         }
 
         this.root.addEventListener('transitionend', onEnd);
+    }
+}
+
+class CreateFunction extends DropDown {
+    constructor() {
+        super();
+        this.toggle.textContent = "+ Create Function";
+        this.root.classList.add("FunctionsShelf-createFunction");
+
+        const renderChoice = CreateFunction.functionChoice("Render");
+        renderChoice.addEventListener("click", e => {
+            this.getFunctionsShelf().appendChild((new RenderFunction()).root);
+        });
+        this.list.appendChild(renderChoice);
+
+        const setChoice = CreateFunction.functionChoice("Set");
+        setChoice.addEventListener("click", e => {
+            this.getFunctionsShelf().appendChild((new SetFunction()).root);
+        })
+        this.list.appendChild(setChoice);
+    }
+    static functionChoice(text) {
+        const choice = document.createElement("button");
+        choice.classList.add("dropDown-choice");
+        
+        choice.textContent = text;
+
+        return choice;
+    }
+    getFunctionsShelf() {
+        return this.root.closest(".FunctionsEditor").querySelector(".FunctionsShelf");
     }
 }
