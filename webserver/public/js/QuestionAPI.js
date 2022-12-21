@@ -21,4 +21,7 @@ export default class QuestionAPI {
     static async getVariables() {
         return (await fetch(`/question/api/${QuestionAPI.questionId}/getVariables`)).json();
     }
+    static createFunction(section, functionType) {
+        return fetch(`/question/api/${QuestionAPI.questionId}/createFunction/${section}/${functionType}`);
+    }
 }

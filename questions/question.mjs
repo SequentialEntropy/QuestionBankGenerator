@@ -11,6 +11,8 @@ import { log } from "../logger.mjs";
 import { Tracker } from "../database/idTracker.mjs";
 import { jsonReader } from "../database/jsonReader.mjs";
 
+import { blocks, functions } from "./templates.mjs";
+
 const defaults = {
     id: -1,
     owner: -1,
@@ -102,6 +104,26 @@ class Question {
     }
     getVariables() {
         return this._data().variables;
+    }
+    getSection(section) {
+        if (section == -1) {
+            return this.getPrompt();
+        } else if (section < 0 || section > (this.getSteps().length - 1)) {
+            return false;
+        }
+        return this.getSteps()[section];
+    }
+    createFunction(selectedSection, functionType) {
+        const section = this.getSection(selectedSection);
+        if (section === false) {
+            return false;
+        }
+
+        section.push(functions[functionType]);
+
+        this._save();
+
+        return true;
     }
 }
 

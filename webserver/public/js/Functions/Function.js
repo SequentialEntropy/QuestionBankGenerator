@@ -1,4 +1,4 @@
-import { VariableField, OperationField, Prompt } from "./Field.js";
+import { VariableField, OperationField, Prompt } from "../Field.js";
 
 class Function {
     buildShelf(className, shelfContent) {

@@ -1,7 +1,8 @@
 import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
 import DropDown, { createChoice } from "./DropDown.js";
-import { RenderFunction, SetFunction } from "./Function.js";
+import { RenderFunction, SetFunction } from "./Functions/Function.js";
+import { createFunction } from "./Functions/ModifyFunction.js";
 
 export default class Section {
     createRoot() {
@@ -31,8 +32,18 @@ export default class Section {
         this.section = this.root.querySelector(".Section-area");
         this.title = this.root.querySelector(".Section-title");
         this.shelf = this.root.querySelector(".FunctionsShelf");
-        this.createButton = (new CreateFunction()).root;
+        this.createButton = (new CreateFunctionButton(this)).root;
         this.root.querySelector(".FunctionsEditor").appendChild(this.createButton);
+
+        this.shelf.addEventListener("createFunction", e => {
+            const functionType = e.detail;
+
+            console.log(functionType);
+
+            QuestionAPI.createFunction(this.getIndex() - 1, functionType);
+
+            this.shelf.appendChild(createFunction(functionType).root);
+        })
 
 
         this.dropZone = SectionDropZone.init();
@@ -142,33 +153,40 @@ export default class Section {
     }
 }
 
-class CreateFunction extends DropDown {
-    constructor() {
+class CreateFunctionButton extends DropDown {
+    constructor(parentSection) {
         super();
         this.toggle.textContent = "+ Create Function";
         this.root.classList.add("FunctionsShelf-createFunction");
+        this.parentSection = parentSection;
 
-        const renderChoice = createChoice("Render");
-        renderChoice.addEventListener("click", e => {
-            this.getFunctionsShelf().appendChild((new RenderFunction()).root);
-        });
+        const renderChoice = createFunctionChoice("Render");
+        // renderChoice.addEventListener("click", e => {
+        //     // const event = new CustomEvent("createrender")
+        //     // QuestionAPI.createFunction(this.getIndex() - 1, "render");
+
+
+        //     this.getFunctionsShelf().appendChild((new RenderFunction()).root);
+        // });
         this.list.appendChild(renderChoice);
 
-        const setChoice = createChoice("Set");
-        setChoice.addEventListener("click", e => {
-            this.getFunctionsShelf().appendChild((new SetFunction()).root);
-        })
+        const setChoice = createFunctionChoice("Set");
+        // setChoice.addEventListener("click", e => {
+        //     this.getFunctionsShelf().appendChild((new SetFunction()).root);
+        // })
         this.list.appendChild(setChoice);
     }
-    static functionChoice(text) {
-        const choice = document.createElement("button");
-        choice.classList.add("dropDown-choice");
-        
-        choice.textContent = text;
+}
 
-        return choice;
-    }
-    getFunctionsShelf() {
-        return this.root.closest(".FunctionsEditor").querySelector(".FunctionsShelf");
-    }
+function createFunctionChoice(functionType) {
+    const choice = createChoice(functionType);
+    choice.addEventListener("click", e => {
+        const shelf = choice.closest(".FunctionsEditor").querySelector(".FunctionsShelf");
+        const event = new CustomEvent("createFunction", {
+            detail: functionType
+        });
+        shelf.dispatchEvent(event);
+    })
+
+    return choice;
 }

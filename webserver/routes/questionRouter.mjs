@@ -5,6 +5,8 @@ import express from "express";
 
 import { Question, getQuestionById } from "../../questions/question.mjs";
 
+import { blocks, functions } from "../../questions/templates.mjs";
+
 const __filename = fileURLToPath(
     import.meta.url);
 
@@ -63,6 +65,27 @@ router.get("/api/:questionId/getPrompt", auth, (req, res) => {
 
 router.get("/api/:questionId/getVariables", auth, (req, res) => {
     res.json(req.question.getVariables());
+})
+
+router.get("/api/:questionId/createFunction/:sectionId/:functionType", auth, (req, res) => {
+    const sectionId = parseInt(req.params.sectionId);
+
+    if (isNaN(sectionId)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    if (!(functions.hasOwnProperty(req.params.functionType))) {
+        res.sendStatus(400);
+        return;
+    }
+
+    if (!req.question.createFunction(sectionId, req.params.functionType)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    res.sendStatus(201);
 })
 
 
