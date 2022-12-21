@@ -26,6 +26,10 @@ const blocks = {
             null,
             null
         ]
+    },
+    "Variable": {
+        "blockType": "Variable",
+        "variableName": null
     }
 }
 
