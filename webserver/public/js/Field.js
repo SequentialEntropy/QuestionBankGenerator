@@ -1,6 +1,6 @@
-import VariableInput from "./VariableInput.js";
-import OperationInput from "./OperationInput.js";
-import { CreateNumberBlock, CreateVariableBlock, CreateOperationBlock } from "./OperationBlocks/ModifyBlock.js";
+import VariableInput from "./DropDowns/VariableInput.js";
+import OperationInput from "./DropDowns/OperationInput.js";
+import { CreateNumberBlock, CreateVariableBlock, CreateOperationBlock } from "./Blocks/ModifyBlock.js";
 
 class VariableField {
     createInput() {

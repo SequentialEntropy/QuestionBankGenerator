@@ -1,14 +1,14 @@
-import Block from "../Block.js";
+import Block from "./Block.js";
 import { OperationField, Prompt } from "../Field.js";
 
-export default class Addition extends Block {
+export default class Subtraction extends Block {
     shelfContent() { return [
         new OperationField(),
-        new Prompt("+"),
+        new Prompt("−"),
         new OperationField()
     ]}
     constructor() {
         super();
-        this.type = "Addition";
+        this.type = "Subtraction";
     }
 }

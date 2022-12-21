@@ -1,5 +1,5 @@
 import DropDown, { createChoice } from "./DropDown.js";
-import QuestionAPI from "./QuestionAPI.js";
+import QuestionAPI from "../QuestionAPI.js";
 
 export default class VariableInput extends DropDown {
     constructor() {

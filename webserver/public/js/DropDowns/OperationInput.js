@@ -1,7 +1,7 @@
 import DropDown, { createChoice } from "./DropDown.js";
-import QuestionAPI from "./QuestionAPI.js";
+import QuestionAPI from "../QuestionAPI.js";
 import { createVariableChoice } from "./VariableInput.js";
-import { operationTypes } from "./OperationBlocks/ModifyBlock.js";
+import { operationTypes } from "../Blocks/ModifyBlock.js";
 
 export default class OperationInput extends DropDown {
     constructor() {
