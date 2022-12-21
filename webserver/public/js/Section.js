@@ -1,6 +1,6 @@
 import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
-import DropDown, { createChoice } from "./DropDown.js";
+import DropDown, { createChoice } from "./DropDowns/DropDown.js";
 import { RenderFunction, SetFunction } from "./Functions/Function.js";
 import { createFunction } from "./Functions/ModifyFunction.js";
 
