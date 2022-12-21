@@ -88,6 +88,23 @@ router.get("/api/:questionId/createFunction/:sectionId/:functionType", auth, (re
     res.sendStatus(201);
 })
 
+router.get("/api/:questionId/deleteFunction/:sectionId/:functionIndex", auth, (req, res) => {
+    const sectionId = parseInt(req.params.sectionId);
+    const functionIndex = parseInt(req.params.functionIndex);
+
+    if (isNaN(sectionId) || isNaN(functionIndex)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    if (!req.question.deleteFunction(sectionId, functionIndex)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    res.sendStatus(200);
+})
+
 
 
 

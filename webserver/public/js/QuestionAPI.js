@@ -24,4 +24,7 @@ export default class QuestionAPI {
     static createFunction(section, functionType) {
         return fetch(`/question/api/${QuestionAPI.questionId}/createFunction/${section}/${functionType}`);
     }
+    static deleteFunction(section, index) {
+        return fetch(`/question/api/${QuestionAPI.questionId}/deleteFunction/${section}/${index}`);
+    }
 }

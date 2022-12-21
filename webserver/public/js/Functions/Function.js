@@ -58,9 +58,10 @@ class Function {
                 return;
             }
 
-            const event = new Event("delete");
-
             const parentField = this.root.closest(".FunctionsShelf");
+            const event = new CustomEvent("deleteFunction", {
+                detail: this.root
+            });
 
             parentField.dispatchEvent(event);
         })

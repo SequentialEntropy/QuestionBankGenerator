@@ -125,6 +125,22 @@ class Question {
 
         return true;
     }
+    deleteFunction(selectedSection, index) {
+        const section = this.getSection(selectedSection);
+        if (section === false) {
+            return false;
+        }
+
+        if (index < 0 || index > (section.length - 1)) {
+            return false;
+        }
+
+        section.splice(index, 1);
+
+        this._save();
+
+        return true;
+    }
 }
 
 function getQuestionById(id) {

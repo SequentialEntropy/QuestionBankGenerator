@@ -38,11 +38,21 @@ export default class Section {
         this.shelf.addEventListener("createFunction", e => {
             const functionType = e.detail;
 
-            console.log(functionType);
-
             QuestionAPI.createFunction(this.getIndex() - 1, functionType);
 
             this.shelf.appendChild(createFunction(functionType).root);
+        })
+
+        this.shelf.addEventListener("deleteFunction", e => {
+            const selectedFunction = e.detail;
+
+            const functions = Array.from(this.shelf.querySelectorAll(".Function"));
+
+            const functionIndex = functions.indexOf(selectedFunction);
+
+            QuestionAPI.deleteFunction(this.getIndex() - 1, functionIndex);
+
+            this.shelf.removeChild(selectedFunction);
         })
 
 
