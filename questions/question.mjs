@@ -66,7 +66,7 @@ class Question {
         return this._data().steps;
     }
     createStep() {
-        const length = this.getSteps().push({}); // Return index of new step
+        const length = this.getSteps().push([]); // Return index of new step
         this._save();
         return length;
     }
