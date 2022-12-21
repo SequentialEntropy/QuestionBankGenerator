@@ -1,7 +1,6 @@
 import QuestionAPI from "./QuestionAPI.js";
 import SectionDropZone from "./SectionDropZone.js";
 import DropDown, { createChoice } from "./DropDowns/DropDown.js";
-import { RenderFunction, SetFunction } from "./Functions/Function.js";
 import { createFunction } from "./Functions/ModifyFunction.js";
 
 export default class Section {
@@ -91,6 +90,14 @@ export default class Section {
         } else {
             parent.appendChild(newSection.root);
         }
+
+        content.forEach(e => {
+            console.log(e.functionType);
+            console.log(newSection.shelf);
+            const a = createFunction(e.functionType);
+            console.log(a);
+            newSection.shelf.appendChild(a.root);
+        })
 
         return newSection;
     }
