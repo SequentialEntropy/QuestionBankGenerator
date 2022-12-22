@@ -10,7 +10,7 @@ class Section {
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
-        <div class="Section" draggable="true">
+        <div class="Section">
             <div class="Section-area">
                 <div class="Section-heading">
                     <div class="Section-title">Step #</div>
@@ -30,6 +30,7 @@ class Section {
     }
     constructor(content=[]) {
         this.root = this.createRoot();
+        this.area = this.root.querySelector(".Section-area");
         this.title = this.root.querySelector(".Section-title");
         this.shelf = this.root.querySelector(".FunctionsShelf");
         this.root.querySelector(".FunctionsEditor").appendChild((new CreateFunctionButton).root);
@@ -73,17 +74,18 @@ export class PromptSection extends Section {
     constructor(content=[]) {
         super(content);
         this.title.textContent = "Prompt";
-        this.root.draggable = false;
     }
 }
 
 export class StepSection extends Section {
     constructor(content=[]) {
         super(content);
+        this.area.draggable = true;
+
         const heading = this.root.querySelector(".Section-heading");
         heading.appendChild(this.createDeleteButton());
 
-        this.root.addEventListener("dragstart", e => {
+        this.area.addEventListener("dragstart", e => {
             const data = {
                 type: "Section",
                 id: this.getIndex() - 1
