@@ -3,7 +3,7 @@ import SectionDropZone from "./SectionDropZone.js";
 import DropDown, { createChoice } from "./DropDowns/DropDown.js";
 import { createFunction } from "./Functions/ModifyFunction.js";
 
-export default class Section {
+class Section {
     createRoot() {
         const range = document.createRange();
 
@@ -14,7 +14,9 @@ export default class Section {
             <div class="Section-area">
                 <div class="Section-heading">
                     <div class="Section-title">Step #</div>
+                    <!--
                     <button class="Section-delete deleteButton">Delete</button>
+                    -->
                 </div>
                 <div class="FunctionsEditor">
                     <div class="FunctionsShelf"></div>
@@ -26,13 +28,11 @@ export default class Section {
         </div>
         `).children[0];
     }
-    constructor() {
+    constructor(content=[]) {
         this.root = this.createRoot();
-        this.section = this.root.querySelector(".Section-area");
         this.title = this.root.querySelector(".Section-title");
         this.shelf = this.root.querySelector(".FunctionsShelf");
-        this.createButton = (new CreateFunctionButton(this)).root;
-        this.root.querySelector(".FunctionsEditor").appendChild(this.createButton);
+        this.root.querySelector(".FunctionsEditor").appendChild((new CreateFunctionButton).root);
 
         this.shelf.addEventListener("createFunction", e => {
             const functionType = e.detail;
@@ -54,143 +54,81 @@ export default class Section {
             this.shelf.removeChild(selectedFunction);
         })
 
-
         this.dropZone = SectionDropZone.init();
         this.root.appendChild(this.dropZone);
-    }
-    static async init(parent, content=[], animate=false) {
-        const newSection = new Section();
-
-        const parentLength = Array.from(parent.querySelectorAll(".Section")).length;
-
-        if (parentLength == 0) {
-            newSection.title.textContent = "Prompt";
-            newSection.root.querySelector(".Section-delete").remove();
-            newSection.root.draggable = false;
-        } else {
-            newSection.title.textContent = `Step ${parentLength}`;
-            newSection.root.querySelector(".Section-delete").addEventListener("click", async () => {
-                if (!confirm(`Are you sure you want to delete Step ${parentLength}?`)) {
-                    return;
-                }
-                await QuestionAPI.deleteStep(newSection.getIndex() - 1);
-                newSection.deleteAnimation();
-            })
-            newSection.root.addEventListener("dragstart", e => {
-                const data = {
-                    type: "Section",
-                    id: newSection.getIndex() - 1
-                };
-                e.dataTransfer.setData("text/plain", JSON.stringify(data));
-            })
-        }
-
-        if (animate) {
-            newSection.createAnimation(parent);
-        } else {
-            parent.appendChild(newSection.root);
-        }
 
         content.forEach(e => {
-            console.log(e.functionType);
-            console.log(newSection.shelf);
-            const a = createFunction(e.functionType);
-            console.log(a);
-            newSection.shelf.appendChild(a.root);
+            const newFunction = createFunction(e.functionType);
+            this.shelf.appendChild(newFunction.root);
         })
-
-        return newSection;
     }
+}    
 
-    getIndex() {
-        const items = Array.from(this.root.parentElement.querySelectorAll(".Section"));
-        return items.indexOf(this.root);
+export class PromptSection extends Section {
+    constructor(content=[]) {
+        super(content);
+        this.title.textContent = "Prompt";
+        this.root.draggable = false;
     }
+}
 
-    updateIndexes(start = 1, parent = false) {
-        if (parent === false) {
-            parent = this.root.parentElement;
-        }
-        const items = Array.from(parent.querySelectorAll(".Section"));
-        let title;
-        for (let index = start; index < items.length; index++) {
-            title = items[index].querySelector(".Section-title");
-            title.textContent = `Step ${index}`;
-        }
+export class StepSection extends Section {
+    constructor(content=[]) {
+        super(content);
+        const heading = this.root.querySelector(".Section-heading");
+        heading.appendChild(this.createDeleteButton());
+
+        this.root.addEventListener("dragstart", e => {
+            const data = {
+                type: "Section",
+                id: this.getIndex() - 1
+            };
+            e.dataTransfer.setData("text/plain", JSON.stringify(data));
+        })
     }
-
-    createAnimation(parent) {
-        const onEnd = function(e) {
-            if (
-                e.target.classList.contains("Section__transition")
-            ) {
-                e.target.removeEventListener("transitionend", onEnd);
-                e.target.style.removeProperty("height");
-                e.target.classList.remove("Section__transition");
+    createDeleteButton() {
+        /*
+        <button class="Section-delete deleteButton">Delete</button>
+        */
+       
+       const buttonElement = document.createElement("button");
+       buttonElement.classList.add("Section-delete");
+       buttonElement.classList.add("deleteButton");
+       
+       buttonElement.textContent = "Delete";
+       
+       buttonElement.addEventListener("click", () => {
+            if (!confirm(`Are you sure you want to delete Step ${this.getIndex()}?`)) {
+                return;
             }
-        }
-
-        this.root.style.height = "0px";
-        parent.appendChild(this.root);
-        let height = this.root.scrollHeight;
-        this.root.style.height = height + "px";
-        this.root.classList.add("Section__transition");
-        this.root.addEventListener("transitionend", onEnd);
-    }
-
-    deleteAnimation() {
-        const height = this.root.scrollHeight;
-        const transition = this.root.style.transition;
-
-        this.root.style.transition = '';
-
-        requestAnimationFrame(() => {
-            this.root.style.height = height + 'px';
-            this.root.style.transition = transition;
-            requestAnimationFrame(() => {
-                this.root.style.height = 0 + 'px';
+            
+            const sectionShelf = this.root.closest(".SectionsShelf");
+            const event = new CustomEvent("deleteSection", {
+                detail: this.root
             });
+            
+            sectionShelf.dispatchEvent(event);
         });
-
-        this.root.classList.add("Section__transition");
-
-        const onEnd = (e) => {
-            if (
-                this.root.classList.contains("Section__transition") &&
-                e.propertyName == "height"
-            ) {
-                const parent = this.root.parentElement;
-                const index = this.getIndex();
-                this.root.remove();
-                this.updateIndexes(index, parent);
-            }
-        }
-
-        this.root.addEventListener('transitionend', onEnd);
+        
+        return buttonElement;
+    }
+    getIndex() {
+        const sectionShelf = this.root.closest(".SectionsShelf");
+        const allSections = Array.from(sectionShelf.querySelectorAll(".Section"));
+        return allSections.indexOf(this.root);
     }
 }
 
 class CreateFunctionButton extends DropDown {
-    constructor(parentSection) {
+    constructor() {
         super();
         this.toggle.textContent = "+ Create Function";
         this.root.classList.add("FunctionsShelf-createFunction");
-        this.parentSection = parentSection;
 
         const renderChoice = createFunctionChoice("Render");
-        // renderChoice.addEventListener("click", e => {
-        //     // const event = new CustomEvent("createrender")
-        //     // QuestionAPI.createFunction(this.getIndex() - 1, "render");
-
-
-        //     this.getFunctionsShelf().appendChild((new RenderFunction()).root);
-        // });
         this.list.appendChild(renderChoice);
 
         const setChoice = createFunctionChoice("Set");
-        // setChoice.addEventListener("click", e => {
-        //     this.getFunctionsShelf().appendChild((new SetFunction()).root);
-        // })
         this.list.appendChild(setChoice);
     }
 }

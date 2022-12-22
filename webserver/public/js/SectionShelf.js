@@ -1,5 +1,5 @@
 import QuestionAPI from "./QuestionAPI.js";
-import Section from "./Section.js";
+import { PromptSection, StepSection } from "./Section.js";
 
 export default class SectionShelf {
 
@@ -18,37 +18,117 @@ export default class SectionShelf {
         `).children[0];
     }
 
-    constructor() {
+    constructor(promptData, stepsData) {
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".SectionsShelf");
-        this.createButton = this.root.querySelector(".SectionsShelf-createSection");
+        this.createSectionButton = this.root.querySelector(".SectionsShelf-createSection");
 
-        this.createButton.addEventListener("click", async () => {
-            await QuestionAPI.createStep();
-            const newSection = await Section.init(this.shelf, [], true);
+        // Create Step
+        this.createSectionButton.addEventListener("click", e => {
+            this.createStep();
         })
 
-        document.body.appendChild(this.root);
+        // Delete Step
+        this.shelf.addEventListener("deleteSection", e => {
+            const selectedSection = e.detail;
+            this.deleteStep(selectedSection);
+        })
+
+        const promptElement = new PromptSection(promptData);
+        this.shelf.appendChild(promptElement.root);
+
+        for (let index = 0; index < stepsData.length; index++) {
+            const stepElement = new StepSection(stepsData[index]);
+
+            stepElement.title.textContent = `Step ${index + 1}`;
+
+            this.shelf.appendChild(stepElement.root);
+        }
     }
 
-    static async init() {
+    createStep(content=[]) {
+        QuestionAPI.createStep();
 
-        const init = new SectionShelf();
+        const newSection = new StepSection(content);
+
+        // Update Step #
+
+        const sections = Array.from(this.shelf.querySelectorAll(".Section"));
+
+        const sectionIndex = sections.length;
+
+        newSection.title.textContent = `Step ${sectionIndex}`;
+
+        const selectedSection = newSection.root;
+
+        // Create Animation
+
+        selectedSection.style.height = "0px";
+
+        this.shelf.appendChild(selectedSection);
+
+        let height = selectedSection.scrollHeight;
+        selectedSection.style.height = height + "px";
+        selectedSection.classList.add("Section__transition");
         
-        const promptData = await QuestionAPI.getPrompt();
-        const stepsData = await QuestionAPI.getSteps();
+        // After Create Animation
 
-        init.renderSection(promptData);
+        const onCreateAnimationEnd = function(e) {
+            if (
+                e.target.classList.contains("Section__transition")
+            ) {
+                e.target.removeEventListener("transitionend", onCreateAnimationEnd);
+                e.target.style.removeProperty("height");
+                e.target.classList.remove("Section__transition");
+            }
+        }
 
-        stepsData.forEach(data => {
-            init.renderSection(data);
+        selectedSection.addEventListener("transitionend", onCreateAnimationEnd);
+    }
+
+    deleteStep(selectedSection) {
+        const sections = Array.from(this.shelf.querySelectorAll(".Section"));
+
+        const sectionIndex = sections.indexOf(selectedSection);
+
+        QuestionAPI.deleteStep(sectionIndex - 1);
+        
+        // Delete Animation
+
+        const height = selectedSection.scrollHeight;
+        const transition = selectedSection.style.transition;
+
+        selectedSection.style.transition = "";
+
+        requestAnimationFrame(() => {
+            selectedSection.style.height = height + "px";
+            selectedSection.style.transition = transition;
+
+            requestAnimationFrame(() => {
+                selectedSection.style.height = 0 + "px";
+            });
         });
 
-        return init;
+        selectedSection.classList.add("Section__transition");
 
-    }
+        // After Delete Animation
 
-    async renderSection(data) {
-        const section = await Section.init(this.shelf, data);
+        const onDeleteAnimationEnd = e => {
+            if (
+                selectedSection.classList.contains("Section__transition") &&
+                e.propertyName == "height"
+            ) {
+                this.shelf.removeChild(selectedSection);
+
+                // Update Step #
+
+                for (let index = sectionIndex; index < sections.length; index++) {
+                    const title = sections[index].querySelector(".Section-title");
+                    title.textContent = `Step ${index - 1}`;
+                }
+            }
+        }
+
+        selectedSection.addEventListener("transitionend", onDeleteAnimationEnd);
     }
 }

@@ -29,7 +29,7 @@ export default class SectionDropZone {
                 return;
             }
 
-            const shelf = document.querySelector(".SectionsShelf");
+            const shelf = dropZone.closest(".SectionsShelf");
 
             const selected = data.id;
             const targeted = Array.from(shelf.querySelectorAll(".SectionDropZone")).indexOf(dropZone);
