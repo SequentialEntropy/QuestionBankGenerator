@@ -62,6 +62,11 @@ class Section {
             this.shelf.appendChild(newFunction.root);
         })
     }
+    getIndex() {
+        const sectionShelf = this.root.closest(".SectionsShelf");
+        const allSections = Array.from(sectionShelf.querySelectorAll(".Section"));
+        return allSections.indexOf(this.root);
+    }
 }    
 
 export class PromptSection extends Section {
@@ -111,11 +116,6 @@ export class StepSection extends Section {
         });
         
         return buttonElement;
-    }
-    getIndex() {
-        const sectionShelf = this.root.closest(".SectionsShelf");
-        const allSections = Array.from(sectionShelf.querySelectorAll(".Section"));
-        return allSections.indexOf(this.root);
     }
 }
 
