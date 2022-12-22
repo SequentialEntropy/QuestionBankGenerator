@@ -2,29 +2,53 @@ const blocks = {
     "Addition": {
         "blockType": "Addition",
         "fields": [
-            null,
-            null
+            {
+                "fieldType": "operation",
+                "value": null
+            },
+            {
+                "fieldType": "operation",
+                "value": null
+            }
         ]
     },
     "Subtraction": {
         "blockType": "Subtraction",
         "fields": [
-            null,
-            null
+            {
+                "fieldType": "operation",
+                "value": null
+            },
+            {
+                "fieldType": "operation",
+                "value": null
+            }
         ]
     },
     "Multiplication": {
         "blockType": "Multiplication",
         "fields": [
-            null,
-            null
+            {
+                "fieldType": "operation",
+                "value": null
+            },
+            {
+                "fieldType": "operation",
+                "value": null
+            }
         ]
     },
     "Division": {
         "blockType": "Division",
         "fields": [
-            null,
-            null
+            {
+                "fieldType": "operation",
+                "value": null
+            },
+            {
+                "fieldType": "operation",
+                "value": null
+            }
         ]
     },
     "Variable": {
@@ -40,12 +64,25 @@ const functions = {
     },
     "Render": {
         "functionType": "Render",
-        "content": null
+        "fields": [
+            {
+                "fieldType": "operation",
+                "value": null
+            }
+        ]
     },
     "Set": {
         "functionType": "Set",
-        "variableName": null,
-        "valueBlock": null
+        "fields": [
+            {
+                "fieldType": "variable",
+                "value": null
+            },
+            {
+                "fieldType": "operation",
+                "value": null
+            }
+        ]
     }
 }
 
