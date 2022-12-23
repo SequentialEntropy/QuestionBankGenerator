@@ -20,6 +20,9 @@ export default class NumberBlock extends Block {
     constructor(data) {
         super(data);
         this.type = "number";
+        this.shelf.addEventListener("dragover", e => {
+            e.preventDefault();
+        })
     }
     initialiseFields(data) {
         const value = data.value;
