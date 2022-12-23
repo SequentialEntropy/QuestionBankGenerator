@@ -59,7 +59,6 @@ export default class Block {
             parentField.dispatchEvent(event);
         })
 
-        console.log(`Data: \n${JSON.stringify(data, null, 4)}`);
         this.initialiseFields(data);
     }
     initialiseFields(data) {
@@ -69,8 +68,6 @@ export default class Block {
         .filter(fieldElement => {
             return fieldElement.matches(".Block-field");
         })
-
-        console.log(fieldsData);
 
         for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
 
