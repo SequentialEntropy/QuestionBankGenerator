@@ -20,8 +20,8 @@ function CreateVariableBlock(variable) {
     return new VariableBlock(variable);
 }
 
-function CreateNumberBlock() {
-    return new NumberBlock();
+function CreateNumberBlock(value = null) {
+    return new NumberBlock(value);
 }
 
 export { CreateNumberBlock, CreateVariableBlock, CreateOperationBlock, operationTypes };

@@ -14,7 +14,9 @@ class VariableField {
         this.root.appendChild(this.input);
 
         this.root.addEventListener("select-number", e => {
-            const newBlock = CreateNumberBlock();
+            const value = e.detail;
+
+            const newBlock = CreateNumberBlock(value);
 
             this.input.classList.add("hidden");
 

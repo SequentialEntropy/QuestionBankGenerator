@@ -26,7 +26,7 @@ class Function {
     createShelf() {
         return this.shelfBuilder("block__default", []);
     }
-    constructor() {
+    constructor(fieldsData = []) {
         this.root = this.createRoot();
         this.shelf = this.createShelf();
         this.deleteButton = this.createDeleteButton();
@@ -65,6 +65,54 @@ class Function {
 
             parentField.dispatchEvent(event);
         })
+
+        this.initialiseFields(fieldsData);
+    }
+    initialiseFields(fieldsData) {
+
+        const fieldElements = Array.from(this.shelf.children)
+        .filter(fieldElement => {
+            return fieldElement.matches(".Block-field");
+        })
+
+        console.log(fieldElements);
+
+        for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
+
+            const fieldData = fieldsData[fieldIndex];
+
+            console.log(fieldData);
+
+            if (fieldData.value === null) {
+                continue;
+            }
+            
+            const fieldElement = fieldElements[fieldIndex];
+
+            let event;
+
+            console.log(fieldData.value.blockType);
+
+            switch (fieldData.value.blockType) {
+                case "Number":
+                    event = new CustomEvent("select-number", {
+                        detail: fieldData.value.value
+                    });
+                    break;
+                case "Variable":
+                    event = new CustomEvent("select-variable", {
+                        detail: fieldData.value.variableName
+                    });
+                    break;
+                case "Operation":
+                    event = new CustomEvent("select-operation", {
+                        detail: fieldData.value.operationName
+                    });
+                    break;
+            }
+
+            fieldElement.dispatchEvent(event);
+        }
     }
 }
 
@@ -75,8 +123,8 @@ class RenderFunction extends Function {
             new OperationField()
         ]);
     }
-    constructor() {
-        super();
+    constructor(fieldsData = []) {
+        super(fieldsData);
     }
 }
 
@@ -89,8 +137,8 @@ class SetFunction extends RenderFunction {
             new OperationField()
         ])
     }
-    constructor() {
-        super();
+    constructor(fieldsData = []) {
+        super(fieldsData);
     }
 }
 

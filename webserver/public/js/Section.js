@@ -59,7 +59,7 @@ class Section {
         this.root.appendChild(this.dropZone);
 
         content.forEach(e => {
-            const newFunction = createFunction(e.functionType);
+            const newFunction = createFunction(e.functionType, e.fields);
             this.shelf.appendChild(newFunction.root);
         })
     }

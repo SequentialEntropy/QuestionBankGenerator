@@ -5,8 +5,9 @@ const functionTypes = {
     Set: SetFunction
 }
 
-function createFunction(functionType) {
-    return new (functionTypes[functionType])();
+function createFunction(functionType, fieldsData = []) {
+    // console.log(fieldsData);
+    return new (functionTypes[functionType])(fieldsData);
 }
 
 export { createFunction, functionTypes };

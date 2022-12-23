@@ -1,52 +1,56 @@
 const blocks = {
     "Addition": {
-        "blockType": "Addition",
+        "blockType": "Operation",
+        "operationName": "Addition",
         "fields": [
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             },
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             }
         ]
     },
     "Subtraction": {
-        "blockType": "Subtraction",
+        "blockType": "Operation",
+        "operationName": "Subtraction",
         "fields": [
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             },
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             }
         ]
     },
     "Multiplication": {
-        "blockType": "Multiplication",
+        "blockType": "Operation",
+        "operationName": "Multiplication",
         "fields": [
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             },
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             }
         ]
     },
     "Division": {
-        "blockType": "Division",
+        "blockType": "Operation",
+        "operationName": "Division",
         "fields": [
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             },
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             }
         ]
@@ -54,6 +58,10 @@ const blocks = {
     "Variable": {
         "blockType": "Variable",
         "variableName": null
+    },
+    "Number": {
+        "blockType": "Number",
+        "value": null
     }
 }
 
@@ -66,7 +74,7 @@ const functions = {
         "functionType": "Render",
         "fields": [
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             }
         ]
@@ -75,11 +83,11 @@ const functions = {
         "functionType": "Set",
         "fields": [
             {
-                "fieldType": "variable",
+                "fieldType": "Variable",
                 "value": null
             },
             {
-                "fieldType": "operation",
+                "fieldType": "Operation",
                 "value": null
             }
         ]
