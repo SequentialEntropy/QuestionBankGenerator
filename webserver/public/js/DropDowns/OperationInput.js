@@ -55,7 +55,8 @@ function createOperationChoice(operationName) {
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Operation",
-                operationName: operationName
+                operationName: operationName,
+                fields: []
             }
         })
 
