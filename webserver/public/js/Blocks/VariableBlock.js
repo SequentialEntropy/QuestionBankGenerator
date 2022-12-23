@@ -18,9 +18,12 @@ export default class VariableBlock extends Block {
 
         `).children[0];
     }
-    constructor(variable) {
-        super();
+    constructor(data) {
+        super(data);
         this.type = "variable";
-        this.root.querySelector(".Block-variable").textContent = variable;
+    }
+    initialiseFields(data) {
+        const variableName = data.variableName;
+        this.root.querySelector(".Block-variable").textContent = variableName;
     }
 }

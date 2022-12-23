@@ -17,10 +17,12 @@ export default class NumberBlock extends Block {
 
         `).children[0];
     }
-    constructor(value = null) {
-        super();
+    constructor(data) {
+        super(data);
         this.type = "number";
-
+    }
+    initialiseFields(data) {
+        const value = data.value;
         if (value !== null) {
             this.shelf.value = value;
         }

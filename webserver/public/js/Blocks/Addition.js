@@ -7,8 +7,8 @@ export default class Addition extends Block {
         new Prompt("+"),
         new OperationField()
     ]}
-    constructor() {
-        super();
+    constructor(data) {
+        super(data);
         this.type = "Addition";
     }
 }

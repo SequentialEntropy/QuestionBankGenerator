@@ -34,7 +34,11 @@ function createNumberChoice() {
 
     choice.addEventListener("click", () => {
         const field = choice.closest(".Block-field");
-        const event = new Event("select-number");
+        const event = new CustomEvent("createBlock", {
+            detail: {
+                blockType: "Number"
+            }
+        });
 
         field.dispatchEvent(event);
     })
@@ -48,8 +52,11 @@ function createOperationChoice(operationName) {
 
     choice.addEventListener("click", () => {
         const field = choice.closest(".Block-field");
-        const event = new CustomEvent("select-operation", {
-            detail: operationName
+        const event = new CustomEvent("createBlock", {
+            detail: {
+                blockType: "Operation",
+                operationName: operationName
+            }
         })
 
         field.dispatchEvent(event);

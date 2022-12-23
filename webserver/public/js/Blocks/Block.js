@@ -29,7 +29,7 @@ export default class Block {
         
         return root;
     }
-    constructor() {
+    constructor(data) {
         this.type = "?";
 
         this.root = this.createRoot();
@@ -52,11 +52,41 @@ export default class Block {
                 return;
             }
 
-            const event = new Event("delete");
+            const event = new Event("deleteBlock");
 
             const parentField = this.root.closest(".Block-field");
 
             parentField.dispatchEvent(event);
         })
+
+        console.log(`Data: \n${JSON.stringify(data, null, 4)}`);
+        this.initialiseFields(data);
+    }
+    initialiseFields(data) {
+        const fieldsData = data.fields;
+
+        const fieldElements = Array.from(this.shelf.children)
+        .filter(fieldElement => {
+            return fieldElement.matches(".Block-field");
+        })
+
+        console.log(fieldsData);
+
+        for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
+
+            const fieldData = fieldsData[fieldIndex];
+
+            if (fieldData.value == null) {
+                continue;
+            }
+
+            const fieldElement = fieldElements[fieldIndex];
+
+            const event = new CustomEvent("createBlock", {
+                detail: fieldData.value
+            });
+
+            fieldElement.dispatchEvent(event);
+        }
     }
 }

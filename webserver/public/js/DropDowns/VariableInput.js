@@ -24,8 +24,11 @@ export function createVariableChoice(variableName) {
     choice.classList.add("block__variable");
     choice.addEventListener("click", () => {
         const field = choice.closest(".Block-field");
-        const event = new CustomEvent("select-variable", {
-            detail: variableName
+        const event = new CustomEvent("createBlock", {
+            detail: {
+                blockType: "Variable",
+                variableName: variableName
+            }
         });
 
         field.dispatchEvent(event);

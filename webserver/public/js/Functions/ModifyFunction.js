@@ -6,7 +6,6 @@ const functionTypes = {
 }
 
 function createFunction(functionType, fieldsData = []) {
-    // console.log(fieldsData);
     return new (functionTypes[functionType])(fieldsData);
 }
 

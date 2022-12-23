@@ -75,13 +75,9 @@ class Function {
             return fieldElement.matches(".Block-field");
         })
 
-        console.log(fieldElements);
-
         for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
 
             const fieldData = fieldsData[fieldIndex];
-
-            console.log(fieldData);
 
             if (fieldData.value === null) {
                 continue;
@@ -89,27 +85,9 @@ class Function {
             
             const fieldElement = fieldElements[fieldIndex];
 
-            let event;
-
-            console.log(fieldData.value.blockType);
-
-            switch (fieldData.value.blockType) {
-                case "Number":
-                    event = new CustomEvent("select-number", {
-                        detail: fieldData.value.value
-                    });
-                    break;
-                case "Variable":
-                    event = new CustomEvent("select-variable", {
-                        detail: fieldData.value.variableName
-                    });
-                    break;
-                case "Operation":
-                    event = new CustomEvent("select-operation", {
-                        detail: fieldData.value.operationName
-                    });
-                    break;
-            }
+            const event = new CustomEvent("createBlock", {
+                detail: fieldData.value
+            });
 
             fieldElement.dispatchEvent(event);
         }

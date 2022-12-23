@@ -1,6 +1,6 @@
 import VariableInput from "./DropDowns/VariableInput.js";
 import OperationInput from "./DropDowns/OperationInput.js";
-import { CreateNumberBlock, CreateVariableBlock, CreateOperationBlock } from "./Blocks/ModifyBlock.js";
+import { createBlock } from "./Blocks/ModifyBlock.js";
 
 class VariableField {
     createInput() {
@@ -13,40 +13,31 @@ class VariableField {
         this.input = this.createInput().root;
         this.root.appendChild(this.input);
 
-        this.root.addEventListener("select-number", e => {
-            const value = e.detail;
-
-            const newBlock = CreateNumberBlock(value);
-
-            this.input.classList.add("hidden");
-
-            this.root.appendChild(newBlock.root);
+        this.root.addEventListener("createBlock", e => {
+            this.initialiseField(e.detail);
         })
 
-        this.root.addEventListener("select-variable", e => {
-            const variableName = e.detail;
-            const newBlock = CreateVariableBlock(variableName);
-
-            this.input.classList.add("hidden");
-        
-            this.root.appendChild(newBlock.root);
-        })
-
-        this.root.addEventListener("select-operation", e => {
-            const operationType = e.detail;
-
-            const newBlock = CreateOperationBlock(operationType);
-
-            this.input.classList.add("hidden");
-
-            this.root.appendChild(newBlock.root);
-        })
-
-        this.root.addEventListener("delete", e => {
+        this.root.addEventListener("deleteBlock", e => {
             this.root.removeChild(this.root.querySelector(".Block"));
 
             this.input.classList.remove("hidden");
         })
+    }
+    initialiseField(data) {
+        if (!this.getAvailableBlockTypes().includes(data.blockType)) {
+            return;
+        }
+
+        const newBlock = createBlock(data);
+
+        this.input.classList.add("hidden");
+
+        this.root.appendChild(newBlock.root);
+    }
+    getAvailableBlockTypes() {
+        return [
+            "Variable"
+        ];
     }
 }
 
@@ -56,6 +47,13 @@ class OperationField extends VariableField {
     }
     constructor() {
         super();
+    }
+    getAvailableBlockTypes() {
+        return [
+            "Number",
+            "Variable",
+            "Operation"
+        ]
     }
 }
 

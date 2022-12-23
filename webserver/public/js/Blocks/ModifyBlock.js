@@ -12,16 +12,26 @@ const operationTypes = {
     Division: Division
 }
 
-function CreateOperationBlock(operationType) {
-    return new (operationTypes[operationType])();
+const blockTypes = {
+    Number: createNumberBlock,
+    Variable: createVariableBlock,
+    Operation: createOperationBlock
 }
 
-function CreateVariableBlock(variable) {
-    return new VariableBlock(variable);
+function createOperationBlock(data) {
+    return new (operationTypes[data.operationName])(data);
 }
 
-function CreateNumberBlock(value = null) {
-    return new NumberBlock(value);
+function createVariableBlock(data) {
+    return new VariableBlock(data);
 }
 
-export { CreateNumberBlock, CreateVariableBlock, CreateOperationBlock, operationTypes };
+function createNumberBlock(data) {
+    return new NumberBlock(data);
+}
+
+function createBlock(data) {
+    return blockTypes[data.blockType](data);
+}
+
+export { createBlock, operationTypes };
