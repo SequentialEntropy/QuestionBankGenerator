@@ -11,7 +11,7 @@ import { log } from "../logger.mjs";
 import { Tracker } from "../database/idTracker.mjs";
 import { jsonReader } from "../database/jsonReader.mjs";
 
-import { blocks, functions } from "./templates.mjs";
+import { templateBlocks, templateFunctions, fieldAcceptedBlockTypes } from "./templates.mjs";
 
 const defaults = {
     id: -1,
@@ -105,13 +105,19 @@ class Question {
     getVariables() {
         return this._data().variables;
     }
-    getSection(section) {
-        if (section == -1) {
+    getSection(sectionIndex) {
+        if (sectionIndex == -1) {
             return this.getPrompt();
-        } else if (section < 0 || section > (this.getSteps().length - 1)) {
+        } else if (sectionIndex < 0 || sectionIndex > (this.getSteps().length - 1)) {
             return false;
         }
         return this.getSteps()[section];
+    }
+    getFunction(section, functionIndex) {
+        if (functionIndex < 0 || functionIndex > (section.length - 1)) {
+            return false;
+        }
+        return section[functionIndex];
     }
     createFunction(selectedSection, functionType) {
         const section = this.getSection(selectedSection);
@@ -119,7 +125,7 @@ class Question {
             return false;
         }
 
-        section.push(functions[functionType]);
+        section.push(templateFunctions[functionType]);
 
         this._save();
 
@@ -131,11 +137,112 @@ class Question {
             return false;
         }
 
-        if (index < 0 || index > (section.length - 1)) {
+        if (this.getFunction(selectedSection, index) === false) {
             return false;
         }
 
         section.splice(index, 1);
+
+        this._save();
+
+        return true;
+    }
+    getFieldFromPath(sectionIndex, functionIndex, pathArray) {
+        let selectedSection = this.getSection(sectionIndex);
+
+        if (selectedSection === false) {
+            return false;
+        }
+
+        let selectedFunction = this.getFunction(selectedSection, functionIndex)
+        
+        if (selectedFunction === false) {
+            return false;
+        }
+
+        let field = {
+            value: selectedFunction
+        };
+
+        pathArray.forEach(component => {
+
+            if (!field.hasOwnProperty("value")) {
+                return false;
+            }
+
+            const block = field.value;
+
+            if (!block.hasOwnProperty("fields")) {
+                return false;
+            }
+            
+            const fields = block.fields;
+            
+            const index = parseInt(component);
+
+            if (isNaN(index)) {
+                return false;
+            }
+
+            if (index < 0 || index > fields.length - 1) {
+                return false;
+            }
+
+            field = fields[index];
+        })
+
+        return field;
+    }
+    createBlock(sectionIndex, functionIndex, pathArray, blockType, params) {
+        const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
+
+        if (field === false) {
+            return false;
+        }
+
+        if (field.value !== null) {
+            return false;
+        }
+
+        const acceptedBlockTypes = fieldAcceptedBlockTypes[field.fieldType];
+
+        if (!acceptedBlockTypes.includes(blockType)) {
+            return false;
+        }
+
+        let newBlock;
+
+        switch (blockType) {
+            case "Number":
+                newBlock = templateBlocks[blockType];
+                break;
+            case "Variable":
+                newBlock = templateBlocks[blockType];
+                if (!this.getVariables().includes(params)) {
+                    return false;
+                }
+                newBlock.variableName = params;
+                break;
+            case "Operation":
+                newBlock = templateBlocks[params];
+                newBlock.operationName = params;
+                break;
+        }
+
+        field.value = newBlock;
+
+        this._save();
+
+        return true;
+    }
+    deleteBlock(sectionIndex, functionIndex, pathArray) {
+        const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
+
+        if (field === false) {
+            return false;
+        }
+
+        field.value = null;
 
         this._save();
 

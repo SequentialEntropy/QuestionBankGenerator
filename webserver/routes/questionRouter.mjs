@@ -5,7 +5,7 @@ import express from "express";
 
 import { Question, getQuestionById } from "../../questions/question.mjs";
 
-import { blocks, functions } from "../../questions/templates.mjs";
+import { templateFunctions } from "../../questions/templates.mjs";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -75,7 +75,7 @@ router.get("/api/:questionId/createFunction/:sectionId/:functionType", auth, (re
         return;
     }
 
-    if (!(functions.hasOwnProperty(req.params.functionType))) {
+    if (!(templateFunctions.hasOwnProperty(req.params.functionType))) {
         res.sendStatus(400);
         return;
     }
@@ -98,6 +98,24 @@ router.get("/api/:questionId/deleteFunction/:sectionId/:functionIndex", auth, (r
     }
 
     if (!req.question.deleteFunction(sectionId, functionIndex)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    res.sendStatus(200);
+})
+
+router.get("/api/:questionId/createBlock/:sectionIndex/:functionIndex/:path/:blockType/:params", auth, (req, res) => {
+    if (!req.question.createBlock(req.params.sectionIndex, req.params.functionIndex, req.params.path.split("_"), req.params.blockType, req.params.params)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    res.sendStatus(201);
+})
+
+router.get("/api/:questionId/deleteBlock/:sectionIndex/:functionIndex/:path", auth, (req, res) => {
+    if (!req.question.deleteBlock(req.params.sectionIndex, req.params.functionIndex, req.params.path.split("_"))) {
         res.sendStatus(400);
         return;
     }

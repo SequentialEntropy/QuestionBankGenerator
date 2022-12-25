@@ -27,4 +27,27 @@ export default class QuestionAPI {
     static deleteFunction(section, index) {
         return fetch(`/question/api/${QuestionAPI.questionId}/deleteFunction/${section}/${index}`);
     }
+    static createBlock(address, blockData) {
+        return fetch(`/question/api/${QuestionAPI.questionId}/createBlock/${addressToEndpoint(address)}/${blockData.blockType}/${blockDataToParams(blockData)}`);
+    }
+    static deleteBlock(address) {
+        return fetch(`/question/api/${QuestionAPI.questionId}/deleteBlock/${addressToEndpoint(address)}`);
+    }
+}
+
+function addressToEndpoint(address) {
+    return `${address.sectionIndex}/${address.functionIndex}/${address.path.join("_")}`
+}
+
+function blockDataToParams(blockData) {
+    let params;
+    switch (blockData.blockType) {
+        case "Variable":
+            params = blockData.variableName;
+            break;
+        case "Operation":
+            params = blockData.operationName;
+            break;
+    }
+    return params;
 }

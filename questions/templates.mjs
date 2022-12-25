@@ -1,4 +1,4 @@
-const blocks = {
+const templateBlocks = {
     "Addition": {
         "blockType": "Operation",
         "operationName": "Addition",
@@ -65,7 +65,7 @@ const blocks = {
     }
 }
 
-const functions = {
+const templateFunctions = {
     "Text": {
         "functionType": "Text",
         "content": null
@@ -94,4 +94,15 @@ const functions = {
     }
 }
 
-export { blocks, functions };
+const fieldAcceptedBlockTypes = {
+    "Variable": [
+        "Variable"
+    ],
+    "Operation": [
+        "Number",
+        "Variable",
+        "Operation"
+    ]
+}
+
+export { templateBlocks, templateFunctions, fieldAcceptedBlockTypes };

@@ -85,7 +85,7 @@ class Function {
             
             const fieldElement = fieldElements[fieldIndex];
 
-            const event = new CustomEvent("createBlock", {
+            const event = new CustomEvent("loadBlock", {
                 detail: fieldData.value
             });
 
