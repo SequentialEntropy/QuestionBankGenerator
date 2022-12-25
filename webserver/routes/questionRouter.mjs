@@ -123,6 +123,23 @@ router.get("/api/:questionId/deleteBlock/:sectionIndex/:functionIndex/:path", au
     res.sendStatus(200);
 })
 
+router.get("/api/:questionId/editBlock/:sectionIndex/:functionIndex/:path/:newValue", auth, (req, res) => {
+    if (!req.question.editBlock(req.params.sectionIndex, req.params.functionIndex, req.params.path.split("_"), req.params.newValue)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    res.sendStatus(200);
+})
+
+router.get("/api/:questionId/editBlock/:sectionIndex/:functionIndex/:path/", auth, (req, res) => {
+    if (!req.question.clearBlock(req.params.sectionIndex, req.params.functionIndex, req.params.path.split("_"))) {
+        res.sendStatus(400);
+    }
+
+    res.sendStatus(200);
+})
+
 
 
 

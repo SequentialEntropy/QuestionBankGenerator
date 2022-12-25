@@ -35,6 +35,10 @@ class VariableField {
 
             QuestionAPI.deleteBlock(address);
         })
+
+        this.root.addEventListener("editBlock", e => {
+            QuestionAPI.editBlock(this.getPath(), e.detail);
+        })
     }
     initialiseField(data) {
         if (!this.getAvailableBlockTypes().includes(data.blockType)) {

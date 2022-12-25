@@ -111,7 +111,7 @@ class Question {
         } else if (sectionIndex < 0 || sectionIndex > (this.getSteps().length - 1)) {
             return false;
         }
-        return this.getSteps()[section];
+        return this.getSteps()[sectionIndex];
     }
     getFunction(section, functionIndex) {
         if (functionIndex < 0 || functionIndex > (section.length - 1)) {
@@ -244,6 +244,46 @@ class Question {
 
         field.value = null;
 
+        this._save();
+
+        return true;
+    }
+    editBlock(sectionIndex, functionIndex, pathArray, newValue) {
+        const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
+
+        if (field === false) {
+            return false;
+        }
+        
+        const newNum = parseFloat(newValue);
+
+        if (isNaN(newNum)) {
+            return false;
+        }
+
+        if (!field.hasOwnProperty("value")) {
+            return false;
+        }
+
+        field.value.value = newNum;
+
+        this._save();
+
+        return true;
+    }
+    clearBlock(sectionIndex, functionIndex, pathArray) {
+        const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
+
+        if (field === false) {
+            return false;
+        }
+
+        if (!field.hasOwnProperty("value")) {
+            return false;
+        }
+
+        field.value.value = null;
+        
         this._save();
 
         return true;

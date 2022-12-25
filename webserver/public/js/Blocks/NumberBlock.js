@@ -1,3 +1,4 @@
+import QuestionAPI from "../QuestionAPI.js";
 import Block from "./Block.js";
 
 export default class NumberBlock extends Block {
@@ -22,6 +23,14 @@ export default class NumberBlock extends Block {
         this.type = "number";
         this.shelf.addEventListener("dragover", e => {
             e.preventDefault();
+        })
+        this.shelf.addEventListener("input", e => {
+            const field = this.root.closest(".Block-field");
+            const event = new CustomEvent("editBlock", {
+                detail: this.shelf.value
+            })
+
+            field.dispatchEvent(event);
         })
     }
     initialiseFields(data) {
