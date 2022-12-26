@@ -166,6 +166,10 @@ class TextFunction extends Function {
         shelf.addEventListener("focus", e => {
             shelf.classList.add("Function__text__focus");
             if (shelf.classList.contains("Function__text__default")) {
+                const width = shelf.clientWidth;
+
+                shelf.style.minWidth = width + "px";
+
                 shelf.textContent = "";
                 
                 shelf.classList.remove("Function__text__default");
@@ -178,6 +182,7 @@ class TextFunction extends Function {
                 shelf.textContent = "Text";
                 shelf.classList.add("Function__text__default");
             }
+            shelf.style.minWidth = "";
         })
         
         shelf.addEventListener("input", e => {
@@ -186,7 +191,7 @@ class TextFunction extends Function {
         
         return shelf;
     }
-    constructor(fieldsData = []) {
+    constructor(fieldsData = null) {
         super(fieldsData);
     }
     initialiseFields(fieldsData) {

@@ -1,15 +1,14 @@
 :root {
-    --field-padding: 0.75rem;
+    --field-padding: 0.5rem;
     --field-padding-vertical: calc(var(--field-padding) * 1.5);
-    --field-font-size: 1rem;
+    --field-font-size: 0.75rem;
 
     --block-padding: 0.5rem;
     --block-padding-vertical: var(--block-padding);
 
-    --function-padding: 1rem;
-    --function-padding-vertical: calc(var(--function-padding) / 2);
-
-    --function-font-size: calc(var(--function-padding) * 1.5);
+    --function-padding: 0.5rem;
+    --function-padding-vertical: var(--function-padding);
+    --function-font-size: 1rem;
 
     --radius: 0.5rem;
     --section-title-height: 1.5rem;
@@ -304,7 +303,7 @@
     padding: var(--field-padding-vertical) var(--field-padding);
 }
 .Block-input__number {
-    max-width: 7rem;
+    max-width: 5rem;
 }
 .Block-input:focus {
     outline-color: rgba(0, 0, 0, 0.5);
@@ -344,8 +343,6 @@
 .Function__text {
     display: flex;
     font-size: var(--function-font-size);
-    /* text-align: center; */
-    min-width: 4rem;
 }
 .Function__text__default {
     color: var(--default-text-color);

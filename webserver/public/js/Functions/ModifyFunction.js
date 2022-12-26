@@ -6,7 +6,7 @@ const functionTypes = {
     Text: TextFunction
 }
 
-function createFunction(functionType, fieldsData = []) {
+function createFunction(functionType, fieldsData) {
     return new (functionTypes[functionType])(fieldsData);
 }
 
