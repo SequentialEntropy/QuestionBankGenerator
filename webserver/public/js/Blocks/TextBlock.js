@@ -1,6 +1,6 @@
-import TextBlock from "./TextBlock.js"
+import Block from "./Block.js";
 
-export default class NumberBlock extends TextBlock {
+export default class TextBlock extends Block {
     createRoot() {
         const range = document.createRange();
 
@@ -9,7 +9,7 @@ export default class NumberBlock extends TextBlock {
         return range.createContextualFragment(`
 
         <div class="Block" draggable="false">
-            <input class="Block-shelf block__default Block-input Block-input__number" type="number" placeholder="Number"/>
+            <input class="Block-shelf block__default Block-input" type="text" placeholder="Number"/>
             <button class="Block-delete">
             ×
             </button>
@@ -19,7 +19,7 @@ export default class NumberBlock extends TextBlock {
     }
     constructor(data) {
         super(data);
-        this.type = "Number";
+        this.type = "Text";
         this.shelf.addEventListener("dragover", e => {
             e.preventDefault();
         })

@@ -91,7 +91,7 @@ class VariableField {
         
         indexes.unshift(fieldElements.indexOf(currentField));
 
-        // Function # in Sections
+        // Function # in Section
 
         const currentFunction = parentFunction;
 

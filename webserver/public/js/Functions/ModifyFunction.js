@@ -1,8 +1,9 @@
-import { RenderFunction, SetFunction } from "./Function.js";
+import { RenderFunction, SetFunction, TextFunction } from "./Function.js";
 
 const functionTypes = {
     Render: RenderFunction,
-    Set: SetFunction
+    Set: SetFunction,
+    Text: TextFunction
 }
 
 function createFunction(functionType, fieldsData = []) {

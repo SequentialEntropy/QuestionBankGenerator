@@ -68,7 +68,7 @@ const templateBlocks = {
 const templateFunctions = {
     "Text": {
         "functionType": "Text",
-        "content": null
+        "value": null
     },
     "Render": {
         "functionType": "Render",

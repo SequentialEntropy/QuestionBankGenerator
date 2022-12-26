@@ -288,6 +288,44 @@ class Question {
 
         return true;
     }
+    editFunction(sectionIndex, functionIndex, newValue) {
+        const selectedSection = this.getSection(sectionIndex);
+
+        if (selectedSection === false) {
+            return false;
+        }
+
+        const selectedFunction = this.getFunction(selectedSection, functionIndex);
+
+        if (selectedFunction === false) {
+            return false;
+        }
+
+        selectedFunction.value = newValue;
+
+        this._save();
+
+        return true;
+    }
+    clearFunction(sectionIndex, functionIndex, newValue) {
+        const selectedSection = this.getSection(sectionIndex);
+
+        if (selectedSection === false) {
+            return false;
+        }
+
+        const selectedFunction = this.getFunction(selectedSection, functionIndex);
+
+        if (selectedFunction === false) {
+            return false;
+        }
+
+        selectedFunction.value = null;
+
+        this._save();
+
+        return true;
+    }
 }
 
 function getQuestionById(id) {

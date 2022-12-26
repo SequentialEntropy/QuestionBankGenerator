@@ -1,9 +1,15 @@
 :root {
-    --block-height: 3rem;
-    --block-padding: 0.75rem;
-    --block-padding-vertical: 0.75rem;
+    --field-padding: 0.75rem;
+    --field-padding-vertical: calc(var(--field-padding) * 1.5);
     --field-font-size: 1rem;
-    --function-font-size: 1.5rem;
+
+    --block-padding: 0.5rem;
+    --block-padding-vertical: var(--block-padding);
+
+    --function-padding: 1rem;
+    --function-padding-vertical: calc(var(--function-padding) / 2);
+
+    --function-font-size: calc(var(--function-padding) * 1.5);
 
     --radius: 0.5rem;
     --section-title-height: 1.5rem;
@@ -21,10 +27,9 @@
 /* Delete Button */
 
 .deleteButton {
-    min-height: var(--block-height);
     font-size: var(--field-font-size);
 
-    padding: var(--block-padding-vertical) var(--block-padding);
+    padding: var(--field-padding-vertical) var(--field-padding);
     margin: 0 2rem;
 
     color: white;
@@ -41,10 +46,9 @@
 /* Drop Down */
 
 .dropDown-toggle {
-    min-height: var(--block-height);
     background-color: white;
     border-radius: var(--radius);
-    padding: var(--block-padding-vertical) var(--block-padding);
+    padding: var(--field-padding-vertical) var(--field-padding);
     font-size: var(--field-font-size);
     border: none;
     cursor: pointer;
@@ -73,9 +77,8 @@
 }
 
 .dropDown-choice {
-    min-height: var(--block-height);
     background-color: white;
-    padding: var(--block-padding-vertical) var(--block-padding);
+    padding: var(--field-padding-vertical) var(--field-padding);
     font-size: var(--field-font-size);
     border: none;
     cursor: pointer;
@@ -155,7 +158,6 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    min-height: var(--block-height);
 }
 
 .Section-title {
@@ -165,7 +167,6 @@
 }
 
 .SectionsShelf-createSection {
-    height: var(--block-height);
     width: 100%;
     padding: 10px 0;
     font-size: var(--section-title-height);
@@ -195,22 +196,35 @@
 
 .Function {
     position: relative;
+    width: fit-content;
+}
+
+.Function:has(.Function-shelf.block__operation) {
+    width: 100%;
 }
 
 .FunctionsEditor {
-    min-height: var(--block-height);
     background-color: white;
     border-radius: var(--radius);
     padding: 1rem;
     outline: 0.1rem solid var(--default-outline-color);
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
     gap: 1rem;
+}
+
+.FunctionsShelf {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .Function-shelf {
     border-radius: var(--radius);
-    padding: 0.5rem 1rem;
+    padding: var(--function-padding-vertical) var(--function-padding);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -221,6 +235,7 @@
 
 .FunctionsShelf-createFunction {
     position: relative;
+    width: 100%;
 }
 .FunctionsShelf-createFunction .dropDown-list {
     width: 100%;
@@ -245,7 +260,7 @@
 .block__render > .Block-field > .dropDown >
 .dropDown-toggle,
 .block__render > .Block-field > .Block >
-.Block-input:not(.Block-shelf__hover)
+.Block-input:not(.Block-shelf__hover):not(:focus)
 {
     outline: 0.1rem solid var(--default-outline-color);
 }
@@ -261,11 +276,10 @@
 
 
 .Block-shelf {
-    min-height: var(--block-height);
     border-radius: var(--radius);
     outline: 0.2rem solid white;
     display: flex;
-    padding: 0.5rem;
+    padding: var(--block-padding-vertical) var(--block-padding);
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -287,14 +301,18 @@
 .Block-input {
     font-size: var(--field-font-size);
     border: none;
+    padding: var(--field-padding-vertical) var(--field-padding);
+}
+.Block-input__number {
     max-width: 7rem;
-    padding: var(--block-padding-vertical) var(--block-padding);
 }
 .Block-input:focus {
     outline-color: rgba(0, 0, 0, 0.5);
+    outline-width: 0.2rem;
 }
 .Block-variable {
-    padding: var(--block-padding-vertical) var(--block-padding);
+    font-size: var(--field-font-size);
+    padding: var(--field-padding-vertical) var(--field-padding);
 }
 
 
@@ -305,16 +323,16 @@
     right: -0.5rem;
     top: -0.5rem;
     font-size: var(--field-font-size);
-
+    
     color: white;
     background-color: #ffa0a0;
     border: none;
     border-radius: 50%;
     transition-duration: 0.1s;
     cursor: pointer;
-
+    
     aspect-ratio: 1 / 1;
-
+    
     user-select: none;
 }
 .Block-delete:hover {
@@ -322,4 +340,16 @@
 }
 .Block-delete__show {
     opacity: 1;
+}
+.Function__text {
+    display: flex;
+    font-size: var(--function-font-size);
+    /* text-align: center; */
+    min-width: 4rem;
+}
+.Function__text__default {
+    color: var(--default-text-color);
+}
+.Function__text * {
+    margin: 0;
 }

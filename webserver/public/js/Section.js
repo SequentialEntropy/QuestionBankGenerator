@@ -59,7 +59,13 @@ class Section {
         this.root.appendChild(this.dropZone);
 
         content.forEach(e => {
-            const newFunction = createFunction(e.functionType, e.fields);
+            let functionData;
+            if (e.functionType != "Text") {
+                functionData = e.fields;
+            } else {
+                functionData = e.value;
+            }
+            const newFunction = createFunction(e.functionType, functionData);
             this.shelf.appendChild(newFunction.root);
         })
     }
@@ -126,6 +132,9 @@ class CreateFunctionButton extends DropDown {
         super();
         this.toggle.textContent = "+ Create Function";
         this.root.classList.add("FunctionsShelf-createFunction");
+
+        const textChoice = createFunctionChoice("Text");
+        this.list.appendChild(textChoice);
 
         const renderChoice = createFunctionChoice("Render");
         this.list.appendChild(renderChoice);

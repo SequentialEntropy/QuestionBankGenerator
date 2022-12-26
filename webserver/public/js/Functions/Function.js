@@ -1,4 +1,5 @@
 import { VariableField, OperationField, Prompt } from "../Field.js";
+import QuestionAPI from "../QuestionAPI.js";
 
 class Function {
     buildShelf(className, shelfContent) {
@@ -92,6 +93,40 @@ class Function {
             fieldElement.dispatchEvent(event);
         }
     }
+    getPath() {
+        let shelf;
+
+        const currentFunction = this.root;
+
+        const parentSection = currentFunction.closest(".Section");
+
+        shelf = parentSection.querySelector(".FunctionsShelf");
+
+        const functionElements = Array.from(shelf.children)
+        .filter(functionElement => {
+            return functionElement.matches(".Function");
+        })
+
+        const functionIndex = functionElements.indexOf(currentFunction);
+
+        // Section #
+
+        const currentSection = parentSection;
+
+        shelf = currentSection.closest(".SectionsShelf");
+
+        const sectionElements = Array.from(shelf.children)
+        .filter(sectionElement => {
+            return sectionElement.matches(".Section");
+        })
+
+        const sectionIndex = sectionElements.indexOf(currentSection) - 1;
+
+        return {
+            sectionIndex: sectionIndex,
+            functionIndex: functionIndex
+        };
+    }
 }
 
 class RenderFunction extends Function {
@@ -120,4 +155,48 @@ class SetFunction extends RenderFunction {
     }
 }
 
-export { RenderFunction, SetFunction };
+class TextFunction extends Function {
+    createShelf() {
+        const shelf = document.createElement("span");
+        shelf.classList.add("Function-shelf");
+        shelf.classList.add("Block-input");
+        shelf.classList.add("Function__text");
+        shelf.contentEditable = true;
+        
+        shelf.addEventListener("focus", e => {
+            shelf.classList.add("Function__text__focus");
+            if (shelf.classList.contains("Function__text__default")) {
+                shelf.textContent = "";
+                
+                shelf.classList.remove("Function__text__default");
+            }
+        })
+        
+        shelf.addEventListener("blur", e => {
+            shelf.classList.remove("Function__text__focus");
+            if (shelf.textContent == "") {
+                shelf.textContent = "Text";
+                shelf.classList.add("Function__text__default");
+            }
+        })
+        
+        shelf.addEventListener("input", e => {
+            QuestionAPI.editFunction(this.getPath(), shelf.textContent);
+        })
+        
+        return shelf;
+    }
+    constructor(fieldsData = []) {
+        super(fieldsData);
+    }
+    initialiseFields(fieldsData) {
+        if (fieldsData === null) {
+            this.shelf.classList.add("Function__text__default");
+            this.shelf.textContent = "Text";
+            return;
+        }
+        this.shelf.textContent = fieldsData;
+    }
+}
+
+export { RenderFunction, SetFunction, TextFunction };

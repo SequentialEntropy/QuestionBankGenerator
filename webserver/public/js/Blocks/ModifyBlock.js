@@ -4,6 +4,7 @@ import Multiplication from "./Multiplication.js";
 import Division from "./Division.js";
 import VariableBlock from "./VariableBlock.js";
 import NumberBlock from "./NumberBlock.js";
+import TextBlock from "./TextBlock.js";
 
 const operationTypes = {
     Addition: Addition,
@@ -13,6 +14,7 @@ const operationTypes = {
 }
 
 const blockTypes = {
+    Text: createTextBlock,
     Number: createNumberBlock,
     Variable: createVariableBlock,
     Operation: createOperationBlock
@@ -28,6 +30,10 @@ function createVariableBlock(data) {
 
 function createNumberBlock(data) {
     return new NumberBlock(data);
+}
+
+function createTextBlock(data) {
+    return new TextBlock(data);
 }
 
 function createBlock(data) {

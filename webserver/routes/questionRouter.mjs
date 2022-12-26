@@ -140,6 +140,23 @@ router.get("/api/:questionId/editBlock/:sectionIndex/:functionIndex/:path/", aut
     res.sendStatus(200);
 })
 
+router.get("/api/:questionId/editFunction/:sectionIndex/:functionIndex/:newValue", auth, (req, res) => {
+    if (!req.question.editFunction(req.params.sectionIndex, req.params.functionIndex, req.params.newValue)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    res.sendStatus(200);
+})
+
+router.get("/api/:questionId/editFunction/:sectionIndex/:functionIndex/", auth, (req, res) => {
+    if (!req.question.clearFunction(req.params.sectionIndex, req.params.functionIndex)) {
+        res.sendStatus(400);
+    }
+
+    res.sendStatus(200);
+})
+
 
 
 

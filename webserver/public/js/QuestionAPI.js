@@ -27,19 +27,26 @@ export default class QuestionAPI {
     static deleteFunction(section, index) {
         return fetch(`/question/api/${getQuestionId()}/deleteFunction/${section}/${index}`);
     }
-    static createBlock(address, blockData) {
-        return fetch(`/question/api/${getQuestionId()}/createBlock/${addressToEndpoint(address)}/${blockData.blockType}/${blockDataToParams(blockData)}`);
+    static createBlock(blockAddress, blockData) {
+        return fetch(`/question/api/${getQuestionId()}/createBlock/${blockAddressToEndpoint(blockAddress)}/${blockData.blockType}/${blockDataToParams(blockData)}`);
     }
-    static deleteBlock(address) {
-        return fetch(`/question/api/${getQuestionId()}/deleteBlock/${addressToEndpoint(address)}`);
+    static deleteBlock(blockAddress) {
+        return fetch(`/question/api/${getQuestionId()}/deleteBlock/${blockAddressToEndpoint(blockAddress)}`);
     }
-    static editBlock(address, newValue) {
-        return fetch(`/question/api/${getQuestionId()}/editBlock/${addressToEndpoint(address)}/${newValue}`);
+    static editBlock(blockAddress, newValue) {
+        return fetch(`/question/api/${getQuestionId()}/editBlock/${blockAddressToEndpoint(blockAddress)}/${newValue}`);
+    }
+    static editFunction(functionAddress, newValue) {
+        return fetch(`/question/api/${getQuestionId()}/editFunction/${functionAddressToEndpoint(functionAddress)}/${newValue}`)
     }
 }
 
-function addressToEndpoint(address) {
-    return `${address.sectionIndex}/${address.functionIndex}/${address.path.join("_")}`
+function blockAddressToEndpoint(blockAddress) {
+    return `${blockAddress.sectionIndex}/${blockAddress.functionIndex}/${blockAddress.path.join("_")}`;
+}
+
+function functionAddressToEndpoint(functionAddress) {
+    return `${functionAddress.sectionIndex}/${functionAddress.functionIndex}`;
 }
 
 function blockDataToParams(blockData) {
