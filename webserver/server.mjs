@@ -39,7 +39,7 @@ app.set('view engine', 'ejs');
 
 // Log all incoming requests
 app.use('/', (req, res, next) => {
-    log("Listener", req.url);
+    log("Listener", `[${req.method}] ${req.url}`);
     next();
 });
 
