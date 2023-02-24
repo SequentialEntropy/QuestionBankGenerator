@@ -165,6 +165,11 @@ class TextFunction extends Function {
         
         shelf.addEventListener("focus", e => {
             shelf.classList.add("Function__text__focus");
+
+            const height = shelf.clientHeight;
+
+            shelf.style.minHeight = height + "px";
+
             if (shelf.classList.contains("Function__text__default")) {
                 const width = shelf.clientWidth;
 
@@ -183,6 +188,8 @@ class TextFunction extends Function {
                 shelf.classList.add("Function__text__default");
             }
             shelf.style.minWidth = "";
+
+            shelf.style.minHeight = "";
         })
         
         shelf.addEventListener("input", e => {

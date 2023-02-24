@@ -347,6 +347,14 @@
 .Function__text__default {
     color: var(--default-text-color);
 }
-.Function__text * {
-    margin: 0;
+.Function__text__focus {
+    outline-color: rgba(0, 0, 0, 0.5);
+    outline-style: solid;
+    /* min-height: 3rem; */
+    /* padding: calc(var(--field-padding-vertical) + var(--function-font-size)) var(--field-padding); */
+    /* padding: calc(var(--function-font-size)) var(--field-padding);
+    line-height: var(--function-font-size); */
 }
+/* .Function__text * {
+    margin: 0;
+} */
