@@ -1,0 +1,350 @@
+:root {
+  --field-padding: 0.5rem;
+  --field-padding-vertical: calc(var(--field-padding) * 1.5);
+  --field-font-size: 0.75rem;
+  --block-padding: 0.5rem;
+  --block-padding-vertical: var(--block-padding);
+  --function-padding: 0.5rem;
+  --function-padding-vertical: var(--function-padding);
+  --function-font-size: 1rem;
+  --radius: 0.5rem;
+  --section-title-height: 1.5rem;
+  --default-outline-color: rgb(200, 200, 200);
+  --default-text-color: #757575 ;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* Delete Button */
+.deleteButton {
+  font-size: var(--field-font-size);
+  padding: var(--field-padding-vertical) var(--field-padding);
+  margin: 0 2rem;
+  color: white;
+  background-color: #ffa0a0;
+  border: none;
+  border-radius: var(--radius);
+  transition-duration: 0.1s;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  filter: brightness(0.9) saturate(150%);
+}
+
+/* Drop Down */
+.dropDown-toggle {
+  background-color: white;
+  border-radius: var(--radius);
+  padding: var(--field-padding-vertical) var(--field-padding);
+  font-size: var(--field-font-size);
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.1s;
+}
+
+.dropDown-toggle__default {
+  color: var(--default-text-color);
+}
+
+.dropDown-toggle:hover, .dropDown-toggle:focus {
+  filter: brightness(0.95);
+}
+
+.dropDown-list {
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: var(--radius);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dropDown-list__show {
+  display: flex;
+}
+
+.dropDown-choice {
+  background-color: white;
+  padding: var(--field-padding-vertical) var(--field-padding);
+  font-size: var(--field-font-size);
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.1s;
+}
+
+.dropDown-choice:hover {
+  filter: brightness(0.9) saturate(150%);
+}
+
+.hidden {
+  display: none;
+}
+
+.block__variable {
+  background-color: #9eb0ff;
+  color: white;
+}
+
+.block__operation {
+  background-color: #74caff;
+  color: white;
+}
+
+.block__default {
+  background-color: white;
+  color: black;
+}
+
+.block__render {
+  background-color: white;
+  color: var(--default-text-color);
+  outline: 0.1rem solid var(--default-outline-color);
+}
+
+/* Sections */
+.SectionsShelf {
+  width: 100%;
+  background-color: rgb(240, 240, 240);
+}
+
+.Section {
+  transition-duration: 0.5s;
+}
+
+.Section__transition {
+  overflow: hidden;
+}
+
+.Section-area {
+  min-height: 3rem;
+  padding: 2rem;
+  /* background-color: #ededed; */
+  width: 100%;
+  /* background-color: rgb(240, 240, 240); */
+  background-color: white;
+}
+
+.SectionDropZone {
+  width: 100%;
+  height: 1rem;
+  transition-duration: 0.5s;
+}
+
+.SectionDropZone__active {
+  height: 5rem;
+}
+
+.Section-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.Section-title {
+  font-size: var(--section-title-height);
+  color: rgb(100, 100, 100);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.SectionsShelf-createSection {
+  width: 100%;
+  padding: 10px 0;
+  font-size: var(--section-title-height);
+  color: white;
+  background-color: #a0dbff;
+  border: none;
+  border-radius: var(--radius);
+  transition-duration: 0.1s;
+  cursor: pointer;
+}
+
+.SectionsShelf-createSection:hover {
+  background-color: #74caff;
+}
+
+.Section-delete {
+  opacity: 0;
+}
+
+.Section-area:hover .Section-delete {
+  opacity: 1;
+}
+
+.Function {
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.Function:has(.Function-shelf.block__operation) {
+  width: 100%;
+}
+
+.FunctionsEditor {
+  background-color: white;
+  border-radius: var(--radius);
+  padding: 1rem;
+  outline: 0.1rem solid var(--default-outline-color);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.FunctionsShelf {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.Function-shelf {
+  border-radius: var(--radius);
+  padding: var(--function-padding-vertical) var(--function-padding);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: space-between;
+  gap: 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.FunctionsShelf-createFunction {
+  position: relative;
+  width: 100%;
+}
+
+.FunctionsShelf-createFunction .dropDown-list {
+  width: 100%;
+}
+
+.FunctionsShelf-createFunction .dropDown-toggle {
+  width: 100%;
+  font-size: var(--function-font-size);
+  outline: 0.1rem dashed var(--default-outline-color);
+  color: var(--default-text-color);
+}
+
+.Function-shelf__hover {
+  outline-width: 0.2rem;
+  outline-style: solid;
+  outline-color: rgba(0, 0, 0, 0.5);
+}
+
+.block__render > .Block-field > .dropDown > .dropDown-toggle,
+.block__render > .Block-field > .Block > .Block-input:not(.Block-shelf__hover):not(:focus) {
+  outline: 0.1rem solid var(--default-outline-color);
+}
+
+.Block {
+  position: relative;
+}
+
+.Block-field {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.Block-shelf {
+  border-radius: var(--radius);
+  outline: 0.2rem solid white;
+  display: flex;
+  padding: var(--block-padding-vertical) var(--block-padding);
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition-duration: 0.1s;
+  flex-wrap: wrap;
+  outline-offset: -0.2rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.Block-shelf__hover {
+  outline-color: rgba(0, 0, 0, 0.5);
+}
+
+.Block-prompt {
+  font-size: var(--function-font-size);
+}
+
+.Block-input {
+  font-size: var(--field-font-size);
+  border: none;
+  padding: var(--field-padding-vertical) var(--field-padding);
+}
+
+.Block-input__number {
+  max-width: 5rem;
+}
+
+.Block-input:focus {
+  outline-color: rgba(0, 0, 0, 0.5);
+  outline-width: 0.2rem;
+}
+
+.Block-variable {
+  font-size: var(--field-font-size);
+  padding: var(--field-padding-vertical) var(--field-padding);
+}
+
+.Block-delete {
+  position: absolute;
+  opacity: 0;
+  right: -0.5rem;
+  top: -0.5rem;
+  font-size: var(--field-font-size);
+  color: white;
+  background-color: #ffa0a0;
+  border: none;
+  border-radius: 50%;
+  transition-duration: 0.1s;
+  cursor: pointer;
+  aspect-ratio: 1/1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.Block-delete:hover {
+  filter: brightness(0.9) saturate(150%);
+}
+
+.Block-delete__show {
+  opacity: 1;
+}
+
+.Function__text {
+  display: flex;
+  font-size: var(--function-font-size);
+}
+
+.Function__text__default {
+  color: var(--default-text-color);
+}
+
+.Function__text__focus {
+  outline-color: rgba(0, 0, 0, 0.5);
+  outline-style: solid;
+  /* min-height: 3rem; */
+  /* padding: calc(var(--field-padding-vertical) + var(--function-font-size)) var(--field-padding); */
+  /* padding: calc(var(--function-font-size)) var(--field-padding);
+  line-height: var(--function-font-size); */
+}
+
+/* .Function__text * {
+    margin: 0;
+} *//*# sourceMappingURL=question.styles.css.map */

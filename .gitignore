@@ -1,13 +1,13 @@
-classrooms/classroomList.json
-classrooms/nameToId.json
+database/classroomList.json
+database/classroomNameToId.json
 
-users/userList.json
-users/nameToId.json
+database/userList.json
+database/userNameToId.json
 
-sets/setList.json
-sets/nameToId.json
+database/setList.json
+database/setNameToId.json
 
-questions/questionList.json
+database/questionList.json
 
 /test/
 
