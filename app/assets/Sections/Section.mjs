@@ -38,7 +38,9 @@ class Section {
         this.shelf.addEventListener("createFunction", e => {
             const functionType = e.detail;
 
-            QuestionAPI.createFunction(this.getIndex() - 1, functionType);
+            QuestionAPI.createFunction(this.getIndex() - 1, {
+                functionType
+            });
 
             this.shelf.appendChild(createFunction(functionType).root);
         })

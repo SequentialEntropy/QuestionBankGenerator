@@ -22,14 +22,15 @@ router.get("/:questionId/moveStep/:selected/:targeted", auth, moveStep)
 router.get("/:questionId/deleteStep/:selected", auth, deleteStep)
 router.get("/:questionId/getPrompt", auth, getPrompt)
 router.get("/:questionId/getVariables", auth, getVariables)
-router.get("/:questionId/createFunction/:sectionId/:functionType", auth, createFunction)
+router.post("/:questionId/createFunction/:sectionId", auth, createFunction)
 router.get("/:questionId/deleteFunction/:sectionId/:functionIndex", auth, deleteFunction)
-router.get("/:questionId/createBlock/:sectionIndex/:functionIndex/:path/:blockType/:params", auth, createBlock)
+router.put("/:questionId/createBlock/:sectionIndex/:functionIndex/:path", auth, createBlock)
 router.get("/:questionId/deleteBlock/:sectionIndex/:functionIndex/:path", auth, deleteBlock)
 router.get("/:questionId/editBlock/:sectionIndex/:functionIndex/:path/:newValue", auth, editBlock)
 router.get("/:questionId/editBlock/:sectionIndex/:functionIndex/:path/", auth, clearBlock)
 router.get("/:questionId/editFunction/:sectionIndex/:functionIndex/:newValue", auth, editFunction)
 router.get("/:questionId/editFunction/:sectionIndex/:functionIndex/", auth, clearFunction)
+
 
 router.get("/test", (req, res) => {
     res.send("API");

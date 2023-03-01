@@ -1,22 +1,15 @@
-import { templateFunctions } from "../../assets/templates.mjs";
-
 export default function createFunction(req, res) {
-    const sectionId = parseInt(req.params.sectionId);
 
-    if (isNaN(sectionId)) {
+    console.log(req.body);
+
+    if (!req.question.createFunction(req.params.sectionId, req.body)) {
         res.sendStatus(400);
         return;
     }
 
-    if (!(templateFunctions.hasOwnProperty(req.params.functionType))) {
-        res.sendStatus(400);
-        return;
-    }
+    res.statusCode = 201;
 
-    if (!req.question.createFunction(sectionId, req.params.functionType)) {
-        res.sendStatus(400);
-        return;
-    }
-
-    res.sendStatus(201);
+    res.json({
+        message: "Success"
+    })
 }

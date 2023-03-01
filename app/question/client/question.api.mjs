@@ -20,14 +20,18 @@ export default class QuestionAPI {
     static async getVariables() {
         return (await fetch(`/question/api/${getQuestionId()}/getVariables`)).json();
     }
-    static createFunction(section, functionType) {
-        return fetch(`/question/api/${getQuestionId()}/createFunction/${section}/${functionType}`);
+    static async createFunction(section, functionData) {
+        const response = send("POST", `createFunction/${section}`, functionData);
+        const json = (await response).json();
+        return json;
     }
     static deleteFunction(section, index) {
         return fetch(`/question/api/${getQuestionId()}/deleteFunction/${section}/${index}`);
     }
-    static createBlock(blockAddress, blockData) {
-        return fetch(`/question/api/${getQuestionId()}/createBlock/${blockAddressToEndpoint(blockAddress)}/${blockData.blockType}/${blockDataToParams(blockData)}`);
+    static async createBlock(blockAddress, blockData) {
+        const response = send("PUT", `createBlock/${blockAddressToEndpoint(blockAddress)}`, blockData);
+        const json = (await response).json();
+        return json;
     }
     static deleteBlock(blockAddress) {
         return fetch(`/question/api/${getQuestionId()}/deleteBlock/${blockAddressToEndpoint(blockAddress)}`);
@@ -63,4 +67,15 @@ function blockDataToParams(blockData) {
 
 function getQuestionId() {
     return parseInt(window.location.pathname.match(/([0-9]+)$\/?/g)[0]);
+}
+
+async function send(method, endpoint, body) {
+    return await fetch(`/question/api/${getQuestionId()}/${endpoint}`, {
+        method,
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    })
 }

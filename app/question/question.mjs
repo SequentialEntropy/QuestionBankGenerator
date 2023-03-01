@@ -105,7 +105,13 @@ class Question {
     getVariables() {
         return this._data().variables;
     }
-    getSection(sectionIndex) {
+    getSection(sectionIndexString) {
+        const sectionIndex= parseInt(sectionIndexString);
+
+        if (isNaN(sectionIndex)) {
+            return false;
+        }
+
         if (sectionIndex == -1) {
             return this.getPrompt();
         } else if (sectionIndex < 0 || sectionIndex > (this.getSteps().length - 1)) {
@@ -119,13 +125,18 @@ class Question {
         }
         return section[functionIndex];
     }
-    createFunction(selectedSection, functionType) {
+    createFunction(selectedSection, data) {
         const section = this.getSection(selectedSection);
+
         if (section === false) {
             return false;
         }
 
-        section.push(templateFunctions[functionType]);
+        if (!(templateFunctions.hasOwnProperty(data.functionType))) {
+            return false;
+        }
+
+        section.push(templateFunctions[data.functionType]);
 
         this._save();
 
@@ -193,7 +204,7 @@ class Question {
 
         return field;
     }
-    createBlock(sectionIndex, functionIndex, pathArray, blockType, params) {
+    createBlock(sectionIndex, functionIndex, pathArray, data) {
         const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
 
         if (field === false) {
@@ -206,26 +217,26 @@ class Question {
 
         const acceptedBlockTypes = fieldAcceptedBlockTypes[field.fieldType];
 
-        if (!acceptedBlockTypes.includes(blockType)) {
+        if (!acceptedBlockTypes.includes(data.blockType)) {
             return false;
         }
 
         let newBlock;
 
-        switch (blockType) {
+        switch (data.blockType) {
             case "Number":
-                newBlock = templateBlocks[blockType];
+                newBlock = templateBlocks[data.blockType];
                 break;
             case "Variable":
-                newBlock = templateBlocks[blockType];
-                if (!this.getVariables().includes(params)) {
+                newBlock = templateBlocks[data.blockType];
+                if (!this.getVariables().includes(data.variableName)) {
                     return false;
                 }
-                newBlock.variableName = params;
+                newBlock.variableName = data.variableName;
                 break;
             case "Operation":
-                newBlock = templateBlocks[params];
-                newBlock.operationName = params;
+                newBlock = templateBlocks[data.operationName];
+                newBlock.operationName = data.operationName;
                 break;
         }
 
