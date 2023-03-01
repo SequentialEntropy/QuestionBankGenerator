@@ -1,14 +1,32 @@
 import Block from "./Block.mjs";
-import { OperationField, Prompt } from "../Fields/Field.mjs";
+import { createOperationField, createPrompt } from "../Fields/Field.routes.mjs";
 
-export default class Division extends Block {
+export class Division extends Block {
     shelfContent() { return [
-        new OperationField(),
-        new Prompt("÷"),
-        new OperationField()
+        createOperationField(),
+        createPrompt("÷"),
+        createOperationField("Operation")
     ]}
     constructor(data) {
         super(data);
         this.type = "Division";
     }
+}
+
+export function execute(fields) {
+    return fields[0].value / fields[1].value
+}
+export const template = {
+    "blockType": "Operation",
+    "operationName": "Division",
+    "fields": [
+        {
+            "fieldType": "Operation",
+            "value": null
+        },
+        {
+            "fieldType": "Operation",
+            "value": null
+        }
+    ]
 }

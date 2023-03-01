@@ -3,15 +3,6 @@ import SectionDropZone from "./SectionDropZone.mjs";
 import DropDown, { createChoice } from "../DropDowns/DropDown.mjs";
 import { createFunction } from "../Functions/ModifyFunction.mjs";
 
-// // ! TEMP
-// function createFunction(functionType) {
-//     const element = document.createElement("div");
-//     element.textContent = "Function " + functionType;
-//     return {
-//         root: element
-//     }
-// }
-
 class Section {
     createRoot() {
         const range = document.createRange();

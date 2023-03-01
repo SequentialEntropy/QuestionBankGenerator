@@ -1,4 +1,4 @@
-import { VariableField, OperationField, Prompt } from "../Fields/Field.mjs";
+import { createVariableField, createOperationField, createPrompt } from "../Fields/Field.routes.mjs";
 import QuestionAPI from "../../question/client/question.api.mjs";
 
 class Function {
@@ -132,8 +132,8 @@ class Function {
 class RenderFunction extends Function {
     createShelf() {
         return this.buildShelf("block__render", [
-            new Prompt("Render"),
-            new OperationField()
+            createPrompt("Render"),
+            createOperationField()
         ]);
     }
     constructor(fieldsData = []) {
@@ -144,10 +144,10 @@ class RenderFunction extends Function {
 class SetFunction extends RenderFunction {
     createShelf() {
         return this.buildShelf("block__operation", [
-            new Prompt("Set the value of"),
-            new VariableField(),
-            new Prompt("to"),
-            new OperationField()
+            createPrompt("Set the value of"),
+            createVariableField(),
+            createPrompt("to"),
+            createOperationField()
         ])
     }
     constructor(fieldsData = []) {

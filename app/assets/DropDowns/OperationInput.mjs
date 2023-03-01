@@ -1,7 +1,7 @@
 import DropDown, { createChoice } from "./DropDown.mjs";
 import QuestionAPI from "../../question/client/question.api.mjs";
 import { createVariableChoice } from "./VariableInput.mjs";
-import { operationTypes } from "../Blocks/ModifyBlock.mjs";
+import { blockTypes } from "../Blocks/Block.routes.mjs";
 
 export default class OperationInput extends DropDown {
     constructor() {
@@ -21,7 +21,7 @@ export default class OperationInput extends DropDown {
                 this.list.appendChild(createVariableChoice(v));
             });
 
-            for (const [operationName, _] of Object.entries(operationTypes)) {
+            for (const [operationName, _] of Object.entries(blockTypes.Operation)) {
                 this.list.appendChild(createOperationChoice(operationName));
             }
         })

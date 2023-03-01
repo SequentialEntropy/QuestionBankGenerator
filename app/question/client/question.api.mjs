@@ -1,5 +1,4 @@
 export default class QuestionAPI {
-    static questionId = parseInt(window.location.pathname.match(/([0-9]+)$\/?/g)[0]);
     static async get() {
         return (await fetch(`/question/api/${getQuestionId()}`)).json();
     }
@@ -63,5 +62,5 @@ function blockDataToParams(blockData) {
 }
 
 function getQuestionId() {
-    return QuestionAPI.questionId;
+    return parseInt(window.location.pathname.match(/([0-9]+)$\/?/g)[0]);
 }

@@ -1,6 +1,6 @@
 import VariableInput from "../DropDowns/VariableInput.mjs";
 import OperationInput from "../DropDowns/OperationInput.mjs";
-import { createBlock } from "../Blocks/ModifyBlock.mjs";
+import { createBlock } from "../Blocks/Block.routes.mjs";
 import QuestionAPI from "../../question/client/question.api.mjs";
 
 class VariableField {
