@@ -36,11 +36,15 @@ export default class QuestionAPI {
     static deleteBlock(blockAddress) {
         return fetch(`/question/api/${getQuestionId()}/deleteBlock/${blockAddressToEndpoint(blockAddress)}`);
     }
-    static editBlock(blockAddress, newValue) {
-        return fetch(`/question/api/${getQuestionId()}/editBlock/${blockAddressToEndpoint(blockAddress)}/${newValue}`);
+    static async editBlock(blockAddress, data) {
+        const response = send("PUT", `editBlock/${blockAddressToEndpoint(blockAddress)}`, data);
+        const json = (await response).json();
+        return json;
     }
-    static editFunction(functionAddress, newValue) {
-        return fetch(`/question/api/${getQuestionId()}/editFunction/${functionAddressToEndpoint(functionAddress)}/${newValue}`)
+    static async editFunction(functionAddress, data) {
+        const response = send("PUT", `editFunction/${functionAddressToEndpoint(functionAddress)}`, data);
+        const json = (await response).json();
+        return json;
     }
 }
 

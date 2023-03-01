@@ -26,7 +26,9 @@ export default class TextBlock extends Block {
         this.shelf.addEventListener("input", e => {
             const field = this.root.closest(".Block-field");
             const event = new CustomEvent("editBlock", {
-                detail: this.shelf.value
+                detail: {
+                    newValue: this.shelf.value
+                }
             })
 
             field.dispatchEvent(event);

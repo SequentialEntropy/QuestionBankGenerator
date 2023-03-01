@@ -26,16 +26,12 @@ export default class NumberBlock extends TextBlock {
         this.shelf.addEventListener("input", e => {
             const field = this.root.closest(".Block-field");
             const event = new CustomEvent("editBlock", {
-                detail: this.shelf.value
+                detail: {
+                    newValue: this.shelf.value
+                }
             })
 
             field.dispatchEvent(event);
         })
-    }
-    initialiseFields(data) {
-        const value = data.value;
-        if (value !== null) {
-            this.shelf.value = value;
-        }
     }
 }

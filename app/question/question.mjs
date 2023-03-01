@@ -1,4 +1,4 @@
-import { dirname, join } from "path";
+import path, { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(
@@ -259,47 +259,38 @@ class Question {
 
         return true;
     }
-    editBlock(sectionIndex, functionIndex, pathArray, newValue) {
-        const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
-
-        if (field === false) {
-            return false;
-        }
-        
-        const newNum = parseFloat(newValue);
-
-        if (isNaN(newNum)) {
-            return false;
-        }
-
-        if (!field.hasOwnProperty("value")) {
-            return false;
-        }
-
-        field.value.value = newNum;
-
-        this._save();
-
-        return true;
-    }
-    clearBlock(sectionIndex, functionIndex, pathArray) {
+    editBlock(sectionIndex, functionIndex, pathArray, data) {
         const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
 
         if (field === false) {
             return false;
         }
 
-        if (!field.hasOwnProperty("value")) {
-            return false;
+        let newValue;
+
+        switch(field.value.blockType) {
+            case "Number":
+                
+                if (data.newValue == "") {
+                    newValue = null;
+                    break;
+                }
+
+                newValue = parseFloat(data.newValue);
+
+                if (isNaN(newValue)) {
+                    return false;
+                }
+                break;
         }
 
-        field.value.value = null;
-        
+        field.value.value = newValue;
+
         this._save();
 
         return true;
     }
-    editFunction(sectionIndex, functionIndex, newValue) {
+    editFunction(sectionIndex, functionIndex, data) {
         const selectedSection = this.getSection(sectionIndex);
 
         if (selectedSection === false) {
@@ -310,28 +301,21 @@ class Question {
 
         if (selectedFunction === false) {
             return false;
+        }
+
+        let newValue;
+
+        switch(selectedFunction.functionType) {
+            case "Text":
+                if (data.newValue == "") {
+                    newValue = null;
+                    break;
+                }
+                newValue = data.newValue;
+                break;
         }
 
         selectedFunction.value = newValue;
-
-        this._save();
-
-        return true;
-    }
-    clearFunction(sectionIndex, functionIndex, newValue) {
-        const selectedSection = this.getSection(sectionIndex);
-
-        if (selectedSection === false) {
-            return false;
-        }
-
-        const selectedFunction = this.getFunction(selectedSection, functionIndex);
-
-        if (selectedFunction === false) {
-            return false;
-        }
-
-        selectedFunction.value = null;
 
         this._save();
 

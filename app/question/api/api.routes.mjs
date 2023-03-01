@@ -11,8 +11,8 @@ import createFunction from "./createFunction.handler.mjs";
 import deleteFunction from "./deleteFunction.handler.mjs";
 import createBlock from "./createBlock.handler.mjs";
 import deleteBlock from "./deleteBlock.handler.mjs";
-import { editBlock, clearBlock } from "./editBlock.handler.mjs";
-import { editFunction, clearFunction} from "./editFunction.handler.mjs";
+import editBlock from "./editBlock.handler.mjs";
+import editFunction from "./editFunction.handler.mjs"
 
 const router = express.Router();
 
@@ -26,10 +26,8 @@ router.post("/:questionId/createFunction/:sectionId", auth, createFunction)
 router.get("/:questionId/deleteFunction/:sectionId/:functionIndex", auth, deleteFunction)
 router.put("/:questionId/createBlock/:sectionIndex/:functionIndex/:path", auth, createBlock)
 router.get("/:questionId/deleteBlock/:sectionIndex/:functionIndex/:path", auth, deleteBlock)
-router.get("/:questionId/editBlock/:sectionIndex/:functionIndex/:path/:newValue", auth, editBlock)
-router.get("/:questionId/editBlock/:sectionIndex/:functionIndex/:path/", auth, clearBlock)
-router.get("/:questionId/editFunction/:sectionIndex/:functionIndex/:newValue", auth, editFunction)
-router.get("/:questionId/editFunction/:sectionIndex/:functionIndex/", auth, clearFunction)
+router.put("/:questionId/editBlock/:sectionIndex/:functionIndex/:path", auth, editBlock)
+router.put("/:questionId/editFunction/:sectionIndex/:functionIndex", auth, editFunction)
 
 
 router.get("/test", (req, res) => {

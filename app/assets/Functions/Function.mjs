@@ -193,7 +193,9 @@ class TextFunction extends Function {
         })
         
         shelf.addEventListener("input", e => {
-            QuestionAPI.editFunction(this.getPath(), shelf.textContent);
+            QuestionAPI.editFunction(this.getPath(), {
+                newValue: shelf.textContent
+            });
         })
         
         return shelf;
