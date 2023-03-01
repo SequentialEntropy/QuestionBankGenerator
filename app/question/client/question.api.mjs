@@ -56,19 +56,6 @@ function functionAddressToEndpoint(functionAddress) {
     return `${functionAddress.sectionIndex}/${functionAddress.functionIndex}`;
 }
 
-function blockDataToParams(blockData) {
-    let params;
-    switch (blockData.blockType) {
-        case "Variable":
-            params = blockData.variableName;
-            break;
-        case "Operation":
-            params = blockData.operationName;
-            break;
-    }
-    return params;
-}
-
 function getQuestionId() {
     return parseInt(window.location.pathname.match(/([0-9]+)$\/?/g)[0]);
 }
