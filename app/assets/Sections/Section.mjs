@@ -1,7 +1,7 @@
 import QuestionAPI from "../../question/client/question.api.mjs";
 import SectionDropZone from "./SectionDropZone.mjs";
 import DropDown, { createChoice } from "../DropDowns/DropDown.mjs";
-import { createFunction } from "../Functions/ModifyFunction.mjs";
+import { createFunction } from "../Functions/Function.routes.mjs";
 
 class Section {
     createRoot() {
