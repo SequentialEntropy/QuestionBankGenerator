@@ -12,3 +12,13 @@ export class Render extends Function {
         super(fieldsData);
     }
 }
+
+export const template = {
+    "functionType": "Render",
+    "fields": [
+        {
+            "fieldType": "Operation",
+            "value": null
+        }
+    ]
+}

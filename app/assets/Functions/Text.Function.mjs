@@ -58,3 +58,8 @@ export class Text extends Function {
         this.shelf.textContent = fieldsData;
     }
 }
+
+export const template = {
+        "functionType": "Text",
+        "value": null
+}

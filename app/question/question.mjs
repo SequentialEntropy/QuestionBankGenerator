@@ -11,8 +11,9 @@ import { log } from "../../utils/logger.mjs";
 import { Tracker } from "../../utils/idTracker.mjs";
 import { jsonReader } from "../../utils/jsonReader.mjs";
 
-import { templateFunctions, fieldAcceptedBlockTypes } from "../assets/templates.mjs";
+import { fieldAcceptedBlockTypes } from "../assets/templates.mjs";
 import { getBlockTemplate } from "../assets/Blocks/Block.routes.mjs";
+import { functionTypes, getFunctionTemplate } from "../assets/Functions/Function.routes.mjs";
 
 const defaults = {
     id: -1,
@@ -133,12 +134,12 @@ class Question {
             return false;
         }
 
-        if (!(templateFunctions.hasOwnProperty(data.functionType))) {
+        if (!(functionTypes.hasOwnProperty(data.functionType))) {
             return false;
         }
 
-        section.push(templateFunctions[data.functionType]);
-
+        section.push(getFunctionTemplate(data.functionType));
+        
         this._save();
 
         return true;

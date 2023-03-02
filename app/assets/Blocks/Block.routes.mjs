@@ -45,4 +45,4 @@ function getBlockExecute(data) {
     return getBlockType(data).execute
 }
 
-export { blockTypes, createBlock, getBlockClass, getBlockTemplate, getBlockExecute }
+export { blockTypes, createBlock, getBlockTemplate, getBlockExecute }

@@ -14,3 +14,17 @@ export class Set extends Render {
         super(fieldsData);
     }
 }
+
+export const template = {
+    "functionType": "Set",
+    "fields": [
+        {
+            "fieldType": "Variable",
+            "value": null
+        },
+        {
+            "fieldType": "Operation",
+            "value": null
+        }
+    ]
+}
