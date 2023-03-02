@@ -1,12 +1,13 @@
+import { createField } from "../Fields/Field.routes.mjs";
+
 export default class Function {
-    buildShelf(className, shelfContent) {
-        const shelf = document.createElement("div");
-        shelf.classList.add("Function-shelf");
-        shelf.classList.add(className);
-        shelfContent.forEach(e => {
-            shelf.appendChild(e.root);
-        });
-        return shelf;
+    shelfContent() { return [
+        ["Prompt", "Default Function"]
+    ] }
+    shelfStyles() {
+        return [
+            "block__default"
+        ]
     }
     createRoot() {
         const root = document.createElement("div");
@@ -22,7 +23,19 @@ export default class Function {
         return deleteButton;
     }
     createShelf() {
-        return this.shelfBuilder("block__default", []);
+        const shelf = document.createElement("div");
+        shelf.classList.add("Function-shelf");
+        
+        this.shelfStyles().forEach(className => {
+            shelf.classList.add(className)
+        })
+
+        this.shelfContent().forEach(fieldData => {
+            const newField = createField(...fieldData);
+            shelf.appendChild(newField.root);
+        });
+
+        return shelf;
     }
     constructor(fieldsData = []) {
         this.root = this.createRoot();

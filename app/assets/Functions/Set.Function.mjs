@@ -1,14 +1,16 @@
 import { Render } from "./Render.Function.mjs";
-import { createField } from "../Fields/Field.routes.mjs";
 
 export class Set extends Render {
-    createShelf() {
-        return this.buildShelf("block__operation", [
-            createField("Prompt", "Set the value of"),
-            createField("Variable"),
-            createField("Prompt", "to"),
-            createField("Operation")
-        ])
+    shelfContent() { return [
+        ["Prompt", "Set the value of"],
+        ["Variable"],
+        ["Prompt", "to"],
+        ["Operation"]
+    ] }
+    shelfStyles() {
+        return [
+            "block__operation"
+        ]
     }
     constructor(fieldsData = []) {
         super(fieldsData);
