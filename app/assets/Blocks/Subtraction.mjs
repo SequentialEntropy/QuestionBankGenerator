@@ -1,15 +1,14 @@
 import Block from "./Block.mjs";
-import { createField } from "../Fields/Field.routes.mjs";
 
 export class Subtraction extends Block {
     shelfContent() { return [
-        createField("Operation"),
-        createField("Prompt", "−"),
-        createField("Operation")
+        ["Operation"],
+        ["Prompt", "−"],
+        ["Operation"]
     ]}
     constructor(data) {
         super(data);
-        this.type = "Subtraction";
+        this.blockType = "Subtraction";
     }
 }
 

@@ -1,15 +1,14 @@
 import Block from "./Block.mjs";
-import { createField } from "../Fields/Field.routes.mjs";
 
 export class Addition extends Block {
     shelfContent() { return [
-        createField("Operation"),
-        createField("Prompt", "+"),
-        createField("Operation")
+        ["Operation"],
+        ["Prompt", "+"],
+        ["Operation"]
     ]}
     constructor(data) {
         super(data);
-        this.type = "Addition";
+        this.blockType = "Addition";
     }
 }
 

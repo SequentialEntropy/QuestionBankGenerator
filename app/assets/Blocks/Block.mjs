@@ -2,7 +2,7 @@ import { createField } from "../Fields/Field.routes.mjs";
 
 export default class Block {
     shelfContent() { return [
-        createField("Prompt", "Default Block")
+        ["Prompt", "Default Block"]
     ]}
     createRoot() {
         const range = document.createRange();
@@ -21,8 +21,9 @@ export default class Block {
 
         `).children[0];
 
-        this.shelfContent().forEach(e => {
-            root.querySelector(".Block-shelf").appendChild(e.root);
+        this.shelfContent().forEach(fieldData => {
+            const newField = createField(...fieldData);
+            root.querySelector(".Block-shelf").appendChild(newField.root);
         });
         
         return root;
