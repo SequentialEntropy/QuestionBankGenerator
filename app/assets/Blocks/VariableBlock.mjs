@@ -1,6 +1,6 @@
 import Block from "./Block.mjs";
 
-export default class VariableBlock extends Block {
+export default class Variable extends Block {
     createRoot() {
         const range = document.createRange();
 

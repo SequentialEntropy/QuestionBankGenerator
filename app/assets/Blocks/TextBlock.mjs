@@ -1,6 +1,6 @@
 import Block from "./Block.mjs";
 
-export default class TextBlock extends Block {
+export default class Text extends Block {
     createRoot() {
         const range = document.createRange();
 

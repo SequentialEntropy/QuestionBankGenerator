@@ -6,14 +6,14 @@ import { Division, execute as divisionExecute, template as divisionTemplate } fr
 // import * as Subtraction from "./Subtraction.mjs";
 // import * as Multiplication from "./Multiplication.mjs";
 // import * as Division from "./Division.mjs";
-import VariableBlock from "./VariableBlock.mjs";
-import NumberBlock from "./NumberBlock.mjs";
-import TextBlock from "./TextBlock.mjs";
+import Variable from "./VariableBlock.mjs";
+import Number from "./NumberBlock.mjs";
+import Text from "./TextBlock.mjs";
 
 const blockTypes = {
-    Text: TextBlock,
-    Number: NumberBlock,
-    Variable: VariableBlock,
+    Text: Text,
+    Number: Number,
+    Variable: Variable,
     Operation: {
         Addition: Addition,
         Subtraction: Subtraction,

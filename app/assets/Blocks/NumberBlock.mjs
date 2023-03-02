@@ -1,6 +1,6 @@
-import TextBlock from "./TextBlock.mjs"
+import Text from "./TextBlock.mjs"
 
-export default class NumberBlock extends TextBlock {
+export default class Number extends Text {
     createRoot() {
         const range = document.createRange();
 
