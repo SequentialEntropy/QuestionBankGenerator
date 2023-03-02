@@ -11,14 +11,14 @@ import Number from "./NumberBlock.mjs";
 import Text from "./TextBlock.mjs";
 
 const blockTypes = {
-    Text: Text,
-    Number: Number,
-    Variable: Variable,
+    Text,
+    Number,
+    Variable,
     Operation: {
-        Addition: Addition,
-        Subtraction: Subtraction,
-        Multiplication: Multiplication,
-        Division: Division
+        Addition,
+        Subtraction,
+        Multiplication,
+        Division
     }
 }
 
