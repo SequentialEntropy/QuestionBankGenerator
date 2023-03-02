@@ -1,14 +1,11 @@
-import { Addition, execute as additionExecute, template as additionTemplate } from "./Addition.mjs";
-import { Subtraction, execute as subtractionExecute, template as subtractionTemplate } from "./Subtraction.mjs";
-import { Multiplication, execute as multiplicationExecute, template as multiplicationTemplate } from "./Multiplication.mjs";
-import { Division, execute as divisionExecute, template as divisionTemplate } from "./Division.mjs";
-// import * as Addition from "./Addition.mjs";
-// import * as Subtraction from "./Subtraction.mjs";
-// import * as Multiplication from "./Multiplication.mjs";
-// import * as Division from "./Division.mjs";
-import Variable from "./VariableBlock.mjs";
-import Number from "./NumberBlock.mjs";
-import Text from "./TextBlock.mjs";
+import * as Addition from "./Addition.mjs";
+import * as Subtraction from "./Subtraction.mjs";
+import * as Multiplication from "./Multiplication.mjs";
+import * as Division from "./Division.mjs";
+
+import * as Text from "./TextBlock.mjs";
+import * as Number from "./NumberBlock.mjs";
+import * as Variable from "./VariableBlock.mjs";
 
 const blockTypes = {
     Text,
@@ -22,33 +19,30 @@ const blockTypes = {
     }
 }
 
-const blockExecutes = {
-    Operation: {
-        Addition: additionExecute,
-        Subtraction: subtractionExecute,
-        Multiplication: multiplicationExecute,
-        Division: divisionExecute
+function getBlockType(data) {
+    if (data.blockType == "Operation") {
+        return blockTypes.Operation[data.operationName]
     }
-}
-
-const blockTemplates = {
-    Operation: {
-        Addition: additionTemplate,
-        Subtraction: subtractionTemplate,
-        Multiplication: multiplicationTemplate,
-        Division: divisionTemplate
-    }
+    return blockTypes[data.blockType]
 }
 
 function getBlockClass(data) {
     if (data.blockType == "Operation") {
-        return blockTypes.Operation[data.operationName];
+        return blockTypes.Operation[data.operationName][data.operationName]
     }
-    return blockTypes[data.blockType];
+    return blockTypes[data.blockType][data.blockType]
 }
 
 function createBlock(data) {
-    return new (getBlockClass(data))(data);
+    return new (getBlockClass(data))(data)
 }
 
-export { createBlock, blockTypes, getBlockClass };
+function getBlockTemplate(data) {
+    return getBlockType(data).template
+}
+
+function getBlockExecute(data) {
+    return getBlockType(data).execute
+}
+
+export { blockTypes, createBlock, getBlockClass, getBlockTemplate, getBlockExecute }

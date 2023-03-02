@@ -11,7 +11,8 @@ import { log } from "../../utils/logger.mjs";
 import { Tracker } from "../../utils/idTracker.mjs";
 import { jsonReader } from "../../utils/jsonReader.mjs";
 
-import { templateBlocks, templateFunctions, fieldAcceptedBlockTypes } from "../assets/templates.mjs";
+import { templateFunctions, fieldAcceptedBlockTypes } from "../assets/templates.mjs";
+import { getBlockTemplate } from "../assets/Blocks/Block.routes.mjs";
 
 const defaults = {
     id: -1,
@@ -221,22 +222,18 @@ class Question {
             return false;
         }
 
-        let newBlock;
+        let newBlock = getBlockTemplate(data);
 
         switch (data.blockType) {
             case "Number":
-                newBlock = templateBlocks[data.blockType];
                 break;
             case "Variable":
-                newBlock = templateBlocks[data.blockType];
                 if (!this.getVariables().includes(data.variableName)) {
                     return false;
                 }
                 newBlock.variableName = data.variableName;
                 break;
             case "Operation":
-                newBlock = templateBlocks[data.operationName];
-                newBlock.operationName = data.operationName;
                 break;
         }
 

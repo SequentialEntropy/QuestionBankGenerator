@@ -1,4 +1,4 @@
-import Text from "./TextBlock.mjs"
+import { Text } from "./TextBlock.mjs"
 
 export class Number extends Text {
     createRoot() {
