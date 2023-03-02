@@ -60,6 +60,6 @@ export class Text extends Function {
 }
 
 export const template = {
-        "functionType": "Text",
-        "value": null
+    "functionType": "Text",
+    "value": null
 }
