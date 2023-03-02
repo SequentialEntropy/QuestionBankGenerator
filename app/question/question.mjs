@@ -11,9 +11,9 @@ import { log } from "../../utils/logger.mjs";
 import { Tracker } from "../../utils/idTracker.mjs";
 import { jsonReader } from "../../utils/jsonReader.mjs";
 
-import { fieldAcceptedBlockTypes } from "../assets/templates.mjs";
 import { getBlockTemplate } from "../assets/Blocks/Block.routes.mjs";
 import { functionTypes, getFunctionTemplate } from "../assets/Functions/Function.routes.mjs";
+import { getFieldAcceptedBlockTypes } from "../assets/Fields/Field.routes.mjs";
 
 const defaults = {
     id: -1,
@@ -219,7 +219,7 @@ class Question {
             return false;
         }
 
-        const acceptedBlockTypes = fieldAcceptedBlockTypes[field.fieldType];
+        const acceptedBlockTypes = getFieldAcceptedBlockTypes(field.fieldType);
 
         if (!acceptedBlockTypes.includes(data.blockType)) {
             console.log("Block type not accepted in Field");

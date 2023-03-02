@@ -20,4 +20,8 @@ function createField(fieldType, data) {
     return new (getFieldClass(fieldType))(data)
 }
 
-export { createField };
+function getFieldAcceptedBlockTypes(fieldType) {
+    return getFieldType(fieldType).acceptedBlockTypes
+}
+
+export { createField, getFieldAcceptedBlockTypes };
