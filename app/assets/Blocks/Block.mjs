@@ -1,8 +1,8 @@
-import { createPrompt } from "../Fields/Field.routes.mjs";
+import { createField } from "../Fields/Field.routes.mjs";
 
 export default class Block {
     shelfContent() { return [
-        createPrompt("Default Block")
+        createField("Prompt", "Default Block")
     ]}
     createRoot() {
         const range = document.createRange();

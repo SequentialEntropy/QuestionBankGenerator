@@ -1,13 +1,17 @@
 import VariableInput from "../DropDowns/VariableInput.mjs";
-import OperationInput from "../DropDowns/OperationInput.mjs";
 import { createBlock } from "../Blocks/Block.routes.mjs";
 import QuestionAPI from "../../question/client/question.api.mjs";
 
-class VariableField {
+export const acceptedBlockTypes = [
+    "Variable"
+]
+
+export class Variable {
     createInput() {
         return new VariableInput();
     }
     constructor() {
+        this.fieldType = "Variable";
         this.root = document.createElement("div");
         this.root.classList.add("Block-field");
         
@@ -41,20 +45,17 @@ class VariableField {
         })
     }
     initialiseField(data) {
-        if (!this.getAvailableBlockTypes().includes(data.blockType)) {
-            return;
-        }
+        // if (!acceptedBlockTypes.includes(data.blockType)) {
+        //     return;
+        // }
+
+        // console.log(this.fieldType, acceptedBlockTypes)
 
         const newBlock = createBlock(data);
 
         this.input.classList.add("hidden");
 
         this.root.appendChild(newBlock.root);
-    }
-    getAvailableBlockTypes() {
-        return [
-            "Variable"
-        ];
     }
     getPath() {
         let parentBlock = this.root.closest(".Block");
@@ -126,29 +127,3 @@ class VariableField {
         };
     }
 }
-
-class OperationField extends VariableField {
-    createInput() {
-        return new OperationInput();
-    }
-    constructor() {
-        super();
-    }
-    getAvailableBlockTypes() {
-        return [
-            "Number",
-            "Variable",
-            "Operation"
-        ]
-    }
-}
-
-class Prompt {
-    constructor(text) {
-        this.root = document.createElement("div");
-        this.root.classList.add("Block-prompt");
-        this.root.textContent = text;
-    }
-}
-
-export { VariableField, OperationField, Prompt };

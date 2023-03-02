@@ -1,11 +1,11 @@
 import Block from "./Block.mjs";
-import { createOperationField, createPrompt } from "../Fields/Field.routes.mjs";
+import { createField } from "../Fields/Field.routes.mjs";
 
 export class Division extends Block {
     shelfContent() { return [
-        createOperationField(),
-        createPrompt("÷"),
-        createOperationField("Operation")
+        createField("Operation"),
+        createField("Prompt", "÷"),
+        createField("Operation")
     ]}
     constructor(data) {
         super(data);

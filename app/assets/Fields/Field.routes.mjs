@@ -1,15 +1,23 @@
-import { VariableField, OperationField, Prompt } from "./Field.mjs";
+import * as Variable from "./Variable.Field.mjs";
+import * as Operation from "./Operation.Field.mjs";
+import * as Prompt from "./Prompt.Field.mjs";
 
-function createVariableField() {
-    return new VariableField()
+const fieldTypes = {
+    Variable,
+    Operation,
+    Prompt
 }
 
-function createOperationField() {
-    return new OperationField()
+function getFieldType(fieldType) {
+    return fieldTypes[fieldType]
 }
 
-function createPrompt(text) {
-    return new Prompt(text)
+function getFieldClass(fieldType) {
+    return getFieldType(fieldType)[fieldType]
 }
 
-export { createVariableField, createOperationField, createPrompt };
+function createField(fieldType, data) {
+    return new (getFieldClass(fieldType))(data)
+}
+
+export { createField };
