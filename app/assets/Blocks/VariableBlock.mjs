@@ -1,6 +1,6 @@
 import Block from "./Block.mjs";
 
-export default class Variable extends Block {
+export class Variable extends Block {
     createRoot() {
         const range = document.createRange();
 
@@ -26,4 +26,9 @@ export default class Variable extends Block {
         const variableName = data.variableName;
         this.root.querySelector(".Block-variable").textContent = variableName;
     }
+}
+
+export const template = {
+    "blockType": "Variable",
+    "variableName": null
 }

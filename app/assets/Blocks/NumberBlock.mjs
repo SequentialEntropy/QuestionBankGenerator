@@ -1,6 +1,6 @@
 import Text from "./TextBlock.mjs"
 
-export default class Number extends Text {
+export class Number extends Text {
     createRoot() {
         const range = document.createRange();
 
@@ -34,4 +34,9 @@ export default class Number extends Text {
             field.dispatchEvent(event);
         })
     }
+}
+
+export const template = {
+    "blockType": "Number",
+    "value": null
 }

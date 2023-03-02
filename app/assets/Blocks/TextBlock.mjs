@@ -1,6 +1,6 @@
 import Block from "./Block.mjs";
 
-export default class Text extends Block {
+export class Text extends Block {
     createRoot() {
         const range = document.createRange();
 
@@ -40,4 +40,9 @@ export default class Text extends Block {
             this.shelf.value = value;
         }
     }
+}
+
+export const template = {
+    "blockType": "Text",
+    "value": null
 }
