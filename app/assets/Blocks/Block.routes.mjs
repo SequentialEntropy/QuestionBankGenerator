@@ -1,11 +1,11 @@
-import * as Addition from "./Addition.mjs";
-import * as Subtraction from "./Subtraction.mjs";
-import * as Multiplication from "./Multiplication.mjs";
-import * as Division from "./Division.mjs";
+import * as Addition from "./Addition.Block.mjs";
+import * as Subtraction from "./Subtraction.Block.mjs";
+import * as Multiplication from "./Multiplication.Block.mjs";
+import * as Division from "./Division.Block.mjs";
 
-import * as Text from "./TextBlock.mjs";
-import * as Number from "./NumberBlock.mjs";
-import * as Variable from "./VariableBlock.mjs";
+import * as Text from "./Text.Block.mjs";
+import * as Number from "./Number.Block.mjs";
+import * as Variable from "./Variable.Block.mjs";
 
 const blockTypes = {
     Text,
