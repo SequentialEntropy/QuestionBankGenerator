@@ -1,7 +1,7 @@
-import * as Addition from "./Addition.Block.mjs";
-import * as Subtraction from "./Subtraction.Block.mjs";
-import * as Multiplication from "./Multiplication.Block.mjs";
-import * as Division from "./Division.Block.mjs";
+import * as OperationAddition from "./Addition.Operation.Block.mjs";
+import * as OperationSubtraction from "./Subtraction.Operation.Block.mjs";
+import * as OperationMultiplication from "./Multiplication.Operation.Block.mjs";
+import * as OperationDivision from "./Division.Operation.Block.mjs";
 
 import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
@@ -12,23 +12,25 @@ const blockTypes = {
     Number,
     Variable,
     Operation: {
-        Addition,
-        Subtraction,
-        Multiplication,
-        Division
-    }
+        Addition: OperationAddition,
+        Subtraction: OperationSubtraction,
+        Multiplication: OperationMultiplication,
+        Division: OperationDivision
+    },
 }
 
 function getBlockType(data) {
-    if (data.blockType == "Operation") {
-        return blockTypes.Operation[data.operationName]
+    switch (data.blockType) {
+        case "Operation":
+            return blockTypes[data.blockType][data.operationName]
     }
     return blockTypes[data.blockType]
 }
 
 function getBlockClass(data) {
-    if (data.blockType == "Operation") {
-        return blockTypes.Operation[data.operationName][data.operationName]
+    switch (data.blockType) {
+        case "Operation":
+            return blockTypes[data.blockType][data.operationName][data.operationName]
     }
     return blockTypes[data.blockType][data.blockType]
 }
