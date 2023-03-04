@@ -19,7 +19,7 @@ export const template = {
     "functionType": "Render",
     "fields": [
         {
-            "fieldType": "Operation",
+            "fieldType": "Render",
             "value": null
         }
     ]
