@@ -7,7 +7,7 @@ export class Render extends Function {
     ]}
     shelfStyles() {
         return [
-            "block__render"
+            "function__render"
         ]
     }
     constructor(fieldsData = []) {

@@ -102,7 +102,7 @@
   color: black;
 }
 
-.block__render {
+.function__render {
   background-color: white;
   color: var(--default-text-color);
   outline: 0.1rem solid var(--default-outline-color);
@@ -243,8 +243,8 @@
   outline-color: rgba(0, 0, 0, 0.5);
 }
 
-.block__render > .Block-field > .dropDown > .dropDown-toggle,
-.block__render > .Block-field > .Block > .Block-input:not(.Block-shelf__hover):not(:focus) {
+.function__render > .Block-field > .dropDown > .dropDown-toggle,
+.function__render > .Block-field > .Block > .Block-input:not(.Block-shelf__hover):not(:focus) {
   outline: 0.1rem solid var(--default-outline-color);
 }
 

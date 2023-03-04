@@ -105,7 +105,7 @@
     background-color: white;
     color: black;
 }
-.block__render {
+.function__render {
     background-color: white;
     color: var(--default-text-color);
     outline: 0.1rem solid var(--default-outline-color);
@@ -256,9 +256,9 @@
 
 
 
-.block__render > .Block-field > .dropDown >
+.function__render > .Block-field > .dropDown >
 .dropDown-toggle,
-.block__render > .Block-field > .Block >
+.function__render > .Block-field > .Block >
 .Block-input:not(.Block-shelf__hover):not(:focus)
 {
     outline: 0.1rem solid var(--default-outline-color);
