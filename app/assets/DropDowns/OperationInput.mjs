@@ -36,7 +36,8 @@ function createNumberChoice() {
         const field = choice.closest(".Block-field");
         const event = new CustomEvent("createBlock", {
             detail: {
-                blockType: "Number"
+                blockType: "Number",
+                value: null
             }
         });
 

@@ -1,6 +1,6 @@
-import { Text } from "./Text.Block.mjs"
+import Block from "./Block.mjs";
 
-export class Number extends Text {
+export class Number extends Block {
     createRoot() {
         const range = document.createRange();
 
@@ -24,6 +24,7 @@ export class Number extends Text {
             e.preventDefault();
         })
         this.shelf.addEventListener("input", e => {
+            
             const field = this.root.closest(".Block-field");
             const event = new CustomEvent("editBlock", {
                 detail: {
@@ -33,6 +34,14 @@ export class Number extends Text {
 
             field.dispatchEvent(event);
         })
+    }
+    initialiseFields(data) {
+        const value = data.value;
+
+        if (value !== null) {
+            this.shelf.value = value;
+            return
+        }
     }
 }
 

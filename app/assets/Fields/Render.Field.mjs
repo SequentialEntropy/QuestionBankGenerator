@@ -2,6 +2,7 @@ import { Variable } from "./Variable.Field.mjs";
 import RenderInput from "../DropDowns/RenderInput.mjs";
 
 export const acceptedBlockTypes = [
+    "Text",
     "Evaluate",
     "Render"
 ]

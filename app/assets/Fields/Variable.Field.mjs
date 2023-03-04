@@ -45,12 +45,6 @@ export class Variable {
         })
     }
     initialiseField(data) {
-        // if (!acceptedBlockTypes.includes(data.blockType)) {
-        //     return;
-        // }
-
-        // console.log(this.fieldType, acceptedBlockTypes)
-
         const newBlock = createBlock(data);
 
         this.input.classList.add("hidden");

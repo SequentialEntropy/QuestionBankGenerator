@@ -7,12 +7,33 @@ export default class RenderInput extends DropDown {
         this.toggle.textContent = "Add Render";
         this.toggle.classList.add("dropDown-toggle__default");
 
+        this.list.appendChild(createTextChoice());
+
         this.list.appendChild(createEvaluateChoice());
 
         for (const [operationName, _] of Object.entries(blockTypes.Operation)) {
             this.list.appendChild(createRenderChoice(operationName));
         }
     }
+}
+
+function createTextChoice() {
+    const choice = createChoice("Text");
+    choice.classList.add("block__default");
+
+    choice.addEventListener("click", () => {
+        const field = choice.closest(".Block-field");
+        const event = new CustomEvent("createBlock", {
+            detail: {
+                blockType: "Text",
+                value: null
+            }
+        });
+
+        field.dispatchEvent(event);
+    })
+
+    return choice;
 }
 
 function createEvaluateChoice() {

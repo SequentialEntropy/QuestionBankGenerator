@@ -284,6 +284,14 @@ class Question {
                     return false;
                 }
                 break;
+
+            case "Text":
+                if (data.newValue == "") {
+                    newValue = null;
+                    break;
+                }
+
+                newValue = data.newValue;
         }
 
         field.value.value = newValue;

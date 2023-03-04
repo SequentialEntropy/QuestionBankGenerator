@@ -9,7 +9,7 @@ export class Text extends Block {
         return range.createContextualFragment(`
 
         <div class="Block" draggable="false">
-            <input class="Block-shelf block__default Block-input" type="text" placeholder="Number"/>
+            <input class="Block-shelf block__default Block-input" type="text" placeholder="Text"/>
             <button class="Block-delete">
             ×
             </button>
@@ -24,6 +24,7 @@ export class Text extends Block {
             e.preventDefault();
         })
         this.shelf.addEventListener("input", e => {
+
             const field = this.root.closest(".Block-field");
             const event = new CustomEvent("editBlock", {
                 detail: {
@@ -36,9 +37,13 @@ export class Text extends Block {
     }
     initialiseFields(data) {
         const value = data.value;
+
         if (value !== null) {
             this.shelf.value = value;
+            return
         }
+        
+        this.shelf.value = "";
     }
 }
 
