@@ -6,4 +6,6 @@ const steps = QuestionAPI.getSteps();
 
 const sectionShelf = new SectionShelf(await prompt, await steps);
 
-document.body.appendChild(sectionShelf.root);
+const questionEditor = document.querySelector(".questionEditor");
+
+questionEditor.appendChild(sectionShelf.root);
