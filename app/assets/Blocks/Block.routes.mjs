@@ -12,10 +12,13 @@ import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
 import * as Variable from "./Variable.Block.mjs";
 
+import * as Evaluate from "./Evaluate.Block.mjs";
+
 const blockTypes = {
     Text,
     Number,
     Variable,
+    Evaluate,
     Operation: {
         Addition: OperationAddition,
         Subtraction: OperationSubtraction,

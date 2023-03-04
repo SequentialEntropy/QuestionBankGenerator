@@ -47,7 +47,7 @@ function createNumberChoice() {
 }
 
 function createOperationChoice(operationName) {
-    const choice = createChoice(operationName);
+    const choice = createChoice(`${operationName} Operation`);
     choice.classList.add("block__operation");
 
     choice.addEventListener("click", () => {
