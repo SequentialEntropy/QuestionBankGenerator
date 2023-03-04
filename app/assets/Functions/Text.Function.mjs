@@ -16,14 +16,14 @@ export class Text extends Function {
 
             shelf.style.minHeight = height + "px";
 
-            if (shelf.classList.contains("Function__text__default")) {
+            if (shelf.classList.contains("text__default")) {
                 const width = shelf.clientWidth;
 
                 shelf.style.minWidth = width + "px";
 
                 shelf.textContent = "";
                 
-                shelf.classList.remove("Function__text__default");
+                shelf.classList.remove("text__default");
             }
         })
         
@@ -31,7 +31,7 @@ export class Text extends Function {
             shelf.classList.remove("Function__text__focus");
             if (shelf.textContent == "") {
                 shelf.textContent = "Text";
-                shelf.classList.add("Function__text__default");
+                shelf.classList.add("text__default");
             }
             shelf.style.minWidth = "";
 
@@ -51,7 +51,7 @@ export class Text extends Function {
     }
     initialiseFields(fieldsData) {
         if (fieldsData === null) {
-            this.shelf.classList.add("Function__text__default");
+            this.shelf.classList.add("text__default");
             this.shelf.textContent = "Text";
             return;
         }

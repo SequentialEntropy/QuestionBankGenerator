@@ -339,7 +339,7 @@
   font-size: var(--function-font-size);
 }
 
-.Function__text__default {
+.text__default {
   color: var(--default-text-color);
 }
 
