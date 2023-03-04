@@ -3,7 +3,7 @@ import Function from "./Function.mjs";
 export class Render extends Function {
     shelfContent() { return [
         ["Prompt", "Render"],
-        ["Operation"]
+        ["Render"]
     ]}
     shelfStyles() {
         return [

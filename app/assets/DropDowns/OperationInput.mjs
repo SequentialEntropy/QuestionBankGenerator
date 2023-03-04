@@ -6,7 +6,7 @@ import { blockTypes } from "../Blocks/Block.routes.mjs";
 export default class OperationInput extends DropDown {
     constructor() {
         super();
-        this.toggle.textContent = "Add Block";
+        this.toggle.textContent = "Add Operation";
         this.toggle.classList.add("dropDown-toggle__default");
 
         this.toggle.addEventListener("click", async () => {
