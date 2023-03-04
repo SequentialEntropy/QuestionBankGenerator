@@ -4,6 +4,11 @@ export default class Block {
     shelfContent() { return [
         ["Prompt", "Default Block"]
     ]}
+    shelfStyles() {
+        return [
+            "block__default"
+        ]
+    }
     createRoot() {
         const range = document.createRange();
 
@@ -12,7 +17,7 @@ export default class Block {
         const root = range.createContextualFragment(`
 
         <div class="Block" draggable="false">
-            <div class="Block-shelf block__operation">
+            <div class="Block-shelf">
             </div>
             <button class="Block-delete">
             ×
@@ -25,6 +30,10 @@ export default class Block {
             const newField = createField(...fieldData);
             root.querySelector(".Block-shelf").appendChild(newField.root);
         });
+
+        this.shelfStyles().forEach(className => {
+            root.querySelector(".Block-shelf").classList.add(className);
+        })
         
         return root;
     }

@@ -6,6 +6,11 @@ export class Multiplication extends Block {
         ["Prompt", "×"],
         ["Operation"]
     ]}
+    shelfStyles() {
+        return [
+            "block__operation"
+        ]
+    }
     constructor(data) {
         super(data);
         this.blockType = "Multiplication";

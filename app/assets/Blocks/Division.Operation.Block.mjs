@@ -6,6 +6,11 @@ export class Division extends Block {
         ["Prompt", "÷"],
         ["Operation"]
     ]}
+    shelfStyles() {
+        return [
+            "block__operation"
+        ]
+    }
     constructor(data) {
         super(data);
         this.blockType = "Division";
