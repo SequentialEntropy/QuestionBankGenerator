@@ -1,6 +1,11 @@
-import { Division as OperationDivision } from "./Division.Operation.Block.mjs"
+import Block from "./Block.mjs";
 
-export class Division extends OperationDivision {
+export class Division extends Block {
+    shelfContent() { return [
+        ["Render"],
+        ["Prompt", "÷"],
+        ["Render"]
+    ]}
     shelfStyles() {
         return [
             "block__render"

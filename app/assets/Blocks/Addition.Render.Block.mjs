@@ -1,6 +1,11 @@
-import { Addition as OperationAddition} from "./Addition.Operation.Block.mjs";
+import Block from "./Block.mjs";
 
-export class Addition extends OperationAddition {
+export class Addition extends Block {
+    shelfContent() { return [
+        ["Render"],
+        ["Prompt", "+"],
+        ["Render"]
+    ]}
     shelfStyles() {
         return [
             "block__render"

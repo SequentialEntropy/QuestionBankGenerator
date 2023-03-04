@@ -1,6 +1,11 @@
-import { Subtraction as OperationSubtraction } from "./Subtraction.Operation.Block.mjs"
+import Block from "./Block.mjs";
 
-export class Subtraction extends OperationSubtraction {
+export class Subtraction extends Block {
+    shelfContent() { return [
+        ["Render"],
+        ["Prompt", "−"],
+        ["Render"]
+    ]}
     shelfStyles() {
         return [
             "block__render"

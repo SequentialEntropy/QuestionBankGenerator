@@ -1,6 +1,11 @@
-import { Multiplication as OperationMultiplication } from "./Multiplication.Operation.Block.mjs"
+import Block from "./Block.mjs";
 
-export class Multiplication extends OperationMultiplication {
+export class Multiplication extends Block {
+    shelfContent() { return [
+        ["Render"],
+        ["Prompt", "×"],
+        ["Render"]
+    ]}
     shelfStyles() {
         return [
             "block__render"
