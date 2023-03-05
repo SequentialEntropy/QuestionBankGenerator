@@ -7,7 +7,7 @@ export class Render extends Function {
     ]}
     shelfStyles() {
         return [
-            "function__render",
+            "theme__color--default",
             "theme__outline--default"
         ]
     }

@@ -13,7 +13,7 @@ export class Variable {
     constructor() {
         this.fieldType = "Variable";
         this.root = document.createElement("div");
-        this.root.classList.add("Block-field");
+        this.root.classList.add("block__field");
         
         this.input = this.createInput().root;
         this.root.appendChild(this.input);
@@ -31,7 +31,7 @@ export class Variable {
         })
 
         this.root.addEventListener("deleteBlock", e => {
-            this.root.removeChild(this.root.querySelector(".Block"));
+            this.root.removeChild(this.root.querySelector(".block"));
 
             this.input.classList.remove("drop-down--hidden");
 
@@ -52,25 +52,25 @@ export class Variable {
         this.root.appendChild(newBlock.root);
     }
     getPath() {
-        let parentBlock = this.root.closest(".Block");
+        let parentBlock = this.root.closest(".block");
         let currentField = this.root;
         let indexes = [];
 
         // Field # in Block
 
         while (parentBlock != null) {
-            const shelf = parentBlock.querySelector(".Block-shelf");
+            const shelf = parentBlock.querySelector(".block__shelf");
 
             const fieldElements = Array.from(shelf.children)
             .filter(fieldElement => {
-                return fieldElement.matches(".Block-field");
+                return fieldElement.matches(".block__field");
             })    
             
             indexes.unshift(fieldElements.indexOf(currentField));
             
-            currentField = parentBlock.closest(".Block-field");
+            currentField = parentBlock.closest(".block__field");
 
-            parentBlock = currentField.closest(".Block");
+            parentBlock = currentField.closest(".block");
         }
 
         // Field # in Function
@@ -81,7 +81,7 @@ export class Variable {
 
         const fieldElements = Array.from(shelf.children)
         .filter(fieldElement => {
-            return fieldElement.matches(".Block-field");
+            return fieldElement.matches(".block__field");
         })
         
         indexes.unshift(fieldElements.indexOf(currentField));

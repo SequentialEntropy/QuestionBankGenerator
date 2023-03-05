@@ -6,7 +6,7 @@ export default class Block {
     ]}
     shelfStyles() {
         return [
-            "block__default"
+            "theme__color--default"
         ]
     }
     createRoot() {
@@ -16,10 +16,10 @@ export default class Block {
 
         const root = range.createContextualFragment(`
 
-        <div class="Block" draggable="false">
-            <div class="Block-shelf">
+        <div class="block" draggable="false">
+            <div class="block__shelf">
             </div>
-            <button class="Block-delete">
+            <button class="block__delete">
             ×
             </button>
         </div>
@@ -28,11 +28,11 @@ export default class Block {
 
         this.shelfContent().forEach(fieldData => {
             const newField = createField(...fieldData);
-            root.querySelector(".Block-shelf").appendChild(newField.root);
+            root.querySelector(".block__shelf").appendChild(newField.root);
         });
 
         this.shelfStyles().forEach(className => {
-            root.querySelector(".Block-shelf").classList.add(className);
+            root.querySelector(".block__shelf").classList.add(className);
         })
         
         return root;
@@ -41,18 +41,18 @@ export default class Block {
         this.type = "?";
 
         this.root = this.createRoot();
-        this.shelf = this.root.querySelector(".Block-shelf");
-        this.deleteButton = this.root.querySelector(".Block-delete");
+        this.shelf = this.root.querySelector(".block__shelf");
+        this.deleteButton = this.root.querySelector(".block__delete");
 
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
-            this.shelf.classList.add("Block-shelf__hover");
-            this.deleteButton.classList.add("Block-delete__show");
+            this.shelf.classList.add("block__shelf--hover");
+            this.deleteButton.classList.add("block__delete--show");
         });
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
-            this.shelf.classList.remove("Block-shelf__hover");
-            this.deleteButton.classList.remove("Block-delete__show");
+            this.shelf.classList.remove("block__shelf--hover");
+            this.deleteButton.classList.remove("block__delete--show");
         })
 
         this.deleteButton.addEventListener("click", e => {
@@ -62,7 +62,7 @@ export default class Block {
 
             const event = new Event("deleteBlock");
 
-            const parentField = this.root.closest(".Block-field");
+            const parentField = this.root.closest(".block__field");
 
             parentField.dispatchEvent(event);
         })
@@ -74,7 +74,7 @@ export default class Block {
 
         const fieldElements = Array.from(this.shelf.children)
         .filter(fieldElement => {
-            return fieldElement.matches(".Block-field");
+            return fieldElement.matches(".block__field");
         })
 
         for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {

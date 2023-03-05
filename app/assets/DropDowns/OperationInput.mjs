@@ -30,10 +30,10 @@ export default class OperationInput extends DropDown {
 
 function createNumberChoice() {
     const choice = createChoice("Number");
-    choice.classList.add("block__default");
+    choice.classList.add("theme__color--white");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Number",
@@ -49,10 +49,10 @@ function createNumberChoice() {
 
 function createOperationChoice(operationName) {
     const choice = createChoice(`${operationName} Operation`);
-    choice.classList.add("block__operation");
+    choice.classList.add("theme__color--operation");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Operation",

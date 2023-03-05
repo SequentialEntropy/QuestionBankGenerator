@@ -21,9 +21,9 @@ export default class VariableInput extends DropDown {
 
 export function createVariableChoice(variableName) {
     const choice = createChoice(variableName);
-    choice.classList.add("block__variable");
+    choice.classList.add("theme__color--variable");
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Variable",

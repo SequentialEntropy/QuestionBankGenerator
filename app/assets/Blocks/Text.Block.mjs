@@ -8,9 +8,9 @@ export class Text extends Block {
 
         return range.createContextualFragment(`
 
-        <div class="Block" draggable="false">
-            <div class="Block-shelf block__default Block-input" contenteditable></div>
-            <button class="Block-delete">
+        <div class="block" draggable="false">
+            <div class="block__shelf theme__color--white block--input" contenteditable></div>
+            <button class="block__delete">
             ×
             </button>
         </div>
@@ -25,7 +25,7 @@ export class Text extends Block {
         })
         this.shelf.addEventListener("input", e => {
 
-            const field = this.root.closest(".Block-field");
+            const field = this.root.closest(".block__field");
             const event = new CustomEvent("editBlock", {
                 detail: {
                     newValue: this.shelf.textContent
@@ -41,14 +41,14 @@ export class Text extends Block {
 
             this.shelf.style.minHeight = height + "px";
 
-            if (this.shelf.classList.contains("text__default")) {
+            if (this.shelf.classList.contains("override__text--default")) {
                 const width = this.shelf.clientWidth;
 
                 this.shelf.style.minWidth = width + "px";
 
                 this.shelf.textContent = "";
                 
-                this.shelf.classList.remove("text__default");
+                this.shelf.classList.remove("override__text--default");
             }
 
         })
@@ -59,7 +59,7 @@ export class Text extends Block {
                 
                 this.shelf.textContent = "Text";
                 
-                this.shelf.classList.add("text__default");
+                this.shelf.classList.add("override__text--default");
                 
             }
             
@@ -77,7 +77,7 @@ export class Text extends Block {
             return
         }
         
-        this.shelf.classList.add("text__default");
+        this.shelf.classList.add("override__text--default");
         this.shelf.textContent = "Text";
     }
 }

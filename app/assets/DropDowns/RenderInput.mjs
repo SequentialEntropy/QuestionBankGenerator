@@ -19,10 +19,10 @@ export default class RenderInput extends DropDown {
 
 function createTextChoice() {
     const choice = createChoice("Text");
-    choice.classList.add("block__default");
+    choice.classList.add("theme__color--white");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Text",
@@ -38,10 +38,10 @@ function createTextChoice() {
 
 function createEvaluateChoice() {
     const choice = createChoice("Evaluate");
-    choice.classList.add("block__operation");
+    choice.classList.add("theme__color--operation");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Evaluate",
@@ -57,10 +57,10 @@ function createEvaluateChoice() {
 
 function createRenderChoice(operationName) {
     const choice = createChoice(`Render ${operationName}`);
-    choice.classList.add("block__render");
+    choice.classList.add("theme__color--render");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Render",

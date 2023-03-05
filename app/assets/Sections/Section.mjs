@@ -136,12 +136,15 @@ class CreateFunctionButton extends DropDown {
         this.root.classList.add("function-menu__create-function");
 
         const textChoice = createFunctionChoice("Text");
+        textChoice.classList.add("theme__color--white");
         this.list.appendChild(textChoice);
-
+        
         const renderChoice = createFunctionChoice("Render");
+        renderChoice.classList.add("theme__color--render");
         this.list.appendChild(renderChoice);
-
+        
         const setChoice = createFunctionChoice("Set");
+        setChoice.classList.add("theme__color--operation");
         this.list.appendChild(setChoice);
     }
 }

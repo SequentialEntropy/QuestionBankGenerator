@@ -5,33 +5,33 @@ export class Text extends Function {
     createShelf() {
         const shelf = document.createElement("span");
         shelf.classList.add("function__shelf");
-        shelf.classList.add("Block-input");
-        shelf.classList.add("Function__text");
+        shelf.classList.add("block--input");
+
         shelf.contentEditable = true;
         
         shelf.addEventListener("focus", e => {
-            shelf.classList.add("Function__text__focus");
+            shelf.classList.add("function__shelf--focus");
 
             const height = shelf.clientHeight;
 
             shelf.style.minHeight = height + "px";
 
-            if (shelf.classList.contains("text__default")) {
+            if (shelf.classList.contains("override__text--default")) {
                 const width = shelf.clientWidth;
 
                 shelf.style.minWidth = width + "px";
 
                 shelf.textContent = "";
                 
-                shelf.classList.remove("text__default");
+                shelf.classList.remove("override__text--default");
             }
         })
         
         shelf.addEventListener("blur", e => {
-            shelf.classList.remove("Function__text__focus");
+            shelf.classList.remove("function__shelf--focus");
             if (shelf.textContent == "") {
                 shelf.textContent = "Text";
-                shelf.classList.add("text__default");
+                shelf.classList.add("override__text--default");
             }
             shelf.style.minWidth = "";
 
@@ -51,7 +51,7 @@ export class Text extends Function {
     }
     initialiseFields(fieldsData) {
         if (fieldsData === null) {
-            this.shelf.classList.add("text__default");
+            this.shelf.classList.add("override__text--default");
             this.shelf.textContent = "Text";
             return;
         }

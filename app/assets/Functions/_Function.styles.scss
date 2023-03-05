@@ -5,9 +5,9 @@
     position: relative;
     width: fit-content;
 
-    &:has(.function__shelf.block__operation) {
-        width: 100%;
-    }
+    // &:has(.function__shelf.theme__color--operation) {
+    //     width: 100%;
+    // }
 
     &__shelf {
         border-radius: var(--radius);
@@ -18,10 +18,24 @@
         align-content: space-between;
         gap: 0.5rem;
         user-select: none;
-        &--hover {
+
+        &--hover, &--focus {
             outline-width: 0.2rem;
             outline-style: solid;
             outline-color: rgba(0, 0, 0, 0.5);
+        }
+
+        &.block--input {
+            display: flex;
+            font-size: var(--function-font-size);
+        }
+
+        &.theme__color--default > .block__field > .drop-down >
+        .drop-down__toggle,
+        &.theme__color--default > .block__field > .block >
+        .block--input:not(.block__shelf--hover):not(:focus)
+        {
+            outline: 0.1rem solid var(--default-outline-color);
         }
     }
 }

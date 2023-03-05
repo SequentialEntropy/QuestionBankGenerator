@@ -1,0 +1,80 @@
+@use "../_Boilerplate.styles.scss";
+@use "../_Themes.styles.scss";
+
+.block {
+    position: relative;
+
+    &__field {
+        width: fit-content;
+    }
+
+    &__shelf {
+        border-radius: var(--radius);
+        outline: 0.2rem solid white;
+        display: flex;
+        padding: var(--block-padding-vertical) var(--block-padding);
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition-duration: 0.1s;
+        flex-wrap: wrap;
+        outline-offset: -0.2rem;
+        user-select: none;
+
+        &--hover {
+            outline-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    &__prompt {
+        font-size: var(--function-font-size);
+        line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
+    }
+
+    &--input {
+        font-size: var(--field-font-size);
+        border: none;
+        padding: var(--field-padding-vertical) var(--field-padding);
+        
+        &:focus {
+            outline-color: rgba(0, 0, 0, 0.5);
+            outline-width: 0.2rem;
+        }
+
+        @at-root input[type=number]#{&} {
+            max-width: 5rem;
+        }
+    }
+
+    &--variable {
+        font-size: var(--field-font-size);
+        padding: var(--field-padding-vertical) var(--field-padding);
+    }
+
+    &__delete {
+        position: absolute;
+        opacity: 0;
+        right: -0.5rem;
+        top: -0.5rem;
+        font-size: var(--field-font-size);
+        
+        color: white;
+        background-color: #ffa0a0;
+        border: none;
+        border-radius: 50%;
+        transition-duration: 0.1s;
+        cursor: pointer;
+        
+        aspect-ratio: 1 / 1;
+        
+        user-select: none;
+
+        &:hover {
+            filter: brightness(0.9) saturate(150%);
+        }
+
+        &--show {
+            opacity: 1;
+        }
+    }
+}

@@ -8,9 +8,9 @@ export class Number extends Block {
 
         return range.createContextualFragment(`
 
-        <div class="Block" draggable="false">
-            <input class="Block-shelf block__default Block-input Block-input__number" type="number" placeholder="Number"/>
-            <button class="Block-delete">
+        <div class="block" draggable="false">
+            <input class="block__shelf theme__color--white block--input" type="number" placeholder="Number"/>
+            <button class="block__delete">
             ×
             </button>
         </div>
@@ -25,7 +25,7 @@ export class Number extends Block {
         })
         this.shelf.addEventListener("input", e => {
             
-            const field = this.root.closest(".Block-field");
+            const field = this.root.closest(".block__field");
             const event = new CustomEvent("editBlock", {
                 detail: {
                     newValue: this.shelf.value

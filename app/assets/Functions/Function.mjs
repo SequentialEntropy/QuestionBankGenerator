@@ -6,7 +6,7 @@ export default class Function {
     ] }
     shelfStyles() {
         return [
-            "block__default"
+            "theme__color--default"
         ]
     }
     createRoot() {
@@ -17,7 +17,7 @@ export default class Function {
     }
     createDeleteButton() {
         const deleteButton = document.createElement("button");
-        deleteButton.classList.add("Block-delete");
+        deleteButton.classList.add("block__delete");
         deleteButton.textContent = "×";
 
         return deleteButton;
@@ -48,7 +48,7 @@ export default class Function {
         <div class="function">
             <div class="function__shelf">
             </div>
-            <button class="Block-delete">
+            <button class="block__delete">
             ×
             </button>
         </div>
@@ -56,12 +56,12 @@ export default class Function {
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
             this.shelf.classList.add("function__shelf--hover");
-            this.deleteButton.classList.add("Block-delete__show");
+            this.deleteButton.classList.add("block__delete--show");
         });
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
             this.shelf.classList.remove("function__shelf--hover");
-            this.deleteButton.classList.remove("Block-delete__show");
+            this.deleteButton.classList.remove("block__delete--show");
         })
 
         this.deleteButton.addEventListener("click", e => {
@@ -83,7 +83,7 @@ export default class Function {
 
         const fieldElements = Array.from(this.shelf.children)
         .filter(fieldElement => {
-            return fieldElement.matches(".Block-field");
+            return fieldElement.matches(".block__field");
         })
 
         for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
