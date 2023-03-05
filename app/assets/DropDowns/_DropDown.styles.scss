@@ -1,6 +1,10 @@
 @use "../_Boilerplate.styles.scss";
 
 .drop-down {
+    &--hidden {
+        display: none;
+    }
+
     &__toggle {
         background-color: white;
         border-radius: var(--radius);

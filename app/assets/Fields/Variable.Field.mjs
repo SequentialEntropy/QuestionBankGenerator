@@ -33,7 +33,7 @@ export class Variable {
         this.root.addEventListener("deleteBlock", e => {
             this.root.removeChild(this.root.querySelector(".Block"));
 
-            this.input.classList.remove("hidden");
+            this.input.classList.remove("drop-down--hidden");
 
             const address = this.getPath();
 
@@ -47,7 +47,7 @@ export class Variable {
     initialiseField(data) {
         const newBlock = createBlock(data);
 
-        this.input.classList.add("hidden");
+        this.input.classList.add("drop-down--hidden");
 
         this.root.appendChild(newBlock.root);
     }
@@ -90,7 +90,7 @@ export class Variable {
 
         const currentFunction = parentFunction;
 
-        const parentSection = currentFunction.closest(".Section");
+        const parentSection = currentFunction.closest(".section");
 
         shelf = parentSection.querySelector(".FunctionsShelf");
 
@@ -105,11 +105,11 @@ export class Variable {
 
         const currentSection = parentSection;
 
-        shelf = currentSection.closest(".SectionsShelf");
+        shelf = currentSection.closest(".section-menu__shelf");
 
         const sectionElements = Array.from(shelf.children)
         .filter(sectionElement => {
-            return sectionElement.matches(".Section");
+            return sectionElement.matches(".section");
         })
 
         const sectionIndex = sectionElements.indexOf(currentSection) - 1;

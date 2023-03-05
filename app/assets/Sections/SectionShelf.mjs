@@ -10,9 +10,9 @@ export default class SectionShelf {
 
         return range.createContextualFragment(`
         <div class="SectionsEditor">
-            <div class="SectionsShelf"></div>
-            <div class="SectionsShelf-addArea Section-area">
-                <button class="SectionsShelf-createSection">+ Create Step</button>
+            <div class="section-menu__shelf"></div>
+            <div class="section__area">
+                <button class="section-menu__create-section">+ Create Step</button>
             </div>
         </div>
         `).children[0];
@@ -20,8 +20,8 @@ export default class SectionShelf {
 
     constructor(promptData, stepsData) {
         this.root = this.createRoot();
-        this.shelf = this.root.querySelector(".SectionsShelf");
-        this.createSectionButton = this.root.querySelector(".SectionsShelf-createSection");
+        this.shelf = this.root.querySelector(".section-menu__shelf");
+        this.createSectionButton = this.root.querySelector(".section-menu__create-section");
 
         // Create Step
         this.createSectionButton.addEventListener("click", e => {
@@ -53,7 +53,7 @@ export default class SectionShelf {
 
         // Update Step #
 
-        const sections = Array.from(this.shelf.querySelectorAll(".Section"));
+        const sections = Array.from(this.shelf.querySelectorAll(".section"));
 
         const sectionIndex = sections.length;
 
@@ -69,17 +69,17 @@ export default class SectionShelf {
 
         let height = selectedSection.scrollHeight;
         selectedSection.style.height = height + "px";
-        selectedSection.classList.add("Section__transition");
+        selectedSection.classList.add("section--transition");
         
         // After Create Animation
 
         const onCreateAnimationEnd = function(e) {
             if (
-                e.target.classList.contains("Section__transition")
+                e.target.classList.contains("section--transition")
             ) {
                 e.target.removeEventListener("transitionend", onCreateAnimationEnd);
                 e.target.style.removeProperty("height");
-                e.target.classList.remove("Section__transition");
+                e.target.classList.remove("section--transition");
             }
         }
 
@@ -87,7 +87,7 @@ export default class SectionShelf {
     }
 
     deleteStep(selectedSection) {
-        const sections = Array.from(this.shelf.querySelectorAll(".Section"));
+        const sections = Array.from(this.shelf.querySelectorAll(".section"));
 
         const sectionIndex = sections.indexOf(selectedSection);
 
@@ -109,13 +109,13 @@ export default class SectionShelf {
             });
         });
 
-        selectedSection.classList.add("Section__transition");
+        selectedSection.classList.add("section--transition");
 
         // After Delete Animation
 
         const onDeleteAnimationEnd = e => {
             if (
-                selectedSection.classList.contains("Section__transition") &&
+                selectedSection.classList.contains("section--transition") &&
                 e.propertyName == "height"
             ) {
                 this.shelf.removeChild(selectedSection);
@@ -123,7 +123,7 @@ export default class SectionShelf {
                 // Update Step #
 
                 for (let index = sectionIndex; index < sections.length; index++) {
-                    const title = sections[index].querySelector(".Section-title");
+                    const title = sections[index].querySelector(".section__title");
                     title.textContent = `Step ${index - 1}`;
                 }
             }

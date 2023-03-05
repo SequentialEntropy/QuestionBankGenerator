@@ -10,12 +10,12 @@ class Section {
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
-        <div class="Section">
-            <div class="Section-area">
-                <div class="Section-heading">
-                    <div class="Section-title">Step #</div>
+        <div class="section">
+            <div class="section__area">
+                <div class="section__heading">
+                    <div class="section__title">Step #</div>
                     <!--
-                    <button class="Section-delete deleteButton">Delete</button>
+                    <button class="section__delete deleteButton">Delete</button>
                     -->
                 </div>
                 <div class="FunctionsEditor">
@@ -23,15 +23,15 @@ class Section {
                 </div>
             </div>
             <!--
-            <div class="SectionDropZone"></div>
+            <div class="section-drop-zone"></div>
             -->
         </div>
         `).children[0];
     }
     constructor(content=[]) {
         this.root = this.createRoot();
-        this.area = this.root.querySelector(".Section-area");
-        this.title = this.root.querySelector(".Section-title");
+        this.area = this.root.querySelector(".section__area");
+        this.title = this.root.querySelector(".section__title");
         this.shelf = this.root.querySelector(".FunctionsShelf");
         this.root.querySelector(".FunctionsEditor").appendChild((new CreateFunctionButton).root);
 
@@ -72,8 +72,8 @@ class Section {
         })
     }
     getIndex() {
-        const sectionShelf = this.root.closest(".SectionsShelf");
-        const allSections = Array.from(sectionShelf.querySelectorAll(".Section"));
+        const sectionShelf = this.root.closest(".section-menu__shelf");
+        const allSections = Array.from(sectionShelf.querySelectorAll(".section"));
         return allSections.indexOf(this.root);
     }
 }    
@@ -90,7 +90,7 @@ export class StepSection extends Section {
         super(content);
         this.area.draggable = true;
 
-        const heading = this.root.querySelector(".Section-heading");
+        const heading = this.root.querySelector(".section__heading");
         heading.appendChild(this.createDeleteButton());
 
         this.area.addEventListener("dragstart", e => {
@@ -103,11 +103,11 @@ export class StepSection extends Section {
     }
     createDeleteButton() {
         /*
-        <button class="Section-delete deleteButton">Delete</button>
+        <button class="section__delete deleteButton">Delete</button>
         */
        
        const buttonElement = document.createElement("button");
-       buttonElement.classList.add("Section-delete");
+       buttonElement.classList.add("section__delete");
        buttonElement.classList.add("deleteButton");
        
        buttonElement.textContent = "Delete";
@@ -117,7 +117,7 @@ export class StepSection extends Section {
                 return;
             }
             
-            const sectionShelf = this.root.closest(".SectionsShelf");
+            const sectionShelf = this.root.closest(".section-menu__shelf");
             const event = new CustomEvent("deleteSection", {
                 detail: this.root
             });

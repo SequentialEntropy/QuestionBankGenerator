@@ -108,7 +108,7 @@ export default class Function {
 
         const currentFunction = this.root;
 
-        const parentSection = currentFunction.closest(".Section");
+        const parentSection = currentFunction.closest(".section");
 
         shelf = parentSection.querySelector(".FunctionsShelf");
 
@@ -123,11 +123,11 @@ export default class Function {
 
         const currentSection = parentSection;
 
-        shelf = currentSection.closest(".SectionsShelf");
+        shelf = currentSection.closest(".section-menu__shelf");
 
         const sectionElements = Array.from(shelf.children)
         .filter(sectionElement => {
-            return sectionElement.matches(".Section");
+            return sectionElement.matches(".section");
         })
 
         const sectionIndex = sectionElements.indexOf(currentSection) - 1;
