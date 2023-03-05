@@ -69,8 +69,8 @@
   cursor: pointer;
   transition-duration: 0.1s;
 }
-.drop-down__toggle :hover, .drop-down__toggle :focus {
-  filter: brightness(0.95);
+.drop-down__toggle:hover, .drop-down__toggle:focus {
+  filter: brightness(0.9);
 }
 .drop-down__toggle--default {
   color: var(--default-text-color);
