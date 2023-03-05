@@ -5,7 +5,7 @@ export default class RenderInput extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "Add Render";
-        this.toggle.classList.add("dropDown-toggle__default");
+        this.toggle.classList.add("drop-down__toggle--default");
 
         this.list.appendChild(createTextChoice());
 

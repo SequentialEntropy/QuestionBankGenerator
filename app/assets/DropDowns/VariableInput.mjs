@@ -5,7 +5,7 @@ export default class VariableInput extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "Choose Variable";
-        this.toggle.classList.add("dropDown-toggle__default");
+        this.toggle.classList.add("drop-down__toggle--default");
 
         this.toggle.addEventListener("click", async () => {
             this.list.textContent = "";

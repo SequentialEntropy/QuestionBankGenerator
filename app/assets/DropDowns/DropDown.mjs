@@ -5,14 +5,14 @@ export default class DropDown {
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
-        <div class="dropDown" draggable="false">
-            <button class="dropDown-toggle">
+        <div class="drop-down" draggable="false">
+            <button class="drop-down__toggle">
             Expand
             </button>
 
-            <div class="dropDown-list">
+            <div class="drop-down__list">
                 <!--
-                <button class="dropDown-choice">A</button>
+                <button class="drop-down__choice">A</button>
                 -->
             </div>
         </div>
@@ -20,16 +20,16 @@ export default class DropDown {
     }
     constructor() {
         this.root = this.createRoot();
-        this.toggle = this.root.querySelector(".dropDown-toggle");
-        this.list = this.root.querySelector(".dropDown-list");
+        this.toggle = this.root.querySelector(".drop-down__toggle");
+        this.list = this.root.querySelector(".drop-down__list");
 
         this.toggle.addEventListener("click", () => {
-            this.list.classList.add("dropDown-list__show");
+            this.list.classList.add("drop-down__list--show");
         })
 
         window.addEventListener("click", e => {
             if (e.target != this.toggle) {
-                this.list.classList.remove("dropDown-list__show");
+                this.list.classList.remove("drop-down__list--show");
             }
         })
     }
@@ -42,7 +42,7 @@ export default class DropDown {
  */
 export function createChoice(prompt) {
     const choice = document.createElement("button");
-    choice.classList.add("dropDown-choice");
+    choice.classList.add("drop-down__choice");
     
     choice.textContent = prompt;
 

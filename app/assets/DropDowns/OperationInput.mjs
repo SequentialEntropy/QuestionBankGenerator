@@ -7,7 +7,7 @@ export default class OperationInput extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "Add Operation";
-        this.toggle.classList.add("dropDown-toggle__default");
+        this.toggle.classList.add("drop-down__toggle--default");
 
         this.toggle.addEventListener("click", async () => {
 

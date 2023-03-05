@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+:root {
+    --field-padding: 0.5rem;
+    --field-padding-vertical: calc(var(--field-padding) * 1.5);
+    --field-font-size: 0.75rem;
+
+    --block-padding: 0.5rem;
+    --block-padding-vertical: var(--block-padding);
+
+    --function-padding: 0.5rem;
+    --function-padding-vertical: var(--function-padding);
+    --function-font-size: 1rem;
+
+    --radius: 0.5rem;
+    --section-title-height: 1.5rem;
+
+    --default-outline-color: rgb(200, 200, 200);
+    --default-text-color: #757575
+}
