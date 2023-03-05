@@ -9,7 +9,7 @@ export class Set extends Render {
     ] }
     shelfStyles() {
         return [
-            "block__operation"
+            "theme__color--operation"
         ]
     }
     constructor(fieldsData = []) {

@@ -6,25 +6,25 @@ export default class Function {
     ] }
     shelfStyles() {
         return [
-            "block__default"
+            "theme__color--default"
         ]
     }
     createRoot() {
         const root = document.createElement("div");
-        root.classList.add("Function");
+        root.classList.add("function");
 
         return root;
     }
     createDeleteButton() {
         const deleteButton = document.createElement("button");
-        deleteButton.classList.add("Block-delete");
+        deleteButton.classList.add("block__delete");
         deleteButton.textContent = "×";
 
         return deleteButton;
     }
     createShelf() {
         const shelf = document.createElement("div");
-        shelf.classList.add("Function-shelf");
+        shelf.classList.add("function__shelf");
         
         this.shelfStyles().forEach(className => {
             shelf.classList.add(className)
@@ -45,23 +45,23 @@ export default class Function {
         this.root.appendChild(this.shelf);
         this.root.appendChild(this.deleteButton);
         /*
-        <div class="Function">
-            <div class="Function-shelf">
+        <div class="function">
+            <div class="function__shelf">
             </div>
-            <button class="Block-delete">
+            <button class="block__delete">
             ×
             </button>
         </div>
         */
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
-            this.shelf.classList.add("Function-shelf__hover");
-            this.deleteButton.classList.add("Block-delete__show");
+            this.shelf.classList.add("function__shelf--hover");
+            this.deleteButton.classList.add("block__delete--show");
         });
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
-            this.shelf.classList.remove("Function-shelf__hover");
-            this.deleteButton.classList.remove("Block-delete__show");
+            this.shelf.classList.remove("function__shelf--hover");
+            this.deleteButton.classList.remove("block__delete--show");
         })
 
         this.deleteButton.addEventListener("click", e => {
@@ -69,7 +69,7 @@ export default class Function {
                 return;
             }
 
-            const parentField = this.root.closest(".FunctionsShelf");
+            const parentField = this.root.closest(".function-menu__shelf");
             const event = new CustomEvent("deleteFunction", {
                 detail: this.root
             });
@@ -83,7 +83,7 @@ export default class Function {
 
         const fieldElements = Array.from(this.shelf.children)
         .filter(fieldElement => {
-            return fieldElement.matches(".Block-field");
+            return fieldElement.matches(".block__field");
         })
 
         for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
@@ -108,13 +108,13 @@ export default class Function {
 
         const currentFunction = this.root;
 
-        const parentSection = currentFunction.closest(".Section");
+        const parentSection = currentFunction.closest(".section");
 
-        shelf = parentSection.querySelector(".FunctionsShelf");
+        shelf = parentSection.querySelector(".function-menu__shelf");
 
         const functionElements = Array.from(shelf.children)
         .filter(functionElement => {
-            return functionElement.matches(".Function");
+            return functionElement.matches(".function");
         })
 
         const functionIndex = functionElements.indexOf(currentFunction);
@@ -123,11 +123,11 @@ export default class Function {
 
         const currentSection = parentSection;
 
-        shelf = currentSection.closest(".SectionsShelf");
+        shelf = currentSection.closest(".section-menu__shelf");
 
         const sectionElements = Array.from(shelf.children)
         .filter(sectionElement => {
-            return sectionElement.matches(".Section");
+            return sectionElement.matches(".section");
         })
 
         const sectionIndex = sectionElements.indexOf(currentSection) - 1;

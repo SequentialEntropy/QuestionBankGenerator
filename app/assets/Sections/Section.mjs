@@ -10,30 +10,30 @@ class Section {
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
-        <div class="Section">
-            <div class="Section-area">
-                <div class="Section-heading">
-                    <div class="Section-title">Step #</div>
+        <div class="section">
+            <div class="section__area">
+                <div class="section__heading">
+                    <div class="section__title">Step #</div>
                     <!--
-                    <button class="Section-delete deleteButton">Delete</button>
+                    <button class="section__delete deleteButton">Delete</button>
                     -->
                 </div>
-                <div class="FunctionsEditor">
-                    <div class="FunctionsShelf"></div>
+                <div class="function-menu">
+                    <div class="function-menu__shelf"></div>
                 </div>
             </div>
             <!--
-            <div class="SectionDropZone"></div>
+            <div class="section-drop-zone"></div>
             -->
         </div>
         `).children[0];
     }
     constructor(content=[]) {
         this.root = this.createRoot();
-        this.area = this.root.querySelector(".Section-area");
-        this.title = this.root.querySelector(".Section-title");
-        this.shelf = this.root.querySelector(".FunctionsShelf");
-        this.root.querySelector(".FunctionsEditor").appendChild((new CreateFunctionButton).root);
+        this.area = this.root.querySelector(".section__area");
+        this.title = this.root.querySelector(".section__title");
+        this.shelf = this.root.querySelector(".function-menu__shelf");
+        this.root.querySelector(".function-menu").appendChild((new CreateFunctionButton).root);
 
         this.shelf.addEventListener("createFunction", e => {
             const functionType = e.detail;
@@ -48,7 +48,7 @@ class Section {
         this.shelf.addEventListener("deleteFunction", e => {
             const selectedFunction = e.detail;
 
-            const functions = Array.from(this.shelf.querySelectorAll(".Function"));
+            const functions = Array.from(this.shelf.querySelectorAll(".function"));
 
             const functionIndex = functions.indexOf(selectedFunction);
 
@@ -72,8 +72,8 @@ class Section {
         })
     }
     getIndex() {
-        const sectionShelf = this.root.closest(".SectionsShelf");
-        const allSections = Array.from(sectionShelf.querySelectorAll(".Section"));
+        const sectionShelf = this.root.closest(".section-menu__shelf");
+        const allSections = Array.from(sectionShelf.querySelectorAll(".section"));
         return allSections.indexOf(this.root);
     }
 }    
@@ -90,7 +90,7 @@ export class StepSection extends Section {
         super(content);
         this.area.draggable = true;
 
-        const heading = this.root.querySelector(".Section-heading");
+        const heading = this.root.querySelector(".section__heading");
         heading.appendChild(this.createDeleteButton());
 
         this.area.addEventListener("dragstart", e => {
@@ -103,11 +103,11 @@ export class StepSection extends Section {
     }
     createDeleteButton() {
         /*
-        <button class="Section-delete deleteButton">Delete</button>
+        <button class="section__delete deleteButton">Delete</button>
         */
        
        const buttonElement = document.createElement("button");
-       buttonElement.classList.add("Section-delete");
+       buttonElement.classList.add("section__delete");
        buttonElement.classList.add("deleteButton");
        
        buttonElement.textContent = "Delete";
@@ -117,7 +117,7 @@ export class StepSection extends Section {
                 return;
             }
             
-            const sectionShelf = this.root.closest(".SectionsShelf");
+            const sectionShelf = this.root.closest(".section-menu__shelf");
             const event = new CustomEvent("deleteSection", {
                 detail: this.root
             });
@@ -133,15 +133,18 @@ class CreateFunctionButton extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "+ Create Function";
-        this.root.classList.add("FunctionsShelf-createFunction");
+        this.root.classList.add("function-menu__create-function");
 
         const textChoice = createFunctionChoice("Text");
+        textChoice.classList.add("theme__color--white");
         this.list.appendChild(textChoice);
-
+        
         const renderChoice = createFunctionChoice("Render");
+        renderChoice.classList.add("theme__color--render");
         this.list.appendChild(renderChoice);
-
+        
         const setChoice = createFunctionChoice("Set");
+        setChoice.classList.add("theme__color--operation");
         this.list.appendChild(setChoice);
     }
 }
@@ -149,7 +152,7 @@ class CreateFunctionButton extends DropDown {
 function createFunctionChoice(functionType) {
     const choice = createChoice(functionType);
     choice.addEventListener("click", e => {
-        const shelf = choice.closest(".FunctionsEditor").querySelector(".FunctionsShelf");
+        const shelf = choice.closest(".function-menu").querySelector(".function-menu__shelf");
         const event = new CustomEvent("createFunction", {
             detail: functionType
         });

@@ -1,0 +1,18 @@
+@use "./Boilerplate.styles";
+
+.deleteButton {
+    font-size: var(--field-font-size);
+
+    padding: var(--field-padding-vertical) var(--field-padding);
+    margin: 0 2rem;
+
+    color: white;
+    background-color: #ffa0a0;
+    border: none;
+    border-radius: var(--radius);
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+.deleteButton:hover {
+    filter: brightness(0.9) saturate(150%);
+}

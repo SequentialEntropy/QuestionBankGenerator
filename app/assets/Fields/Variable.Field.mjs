@@ -13,7 +13,7 @@ export class Variable {
     constructor() {
         this.fieldType = "Variable";
         this.root = document.createElement("div");
-        this.root.classList.add("Block-field");
+        this.root.classList.add("block__field");
         
         this.input = this.createInput().root;
         this.root.appendChild(this.input);
@@ -31,9 +31,9 @@ export class Variable {
         })
 
         this.root.addEventListener("deleteBlock", e => {
-            this.root.removeChild(this.root.querySelector(".Block"));
+            this.root.removeChild(this.root.querySelector(".block"));
 
-            this.input.classList.remove("hidden");
+            this.input.classList.remove("drop-down--hidden");
 
             const address = this.getPath();
 
@@ -47,41 +47,41 @@ export class Variable {
     initialiseField(data) {
         const newBlock = createBlock(data);
 
-        this.input.classList.add("hidden");
+        this.input.classList.add("drop-down--hidden");
 
         this.root.appendChild(newBlock.root);
     }
     getPath() {
-        let parentBlock = this.root.closest(".Block");
+        let parentBlock = this.root.closest(".block");
         let currentField = this.root;
         let indexes = [];
 
         // Field # in Block
 
         while (parentBlock != null) {
-            const shelf = parentBlock.querySelector(".Block-shelf");
+            const shelf = parentBlock.querySelector(".block__shelf");
 
             const fieldElements = Array.from(shelf.children)
             .filter(fieldElement => {
-                return fieldElement.matches(".Block-field");
+                return fieldElement.matches(".block__field");
             })    
             
             indexes.unshift(fieldElements.indexOf(currentField));
             
-            currentField = parentBlock.closest(".Block-field");
+            currentField = parentBlock.closest(".block__field");
 
-            parentBlock = currentField.closest(".Block");
+            parentBlock = currentField.closest(".block");
         }
 
         // Field # in Function
 
-        const parentFunction = currentField.closest(".Function");
+        const parentFunction = currentField.closest(".function");
 
-        let shelf = parentFunction.querySelector(".Function-shelf");
+        let shelf = parentFunction.querySelector(".function__shelf");
 
         const fieldElements = Array.from(shelf.children)
         .filter(fieldElement => {
-            return fieldElement.matches(".Block-field");
+            return fieldElement.matches(".block__field");
         })
         
         indexes.unshift(fieldElements.indexOf(currentField));
@@ -90,13 +90,13 @@ export class Variable {
 
         const currentFunction = parentFunction;
 
-        const parentSection = currentFunction.closest(".Section");
+        const parentSection = currentFunction.closest(".section");
 
-        shelf = parentSection.querySelector(".FunctionsShelf");
+        shelf = parentSection.querySelector(".function-menu__shelf");
 
         const functionElements = Array.from(shelf.children)
         .filter(functionElement => {
-            return functionElement.matches(".Function");
+            return functionElement.matches(".function");
         })
 
         const functionIndex = functionElements.indexOf(currentFunction);
@@ -105,11 +105,11 @@ export class Variable {
 
         const currentSection = parentSection;
 
-        shelf = currentSection.closest(".SectionsShelf");
+        shelf = currentSection.closest(".section-menu__shelf");
 
         const sectionElements = Array.from(shelf.children)
         .filter(sectionElement => {
-            return sectionElement.matches(".Section");
+            return sectionElement.matches(".section");
         })
 
         const sectionIndex = sectionElements.indexOf(currentSection) - 1;

@@ -8,7 +8,7 @@ export class Addition extends Block {
     ]}
     shelfStyles() {
         return [
-            "block__render"
+            "theme__color--render"
         ]
     }
     constructor(data) {

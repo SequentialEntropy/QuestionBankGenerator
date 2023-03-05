@@ -8,7 +8,7 @@ export class Division extends Block {
     ]}
     shelfStyles() {
         return [
-            "block__operation"
+            "theme__color--operation"
         ]
     }
     constructor(data) {

@@ -1,0 +1,5 @@
+@use "./_Boilerplate.styles.scss";
+
+.override__text--default {
+    color: var(--default-text-color);
+}

@@ -8,10 +8,10 @@ export class Variable extends Block {
 
         return range.createContextualFragment(`
 
-        <div class="Block" draggable="false">
-            <div class="Block-shelf Block-variable block__variable">
+        <div class="block" draggable="false">
+            <div class="block__shelf block--variable theme__color--variable">
             </div>
-            <button class="Block-delete">
+            <button class="block__delete">
             ×
             </button>
         </div>
@@ -24,7 +24,7 @@ export class Variable extends Block {
     }
     initialiseFields(data) {
         const variableName = data.variableName;
-        this.root.querySelector(".Block-variable").textContent = variableName;
+        this.root.querySelector(".block__shelf").textContent = variableName;
     }
 }
 

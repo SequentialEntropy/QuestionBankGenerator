@@ -7,7 +7,7 @@ export default class OperationInput extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "Add Operation";
-        this.toggle.classList.add("dropDown-toggle__default");
+        this.toggle.classList.add("drop-down__toggle--default");
 
         this.toggle.addEventListener("click", async () => {
 
@@ -30,10 +30,10 @@ export default class OperationInput extends DropDown {
 
 function createNumberChoice() {
     const choice = createChoice("Number");
-    choice.classList.add("block__default");
+    choice.classList.add("theme__color--white");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Number",
@@ -49,10 +49,10 @@ function createNumberChoice() {
 
 function createOperationChoice(operationName) {
     const choice = createChoice(`${operationName} Operation`);
-    choice.classList.add("block__operation");
+    choice.classList.add("theme__color--operation");
 
     choice.addEventListener("click", () => {
-        const field = choice.closest(".Block-field");
+        const field = choice.closest(".block__field");
         const event = new CustomEvent("createBlock", {
             detail: {
                 blockType: "Operation",
