@@ -10,8 +10,8 @@ export default class SectionShelf {
 
         return range.createContextualFragment(`
         <div class="section-menu">
-            <div class="section-menu__shelf"></div>
-            <div class="section__area">
+            <div class="section-menu__shelf theme__background--drop-down"></div>
+            <div class="section__area theme__color--white">
                 <button class="section-menu__create-section">+ Create Step</button>
             </div>
         </div>

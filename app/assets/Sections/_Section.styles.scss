@@ -3,7 +3,6 @@
 .section-menu {
     &__shelf {
         width: 100%;
-        background-color: rgb(240, 240, 240);
     }
     &__create-section {
         width: 100%;
@@ -32,7 +31,6 @@
         min-height: 3rem;
         padding: 2rem;
         width: 100%;
-        background-color: white;
     }
 
     &__delete {
@@ -50,7 +48,6 @@
 
     &__title {
         font-size: var(--section-title-height);
-        color: rgb(100, 100, 100);
         user-select: none;
     }
 }

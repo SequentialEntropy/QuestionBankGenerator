@@ -11,7 +11,7 @@ class Section {
 
         return range.createContextualFragment(`
         <div class="section">
-            <div class="section__area">
+            <div class="section__area theme__color--default">
                 <div class="section__heading">
                     <div class="section__title">Step #</div>
                     <!--

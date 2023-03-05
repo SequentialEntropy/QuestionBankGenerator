@@ -53,6 +53,10 @@
   outline: 0.1rem solid var(--default-outline-color);
 }
 
+.theme__background--drop-down {
+  background-color: rgb(240, 240, 240);
+}
+
 .drop-down--hidden {
   display: none;
 }
@@ -115,7 +119,6 @@
 
 .section-menu__shelf {
   width: 100%;
-  background-color: rgb(240, 240, 240);
 }
 .section-menu__create-section {
   width: 100%;
@@ -142,7 +145,6 @@
   min-height: 3rem;
   padding: 2rem;
   width: 100%;
-  background-color: white;
 }
 .section__delete {
   opacity: 0;
@@ -157,7 +159,6 @@
 }
 .section__title {
   font-size: var(--section-title-height);
-  color: rgb(100, 100, 100);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
