@@ -9,7 +9,7 @@ export default class SectionShelf {
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
-        <div class="SectionsEditor">
+        <div class="section-menu">
             <div class="section-menu__shelf"></div>
             <div class="section__area">
                 <button class="section-menu__create-section">+ Create Step</button>

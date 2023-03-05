@@ -19,6 +19,40 @@
   --default-text-color: #757575 ;
 }
 
+.theme__color--default {
+  background-color: white;
+  color: var(--default-text-color);
+}
+
+.theme__color--variable {
+  background-color: #9eb0ff;
+  color: white;
+}
+
+.theme__color--operation {
+  background-color: #74caff;
+  color: white;
+}
+
+.theme__color--render {
+  background-color: #ffa0a0;
+  color: white;
+}
+
+.theme__color--delete {
+  background-color: #ffa0a0;
+  color: white;
+}
+
+.theme__color--white {
+  background-color: white;
+  color: black;
+}
+
+.theme__outline--default {
+  outline: 0.1rem solid var(--default-outline-color);
+}
+
 .drop-down--hidden {
   display: none;
 }
@@ -31,7 +65,7 @@
   cursor: pointer;
   transition-duration: 0.1s;
 }
-.drop-down__toggle :hover(), .drop-down__toggle :focus() {
+.drop-down__toggle :hover, .drop-down__toggle :focus {
   filter: brightness(0.95);
 }
 .drop-down__toggle--default {
@@ -139,25 +173,61 @@
   height: 5rem;
 }
 
-:root {
-  --field-padding: 0.5rem;
-  --field-padding-vertical: calc(var(--field-padding) * 1.5);
-  --field-font-size: 0.75rem;
-  --block-padding: 0.5rem;
-  --block-padding-vertical: var(--block-padding);
-  --function-padding: 0.5rem;
-  --function-padding-vertical: var(--function-padding);
-  --function-font-size: 1rem;
-  --radius: 0.5rem;
-  --section-title-height: 1.5rem;
-  --default-outline-color: rgb(200, 200, 200);
-  --default-text-color: #757575 ;
+.function {
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.function:has(.function__shelf.block__operation) {
+  width: 100%;
+}
+.function__shelf {
+  border-radius: var(--radius);
+  padding: var(--function-padding-vertical) var(--function-padding);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: space-between;
+  gap: 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.function__shelf--hover {
+  outline-width: 0.2rem;
+  outline-style: solid;
+  outline-color: rgba(0, 0, 0, 0.5);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  font-family: sans-serif;
+.function-menu {
+  background-color: white;
+  border-radius: var(--radius);
+  padding: 1rem;
+  outline: 0.1rem solid var(--default-outline-color);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1rem;
+}
+.function-menu__shelf {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.function-menu__create-function {
+  position: relative;
+  width: 100%;
+}
+.function-menu__create-function .drop-down__list {
+  width: 100%;
+}
+.function-menu__create-function .drop-down__toggle {
+  width: 100%;
+  font-size: var(--function-font-size);
+  outline: 0.1rem dashed var(--default-outline-color);
+  color: var(--default-text-color);
 }
 
 .block__variable {
@@ -183,71 +253,6 @@
 .function__render {
   background-color: white;
   color: var(--default-text-color);
-  outline: 0.1rem solid var(--default-outline-color);
-}
-
-.Function {
-  position: relative;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.Function:has(.Function-shelf.block__operation) {
-  width: 100%;
-}
-
-.FunctionsEditor {
-  background-color: white;
-  border-radius: var(--radius);
-  padding: 1rem;
-  outline: 0.1rem solid var(--default-outline-color);
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  flex-direction: row;
-  gap: 1rem;
-}
-
-.FunctionsShelf {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.Function-shelf {
-  border-radius: var(--radius);
-  padding: var(--function-padding-vertical) var(--function-padding);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: space-between;
-  gap: 0.5rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-
-.FunctionsShelf-createFunction {
-  position: relative;
-  width: 100%;
-}
-
-.FunctionsShelf-createFunction .drop-down__list {
-  width: 100%;
-}
-
-.FunctionsShelf-createFunction .drop-down__toggle {
-  width: 100%;
-  font-size: var(--function-font-size);
-  outline: 0.1rem dashed var(--default-outline-color);
-  color: var(--default-text-color);
-}
-
-.Function-shelf__hover {
-  outline-width: 0.2rem;
-  outline-style: solid;
-  outline-color: rgba(0, 0, 0, 0.5);
 }
 
 .function__render > .Block-field > .drop-down > .drop-down__toggle,

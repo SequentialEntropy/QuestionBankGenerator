@@ -1,3 +1,9 @@
+@use "./_Boilerplate.styles.scss";
+
+.theme__color--default {
+    background-color: white;
+    color: var(--default-text-color);
+}
 .theme__color--variable {
     background-color: #9eb0ff;
     color: white;
@@ -14,7 +20,10 @@
     background-color: #ffa0a0;
     color: white;
 }
-.theme__color--default {
+.theme__color--white {
     background-color: white;
     color: black;
+}
+.theme__outline--default {
+    outline: 0.1rem solid var(--default-outline-color);
 }

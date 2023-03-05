@@ -4,7 +4,7 @@ import QuestionAPI from "../../question/client/question.api.mjs";
 export class Text extends Function {
     createShelf() {
         const shelf = document.createElement("span");
-        shelf.classList.add("Function-shelf");
+        shelf.classList.add("function__shelf");
         shelf.classList.add("Block-input");
         shelf.classList.add("Function__text");
         shelf.contentEditable = true;

@@ -1,0 +1,63 @@
+@use "../_Boilerplate.styles.scss";
+@use "../_Themes.styles.scss";
+
+.function {
+    position: relative;
+    width: fit-content;
+
+    &:has(.function__shelf.block__operation) {
+        width: 100%;
+    }
+
+    &__shelf {
+        border-radius: var(--radius);
+        padding: var(--function-padding-vertical) var(--function-padding);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: space-between;
+        gap: 0.5rem;
+        user-select: none;
+        &--hover {
+            outline-width: 0.2rem;
+            outline-style: solid;
+            outline-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+.function-menu {
+    background-color: white;
+    border-radius: var(--radius);
+    padding: 1rem;
+    outline: 0.1rem solid var(--default-outline-color);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
+    
+    &__shelf {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    &__create-function {
+        position: relative;
+        width: 100%;
+
+        & .drop-down {
+            &__list {
+                width: 100%;
+            }
+            &__toggle {
+                width: 100%;
+                font-size: var(--function-font-size);
+                outline: 0.1rem dashed var(--default-outline-color);
+                color: var(--default-text-color);
+            }
+        }
+    }
+}

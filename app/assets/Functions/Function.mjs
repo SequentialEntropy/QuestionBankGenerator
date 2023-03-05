@@ -11,7 +11,7 @@ export default class Function {
     }
     createRoot() {
         const root = document.createElement("div");
-        root.classList.add("Function");
+        root.classList.add("function");
 
         return root;
     }
@@ -24,7 +24,7 @@ export default class Function {
     }
     createShelf() {
         const shelf = document.createElement("div");
-        shelf.classList.add("Function-shelf");
+        shelf.classList.add("function__shelf");
         
         this.shelfStyles().forEach(className => {
             shelf.classList.add(className)
@@ -45,8 +45,8 @@ export default class Function {
         this.root.appendChild(this.shelf);
         this.root.appendChild(this.deleteButton);
         /*
-        <div class="Function">
-            <div class="Function-shelf">
+        <div class="function">
+            <div class="function__shelf">
             </div>
             <button class="Block-delete">
             ×
@@ -55,12 +55,12 @@ export default class Function {
         */
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
-            this.shelf.classList.add("Function-shelf__hover");
+            this.shelf.classList.add("function__shelf--hover");
             this.deleteButton.classList.add("Block-delete__show");
         });
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
-            this.shelf.classList.remove("Function-shelf__hover");
+            this.shelf.classList.remove("function__shelf--hover");
             this.deleteButton.classList.remove("Block-delete__show");
         })
 
@@ -69,7 +69,7 @@ export default class Function {
                 return;
             }
 
-            const parentField = this.root.closest(".FunctionsShelf");
+            const parentField = this.root.closest(".function-menu__shelf");
             const event = new CustomEvent("deleteFunction", {
                 detail: this.root
             });
@@ -110,11 +110,11 @@ export default class Function {
 
         const parentSection = currentFunction.closest(".section");
 
-        shelf = parentSection.querySelector(".FunctionsShelf");
+        shelf = parentSection.querySelector(".function-menu__shelf");
 
         const functionElements = Array.from(shelf.children)
         .filter(functionElement => {
-            return functionElement.matches(".Function");
+            return functionElement.matches(".function");
         })
 
         const functionIndex = functionElements.indexOf(currentFunction);

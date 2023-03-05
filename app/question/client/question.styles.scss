@@ -1,31 +1,9 @@
+@use "../../assets/_Boilerplate.styles.scss";
+@use "../../assets/_Themes.styles.scss";
 @use "../../assets/DropDowns/_DropDown.styles.scss";
 @use "../../assets/_DeleteButton.styles.scss";
 @use "../../assets/Sections/_Section.styles.scss";
-
-:root {
-    --field-padding: 0.5rem;
-    --field-padding-vertical: calc(var(--field-padding) * 1.5);
-    --field-font-size: 0.75rem;
-
-    --block-padding: 0.5rem;
-    --block-padding-vertical: var(--block-padding);
-
-    --function-padding: 0.5rem;
-    --function-padding-vertical: var(--function-padding);
-    --function-font-size: 1rem;
-
-    --radius: 0.5rem;
-    --section-title-height: 1.5rem;
-
-    --default-outline-color: rgb(200, 200, 200);
-    --default-text-color: #757575
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    font-family: sans-serif;
-}
+@use "../../assets/Functions/_Function.styles.scss";
 
 .block__variable {
     background-color: #9eb0ff;
@@ -46,71 +24,7 @@
 .function__render {
     background-color: white;
     color: var(--default-text-color);
-    outline: 0.1rem solid var(--default-outline-color);
 }
-
-.Function {
-    position: relative;
-    width: fit-content;
-}
-
-.Function:has(.Function-shelf.block__operation) {
-    width: 100%;
-}
-
-.FunctionsEditor {
-    background-color: white;
-    border-radius: var(--radius);
-    padding: 1rem;
-    outline: 0.1rem solid var(--default-outline-color);
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 1rem;
-}
-
-.FunctionsShelf {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.Function-shelf {
-    border-radius: var(--radius);
-    padding: var(--function-padding-vertical) var(--function-padding);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    align-content: space-between;
-    gap: 0.5rem;
-    user-select: none;
-}
-
-.FunctionsShelf-createFunction {
-    position: relative;
-    width: 100%;
-}
-.FunctionsShelf-createFunction .drop-down__list {
-    width: 100%;
-}
-.FunctionsShelf-createFunction .drop-down__toggle {
-    width: 100%;
-    font-size: var(--function-font-size);
-    outline: 0.1rem dashed var(--default-outline-color);
-    color: var(--default-text-color);
-}
-.Function-shelf__hover {
-    outline-width: 0.2rem;
-    outline-style: solid;
-    outline-color: rgba(0, 0, 0, 0.5);
-}
-
-
-
-
-
 
 .function__render > .Block-field > .drop-down >
 .drop-down__toggle,

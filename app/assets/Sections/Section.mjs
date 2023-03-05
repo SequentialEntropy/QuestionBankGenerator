@@ -18,8 +18,8 @@ class Section {
                     <button class="section__delete deleteButton">Delete</button>
                     -->
                 </div>
-                <div class="FunctionsEditor">
-                    <div class="FunctionsShelf"></div>
+                <div class="function-menu">
+                    <div class="function-menu__shelf"></div>
                 </div>
             </div>
             <!--
@@ -32,8 +32,8 @@ class Section {
         this.root = this.createRoot();
         this.area = this.root.querySelector(".section__area");
         this.title = this.root.querySelector(".section__title");
-        this.shelf = this.root.querySelector(".FunctionsShelf");
-        this.root.querySelector(".FunctionsEditor").appendChild((new CreateFunctionButton).root);
+        this.shelf = this.root.querySelector(".function-menu__shelf");
+        this.root.querySelector(".function-menu").appendChild((new CreateFunctionButton).root);
 
         this.shelf.addEventListener("createFunction", e => {
             const functionType = e.detail;
@@ -48,7 +48,7 @@ class Section {
         this.shelf.addEventListener("deleteFunction", e => {
             const selectedFunction = e.detail;
 
-            const functions = Array.from(this.shelf.querySelectorAll(".Function"));
+            const functions = Array.from(this.shelf.querySelectorAll(".function"));
 
             const functionIndex = functions.indexOf(selectedFunction);
 
@@ -133,7 +133,7 @@ class CreateFunctionButton extends DropDown {
     constructor() {
         super();
         this.toggle.textContent = "+ Create Function";
-        this.root.classList.add("FunctionsShelf-createFunction");
+        this.root.classList.add("function-menu__create-function");
 
         const textChoice = createFunctionChoice("Text");
         this.list.appendChild(textChoice);
@@ -149,7 +149,7 @@ class CreateFunctionButton extends DropDown {
 function createFunctionChoice(functionType) {
     const choice = createChoice(functionType);
     choice.addEventListener("click", e => {
-        const shelf = choice.closest(".FunctionsEditor").querySelector(".FunctionsShelf");
+        const shelf = choice.closest(".function-menu").querySelector(".function-menu__shelf");
         const event = new CustomEvent("createFunction", {
             detail: functionType
         });

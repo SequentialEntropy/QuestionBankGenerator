@@ -75,9 +75,9 @@ export class Variable {
 
         // Field # in Function
 
-        const parentFunction = currentField.closest(".Function");
+        const parentFunction = currentField.closest(".function");
 
-        let shelf = parentFunction.querySelector(".Function-shelf");
+        let shelf = parentFunction.querySelector(".function__shelf");
 
         const fieldElements = Array.from(shelf.children)
         .filter(fieldElement => {
@@ -92,11 +92,11 @@ export class Variable {
 
         const parentSection = currentFunction.closest(".section");
 
-        shelf = parentSection.querySelector(".FunctionsShelf");
+        shelf = parentSection.querySelector(".function-menu__shelf");
 
         const functionElements = Array.from(shelf.children)
         .filter(functionElement => {
-            return functionElement.matches(".Function");
+            return functionElement.matches(".function");
         })
 
         const functionIndex = functionElements.indexOf(currentFunction);
