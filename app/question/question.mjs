@@ -107,6 +107,30 @@ class Question {
     getVariables() {
         return this._data().variables;
     }
+    createVariable(variableName) {
+        if (this.getVariables().includes(variableName)) {
+            return false;
+        }
+
+        this.getVariables().push(variableName);
+
+        this._save();
+
+        return true;
+    }
+    deleteVariable(variableName) {
+        const variableIndex = this.getVariables().indexOf(variableName);
+
+        if (variableIndex == -1) {
+            return false;
+        }
+
+        this.getVariables().splice(variableIndex, 1);
+
+        this._save();
+
+        return true;
+    }
     getSection(sectionIndexString) {
         const sectionIndex= parseInt(sectionIndexString);
 

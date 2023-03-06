@@ -41,15 +41,15 @@ export class VariableSection {
                 return
             }
 
-            console.log(variableName);
+            this.shelf.appendChild((new Variable(variableName)).root);
 
-            // this.shelf.appendChild((new Variable(variableName)).root);
+            QuestionAPI.createVariable(variableName);
         })
 
         this.shelf.addEventListener("deleteVariable", async e => {
             const variableName = e.detail.variableName;
 
-            console.log(variableName);
+            QuestionAPI.deleteVariable(variableName);
         })
 
         variables.forEach(variableName => {
@@ -95,6 +95,10 @@ class Variable {
         })
 
         this.deleteButton.addEventListener("click", e => {
+            if (!confirm(`Are you sure you want to delete the variable named "${this.shelf.textContent}"?`)) {
+                return;
+            }
+
             const shelf = this.root.closest(".function-menu__shelf");
 
             const event = new CustomEvent("deleteVariable", {
@@ -104,6 +108,8 @@ class Variable {
             });
 
             shelf.dispatchEvent(event);
+
+            shelf.removeChild(this.root);
         })
     }
 }

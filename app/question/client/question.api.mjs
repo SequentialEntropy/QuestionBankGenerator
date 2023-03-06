@@ -20,6 +20,20 @@ export default class QuestionAPI {
     static async getVariables() {
         return (await fetch(`/question/api/${getQuestionId()}/getVariables`)).json();
     }
+    static async createVariable(variableName) {
+        const response = send("POST", "createVariable", {
+            variableName
+        });
+        const json = (await response).json();
+        return json;
+    }
+    static async deleteVariable(variableName) {
+        const response = send("PUT", "deleteVariable", {
+            variableName
+        });
+        const json = (await response).json();
+        return json;
+    }
     static async createFunction(section, functionData) {
         const response = send("POST", `createFunction/${section}`, functionData);
         const json = (await response).json();

@@ -13,6 +13,8 @@ import createBlock from "./createBlock.handler.mjs";
 import deleteBlock from "./deleteBlock.handler.mjs";
 import editBlock from "./editBlock.handler.mjs";
 import editFunction from "./editFunction.handler.mjs"
+import createVariable from "./createVariable.handler.mjs";
+import deleteVariable from "./deleteVariable.handler.mjs";
 
 const router = express.Router();
 
@@ -28,6 +30,8 @@ router.put("/:questionId/createBlock/:sectionIndex/:functionIndex/:path", auth, 
 router.get("/:questionId/deleteBlock/:sectionIndex/:functionIndex/:path", auth, deleteBlock)
 router.put("/:questionId/editBlock/:sectionIndex/:functionIndex/:path", auth, editBlock)
 router.put("/:questionId/editFunction/:sectionIndex/:functionIndex", auth, editFunction)
+router.post("/:questionId/createVariable", auth, createVariable);
+router.put("/:questionId/deleteVariable", auth, deleteVariable);
 
 
 router.get("/test", (req, res) => {
