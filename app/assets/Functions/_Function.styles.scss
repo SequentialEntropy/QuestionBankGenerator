@@ -27,6 +27,8 @@
 
         &.block--input {
             display: flex;
+            justify-content: center;
+            gap: 0;
             font-size: var(--function-font-size);
         }
 
@@ -69,7 +71,6 @@
             &__toggle {
                 width: 100%;
                 font-size: var(--function-font-size);
-                outline: 0.1rem dashed var(--default-outline-color);
                 color: var(--default-text-color);
             }
         }

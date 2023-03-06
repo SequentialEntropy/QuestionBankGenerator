@@ -134,6 +134,7 @@ class CreateFunctionButton extends DropDown {
         super();
         this.toggle.textContent = "+ Create Function";
         this.root.classList.add("function-menu__create-function");
+        this.toggle.classList.add("theme__outline--dashed");
 
         const textChoice = createFunctionChoice("Text");
         textChoice.classList.add("theme__color--white");

@@ -3,7 +3,7 @@ import QuestionAPI from "../../question/client/question.api.mjs";
 
 export class Text extends Function {
     createShelf() {
-        const shelf = document.createElement("span");
+        const shelf = document.createElement("div");
         shelf.classList.add("function__shelf");
         shelf.classList.add("block--input");
 

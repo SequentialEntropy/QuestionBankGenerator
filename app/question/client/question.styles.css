@@ -53,6 +53,10 @@
   outline: 0.1rem solid var(--default-outline-color);
 }
 
+.theme__outline--dashed {
+  outline: 0.1rem dashed var(--default-outline-color);
+}
+
 .theme__background--drop-down {
   background-color: rgb(240, 240, 240);
 }
@@ -68,6 +72,7 @@
   border: none;
   cursor: pointer;
   transition-duration: 0.1s;
+  text-align: center;
 }
 .drop-down__toggle:hover, .drop-down__toggle:focus {
   filter: brightness(0.9);
@@ -173,6 +178,32 @@
   height: 5rem;
 }
 
+.function-menu__create-variable {
+  width: 100%;
+}
+.function-menu__input {
+  width: 100%;
+  font-size: var(--function-font-size);
+  border-radius: var(--radius);
+  padding: var(--field-padding-vertical) var(--field-padding);
+  text-align: center;
+  transition-duration: 0.1s;
+  display: flex;
+  justify-content: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.function-menu__input--hover {
+  filter: brightness(0.9);
+  cursor: pointer;
+}
+.function-menu__input--focus {
+  filter: brightness(1);
+  outline: none;
+  cursor: text;
+}
+
 .function {
   position: relative;
   width: -moz-fit-content;
@@ -197,6 +228,8 @@
 }
 .function__shelf.block--input {
   display: flex;
+  justify-content: center;
+  gap: 0;
   font-size: var(--function-font-size);
 }
 .function__shelf.theme__color--default > .block__field > .drop-down > .drop-down__toggle, .function__shelf.theme__color--default > .block__field > .block > .block--input:not(.block__shelf--hover):not(:focus) {
@@ -230,7 +263,6 @@
 .function-menu__create-function .drop-down__toggle {
   width: 100%;
   font-size: var(--function-font-size);
-  outline: 0.1rem dashed var(--default-outline-color);
   color: var(--default-text-color);
 }
 

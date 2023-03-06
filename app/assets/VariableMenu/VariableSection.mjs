@@ -1,3 +1,5 @@
+import QuestionAPI from "../../question/client/question.api.mjs";
+
 export class VariableSection {
     createRoot() {
         const range = document.createRange();
@@ -9,12 +11,10 @@ export class VariableSection {
             <div class="section__area theme__color--variable">
                 <div class="section__heading">
                     <div class="section__title">Variables</div>
-                    <!--
-                    <button class="section__delete deleteButton">Delete</button>
-                    -->
                 </div>
                 <div class="function-menu">
                     <div class="function-menu__shelf"></div>
+                    <div class="function-menu__create-variable"></div>
                 </div>
             </div>
             <!--
@@ -29,58 +29,136 @@ export class VariableSection {
         this.area = this.root.querySelector(".section__area");
         this.title = this.root.querySelector(".section__title");
         this.shelf = this.root.querySelector(".function-menu__shelf");
-        // this.root.querySelector(".function-menu").appendChild((new CreateFunctionButton).root);
+        this.root.querySelector(".function-menu__create-variable").appendChild((new CreateVariableButton).root);
 
-        // this.shelf.addEventListener("createFunction", e => {
-        //     const functionType = e.detail;
+        this.shelf.addEventListener("createVariable", async e => {
+            const variableName = e.detail.variableName;
 
-        //     QuestionAPI.createFunction(this.getIndex() - 1, {
-        //         functionType
-        //     });
+            const variables = QuestionAPI.getVariables();
 
-        //     this.shelf.appendChild(createFunction(functionType).root);
-        // })
+            if ((await variables).includes(variableName)) {
+                alert(`A variable named "${variableName}" already exists!`);
+                return
+            }
 
-        // this.shelf.addEventListener("deleteFunction", e => {
-        //     const selectedFunction = e.detail;
+            console.log(variableName);
 
-        //     const functions = Array.from(this.shelf.querySelectorAll(".function"));
+            // this.shelf.appendChild((new Variable(variableName)).root);
+        })
 
-        //     const functionIndex = functions.indexOf(selectedFunction);
+        this.shelf.addEventListener("deleteVariable", async e => {
+            const variableName = e.detail.variableName;
 
-        //     QuestionAPI.deleteFunction(this.getIndex() - 1, functionIndex);
+            console.log(variableName);
+        })
 
-        //     this.shelf.removeChild(selectedFunction);
-        // })
-
-        // content.forEach(e => {
-        //     let functionData;
-        //     if (e.functionType != "Text") {
-        //         functionData = e.fields;
-        //     } else {
-        //         functionData = e.value;
-        //     }
-        //     const newFunction = createFunction(e.functionType, functionData);
-        //     this.shelf.appendChild(newFunction.root);
-        // })
+        variables.forEach(variableName => {
+            this.shelf.appendChild((new Variable(variableName)).root);
+        })
     }
 }
 
-class CreateVariable {
-    constructor() {
-        this.toggle.textContent = "+ Create Function";
-        this.root.classList.add("function-menu__create-function");
+class Variable {
+    createRoot() {
+        const range = document.createRange();
 
-        const textChoice = createFunctionChoice("Text");
-        textChoice.classList.add("theme__color--white");
-        this.list.appendChild(textChoice);
+        range.selectNode(document.body);
+
+        return range.createContextualFragment(`
+
+        <div class="block" draggable="false">
+            <div class="block__shelf block--variable theme__color--variable">
+            </div>
+            <button class="block__delete">
+            ×
+            </button>
+        </div>
+
+        `).children[0];
+    }
+    constructor(variableName) {
+        this.root = this.createRoot();
+        this.shelf = this.root.querySelector(".block__shelf");
+        this.deleteButton = this.root.querySelector(".block__delete");
+
+        this.shelf.textContent = variableName;
+
+        this.root.addEventListener("mouseover", e => {
+            e.stopPropagation();
+            this.shelf.classList.add("block__shelf--hover");
+            this.deleteButton.classList.add("block__delete--show");
+        })
+        this.root.addEventListener("mouseout", e => {
+            e.stopPropagation();
+            this.shelf.classList.remove("block__shelf--hover");
+            this.deleteButton.classList.remove("block__delete--show");
+        })
+
+        this.deleteButton.addEventListener("click", e => {
+            const shelf = this.root.closest(".function-menu__shelf");
+
+            const event = new CustomEvent("deleteVariable", {
+                detail: {
+                    variableName: this.shelf.textContent
+                }
+            });
+
+            shelf.dispatchEvent(event);
+        })
+    }
+}
+
+class CreateVariableButton {
+    constructor() {
+        this.root = document.createElement("div");
+        this.root.contentEditable = true;
+
+        this.root.textContent = "+ Create Variable";
+        this.root.classList.add("function-menu__input");
+        this.root.classList.add("theme__outline--dashed");
+        this.root.classList.add("theme__color--default");
         
-        const renderChoice = createFunctionChoice("Render");
-        renderChoice.classList.add("theme__color--render");
-        this.list.appendChild(renderChoice);
+        this.root.addEventListener("mouseover", e => {
+            this.root.classList.add("function-menu__input--hover");
+        })
         
-        const setChoice = createFunctionChoice("Set");
-        setChoice.classList.add("theme__color--operation");
-        this.list.appendChild(setChoice);
+        this.root.addEventListener("mouseout", e => {
+            this.root.classList.remove("function-menu__input--hover");
+        })
+        
+        this.root.addEventListener("focus", e => {
+            const height = this.root.clientHeight;
+
+            this.root.style.minHeight = height + "px";
+
+            this.root.classList.remove("theme__color--default");
+            this.root.classList.add("theme__color--variable");
+            this.root.classList.add("function-menu__input--focus");
+
+            this.root.textContent = "";
+        })
+        
+        this.root.addEventListener("blur", e => {
+
+            this.root.style.minHeight = "";
+
+            this.root.classList.add("theme__color--default");
+            this.root.classList.remove("theme__color--variable");
+            this.root.classList.remove("function-menu__input--focus");
+
+            if (this.root.textContent != "") {
+                const shelf = this.root.closest(".function-menu").querySelector(".function-menu__shelf");
+
+                const event = new CustomEvent("createVariable", {
+                    detail: {
+                        variableName: this.root.textContent
+                    }
+                })
+
+                shelf.dispatchEvent(event);
+            }
+
+            this.root.textContent = "+ Create Variable";
+        })
     }
 }
