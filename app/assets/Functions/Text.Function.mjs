@@ -6,6 +6,7 @@ export class Text extends Function {
         const shelf = document.createElement("div");
         shelf.classList.add("function__shelf");
         shelf.classList.add("block--input");
+        shelf.classList.add("theme__color--white");
 
         shelf.contentEditable = true;
         
