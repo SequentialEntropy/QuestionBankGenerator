@@ -9,11 +9,12 @@ export class Set extends Render {
     ] }
     shelfStyles() {
         return [
-            "theme__color--operation"
+            "theme__color--operation",
         ]
     }
     constructor(fieldsData = []) {
         super(fieldsData);
+        this.root.classList.add("function--full-width");
     }
 }
 

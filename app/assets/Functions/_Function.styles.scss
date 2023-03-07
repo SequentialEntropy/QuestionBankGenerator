@@ -9,6 +9,10 @@
     //     width: 100%;
     // }
 
+    &--full-width {
+        width: 100%;
+    }
+
     &__shelf {
         border-radius: var(--radius);
         padding: var(--function-padding-vertical) var(--function-padding);
@@ -58,6 +62,7 @@
         gap: 0.5rem;
         flex-wrap: wrap;
         align-items: center;
+        width: 100%;
     }
 
     &__create-function {
@@ -72,6 +77,13 @@
                 width: 100%;
                 font-size: var(--function-font-size);
                 color: var(--default-text-color);
+                padding: var(--function-padding-vertical) var(--function-padding);
+                line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
+            }
+            &__choice {
+                padding: var(--function-padding-vertical) var(--function-padding);
+                line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
+                font-size: var(--function-font-size);
             }
         }
     }

@@ -66,8 +66,10 @@ class Variable {
 
         return range.createContextualFragment(`
 
-        <div class="block" draggable="false">
-            <div class="block__shelf block--variable theme__color--variable">
+        <div class="function" draggable="false">
+            <div class="function__shelf theme__color--variable">
+                <div class="block__prompt">
+                </div>
             </div>
             <button class="block__delete">
             ×
@@ -78,24 +80,25 @@ class Variable {
     }
     constructor(variableName) {
         this.root = this.createRoot();
-        this.shelf = this.root.querySelector(".block__shelf");
+        this.shelf = this.root.querySelector(".function__shelf");
+        this.variable = this.root.querySelector(".block__prompt");
         this.deleteButton = this.root.querySelector(".block__delete");
 
-        this.shelf.textContent = variableName;
+        this.variable.textContent = variableName;
 
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
-            this.shelf.classList.add("block__shelf--hover");
+            this.shelf.classList.add("function__shelf--hover");
             this.deleteButton.classList.add("block__delete--show");
         })
         this.root.addEventListener("mouseout", e => {
             e.stopPropagation();
-            this.shelf.classList.remove("block__shelf--hover");
+            this.shelf.classList.remove("function__shelf--hover");
             this.deleteButton.classList.remove("block__delete--show");
         })
 
         this.deleteButton.addEventListener("click", e => {
-            if (!confirm(`Are you sure you want to delete the variable named "${this.shelf.textContent}"?`)) {
+            if (!confirm(`Are you sure you want to delete the variable named "${this.variable.textContent}"?`)) {
                 return;
             }
 
@@ -103,7 +106,7 @@ class Variable {
 
             const event = new CustomEvent("deleteVariable", {
                 detail: {
-                    variableName: this.shelf.textContent
+                    variableName: this.variable.textContent
                 }
             });
 
