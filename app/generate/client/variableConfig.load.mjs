@@ -1,4 +1,4 @@
-import VariableConfig from "../../assets/VariableMenu/VariableConfig.mjs";
+import VariableConfig from "../../assets/Generate/VariableConfig.mjs";
 import QuestionAPI from "../../question/client/question.api.mjs";
 
 const variables = QuestionAPI.getVariables();
