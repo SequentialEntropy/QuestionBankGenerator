@@ -125,20 +125,6 @@
 .section-menu__shelf {
   width: 100%;
 }
-.section-menu__create-section {
-  width: 100%;
-  padding: 10px 0;
-  font-size: var(--section-title-height);
-  color: white;
-  background-color: #a0dbff;
-  border: none;
-  border-radius: var(--radius);
-  transition-duration: 0.1s;
-  cursor: pointer;
-}
-.section-menu__create-section:hover {
-  background-color: #74caff;
-}
 
 .section {
   transition-duration: 0.5s;
@@ -167,6 +153,23 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+.section__button {
+  padding: var(--function-padding-vertical) var(--function-padding);
+  line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
+  font-size: var(--function-font-size);
+  border-radius: var(--radius);
+  text-align: center;
+  transition-duration: 0.1s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+.section__button:hover {
+  filter: brightness(0.9);
 }
 
 .section-drop-zone {

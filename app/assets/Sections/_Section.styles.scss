@@ -4,20 +4,6 @@
     &__shelf {
         width: 100%;
     }
-    &__create-section {
-        width: 100%;
-        padding: 10px 0;
-        font-size: var(--section-title-height);
-        color: white;
-        background-color: #a0dbff;
-        border: none;
-        border-radius: var(--radius);
-        transition-duration: 0.1s;
-        cursor: pointer;
-        &:hover {
-            background-color: #74caff;
-        }
-    }
 }
 
 .section {
@@ -49,6 +35,26 @@
     &__title {
         font-size: var(--section-title-height);
         user-select: none;
+    }
+
+    &__button {
+        padding: var(--function-padding-vertical) var(--function-padding);
+        line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
+        font-size: var(--function-font-size);
+
+        border-radius: var(--radius);
+        text-align: center;
+        transition-duration: 0.1s;
+        user-select: none;
+
+        border: none;
+        width: 100%;
+
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
     }
 }
 

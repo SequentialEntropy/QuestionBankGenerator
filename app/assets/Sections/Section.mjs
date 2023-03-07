@@ -129,6 +129,25 @@ export class StepSection extends Section {
     }
 }
 
+export class ButtonSection {
+    createRoot() {
+        const range = document.createRange();
+
+        range.selectNode(document.body);
+
+        return range.createContextualFragment(`
+        <div class="section">
+            <div class="section__area theme__color--default">
+                <button class="section__button">+ Create Step</button>
+            </div>
+        </div>
+        `).children[0];
+    }
+    constructor() {
+        this.root = this.createRoot();
+    }
+}
+
 class CreateFunctionButton extends DropDown {
     constructor() {
         super();

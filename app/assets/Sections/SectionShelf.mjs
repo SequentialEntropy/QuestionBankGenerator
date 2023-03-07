@@ -1,5 +1,5 @@
 import QuestionAPI from "../../question/client/question.api.mjs";
-import { PromptSection, StepSection } from "./Section.mjs";
+import { ButtonSection, PromptSection, StepSection } from "./Section.mjs";
 
 export default class SectionShelf {
 
@@ -11,8 +11,7 @@ export default class SectionShelf {
         return range.createContextualFragment(`
         <div class="section-menu">
             <div class="section-menu__shelf theme__background--drop-down"></div>
-            <div class="section__area theme__color--white">
-                <button class="section-menu__create-section">+ Create Step</button>
+            <div class="section-menu__create-section">
             </div>
         </div>
         `).children[0];
@@ -21,7 +20,10 @@ export default class SectionShelf {
     constructor(promptData, stepsData) {
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".section-menu__shelf");
-        this.createSectionButton = this.root.querySelector(".section-menu__create-section");
+        this.createSection = (new ButtonSection()).root;
+        this.root.querySelector(".section-menu__create-section").appendChild(this.createSection);
+        this.createSectionButton = this.createSection.querySelector(".section__button");
+        this.createSectionButton.classList.add("theme__color--operation");
 
         // Create Step
         this.createSectionButton.addEventListener("click", e => {
