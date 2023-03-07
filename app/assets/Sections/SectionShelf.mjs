@@ -22,7 +22,7 @@ export default class SectionShelf {
         this.shelf = this.root.querySelector(".section-menu__shelf");
         this.createSection = (new ButtonSection()).root;
         this.root.querySelector(".section-menu__create-section").appendChild(this.createSection);
-        this.createSectionButton = this.createSection.querySelector(".section__button");
+        this.createSectionButton = this.createSection.button;
         this.createSectionButton.classList.add("theme__color--operation");
 
         // Create Step

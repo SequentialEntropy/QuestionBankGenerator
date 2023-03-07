@@ -5,13 +5,15 @@ export default class GenerateConfig {
         range.selectNode(document.body);
 
         return range.createContextualFragment(`
+
         <div class="section theme__background--drop-down">
             <div class="section__area theme__color--render">
-                <div class="section__heading">
-                    <div class="section__title">Generation</div>
-                </div>
+            <div class="section__heading">
+                <div class="section__title">Generation</div>
+            </div>
                 <div class="function-menu">
-                    <div class="function-menu__shelf"
+                    <div class="function-menu__shelf">
+                    
                         <div class="function function--full-width" draggable="false">
                             <div class="function__shelf theme__color--render">
                                 <div class="block__prompt">
@@ -25,6 +27,7 @@ export default class GenerateConfig {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

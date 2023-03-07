@@ -145,6 +145,7 @@ export class ButtonSection {
     }
     constructor() {
         this.root = this.createRoot();
+        this.button = this.root.querySelector(".section__button");
     }
 }
 
