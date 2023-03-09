@@ -20,8 +20,8 @@ export default class SectionShelf {
     constructor(promptData, stepsData) {
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".section-menu__shelf");
-        this.createSection = (new ButtonSection()).root;
-        this.root.querySelector(".section-menu__create-section").appendChild(this.createSection);
+        this.createSection = (new ButtonSection());
+        this.root.querySelector(".section-menu__create-section").appendChild(this.createSection.root);
         this.createSectionButton = this.createSection.button;
         this.createSectionButton.classList.add("theme__color--operation");
 
