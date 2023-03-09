@@ -13,5 +13,8 @@ generateConfig.appendChild(variableSection.root);
 const generateSection = new GenerateConfig();
 generateConfig.appendChild(generateSection.root);
 
-const generateButton = new GenerateButton(variableSection, generateSection);
+const prompt = QuestionAPI.getPrompt();
+const steps = QuestionAPI.getSteps();
+
+const generateButton = new GenerateButton(variableSection, generateSection, await prompt, await steps);
 generateConfig.appendChild(generateButton.root);

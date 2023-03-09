@@ -1,4 +1,4 @@
-* {
+body, div, input, button {
   box-sizing: border-box;
   margin: 0;
   font-family: sans-serif;
@@ -15,6 +15,7 @@
   --function-font-size: 1rem;
   --radius: 0.5rem;
   --section-title-height: 1.5rem;
+  --section-sub-title-height: 1.25rem;
   --default-outline-color: rgb(200, 200, 200);
   --default-text-color: #757575 ;
 }
@@ -150,6 +151,12 @@
 }
 .section__title {
   font-size: var(--section-title-height);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.section__sub-title {
+  font-size: var(--section-sub-title-height);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -353,4 +360,8 @@ input[type=number].block--input {
 
 .override__text--default {
   color: var(--default-text-color);
+}
+
+.override__font--times-new-roman {
+  font-family: "Times New Roman", Times, serif;
 }/*# sourceMappingURL=question.styles.css.map */

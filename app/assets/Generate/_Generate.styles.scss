@@ -1,0 +1,23 @@
+@use "../_Boilerplate.styles.scss";
+
+.auto-area {
+    display: flex;
+    flex-direction: column;
+    &__sub-title {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.auto-step {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+
+    &__text {
+        width: fit-content;
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+}

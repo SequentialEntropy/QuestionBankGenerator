@@ -4,17 +4,19 @@ import { ButtonSection } from "../Sections/Section.mjs";
 import AutoQuestion from "./AutoQuestion.mjs";
 
 export default class GenerateButton extends ButtonSection {
-    constructor(variableSection, generateSection) {
+    constructor(variableSection, generateSection, prompt, steps) {
         super();
         this.button.classList.add("theme__color--operation");
         this.button.textContent = "Generate Questions";
 
+        this.prompt = prompt;
+        this.steps = steps;
         this.variableSection = variableSection;
         this.generateSection = generateSection;
 
         const generatedQuestions = document.querySelector(".generated-questions");
 
-        this.button.addEventListener("click", () => {
+        this.button.addEventListener("click", async () => {
 
             let variableOptions = [];
 
@@ -67,7 +69,7 @@ export default class GenerateButton extends ButtonSection {
             generatedQuestions.textContent = "";
 
             for (let questionNumber = 1; questionNumber <= questionCount; questionNumber++) {
-                const newQuestion = new AutoQuestion(questionNumber, variableOptions);
+                const newQuestion = new AutoQuestion(questionNumber, variableOptions, this.prompt, this.steps);
 
                 generatedQuestions.appendChild(newQuestion.root);
             }

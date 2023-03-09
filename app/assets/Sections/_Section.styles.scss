@@ -37,6 +37,11 @@
         user-select: none;
     }
 
+    &__sub-title {
+        font-size: var(--section-sub-title-height);
+        user-select: none;
+    }
+
     &__button {
         padding: var(--function-padding-vertical) var(--function-padding);
         line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
