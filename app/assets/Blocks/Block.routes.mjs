@@ -2,11 +2,13 @@ import * as OperationAddition from "./Addition.Operation.Block.mjs";
 import * as OperationSubtraction from "./Subtraction.Operation.Block.mjs";
 import * as OperationMultiplication from "./Multiplication.Operation.Block.mjs";
 import * as OperationDivision from "./Division.Operation.Block.mjs";
+import * as OperationPower from "./Power.Operation.Block.mjs";
 
 import * as RenderAddition from "./Addition.Render.Block.mjs";
 import * as RenderSubtraction from "./Subtraction.Render.Block.mjs";
 import * as RenderMultiplication from "./Multiplication.Render.Block.mjs";
 import * as RenderDivision from "./Division.Render.Block.mjs";
+import * as RenderPower from "./Power.Render.Block.mjs";
 
 import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
@@ -23,13 +25,15 @@ const blockTypes = {
         Addition: OperationAddition,
         Subtraction: OperationSubtraction,
         Multiplication: OperationMultiplication,
-        Division: OperationDivision
+        Division: OperationDivision,
+        Power: OperationPower
     },
     Render: {
         Addition: RenderAddition,
         Subtraction: RenderSubtraction,
         Multiplication: RenderMultiplication,
-        Division: RenderDivision
+        Division: RenderDivision,
+        Power: RenderPower
     }
 }
 
