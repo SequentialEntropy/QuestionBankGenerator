@@ -18,7 +18,7 @@ export class Multiplication extends Block {
 }
 
 export function evaluate(fields) {
-    return fields[0].value * fields[1].value
+    return fields[0].times(fields[1])
 }
 export const template = {
     "blockType": "Operation",

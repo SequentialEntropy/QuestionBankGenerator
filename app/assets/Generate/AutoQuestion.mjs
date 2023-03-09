@@ -51,7 +51,7 @@ export default class AutoQuestion {
     }
     rollVariables(variableOptions) {
         variableOptions.forEach(variable => {
-            this.variables[variable.variableName] = this.roll(variable.minimum, variable.maximum, variable.order).toString();
+            this.variables[variable.variableName] = this.roll(variable.minimum, variable.maximum, variable.order);
         });
     }
     roll(min, max, order) {
@@ -83,7 +83,7 @@ export default class AutoQuestion {
             case "Render":
                 return this.evaluateRenderFunction(functionData)
             case "Set":
-                return null
+                return this.evaluateSetFunction(functionData)
         }
     }
     evaluateTextFunction(functionData) {
@@ -109,10 +109,26 @@ export default class AutoQuestion {
 
         return renderElement
     }
+    evaluateSetFunction(functionData) {
+        if (functionData.fields[0].value === null) {
+            return;
+        }
+        
+        const variableName = functionData.fields[0].value.variableName;
+
+        const operationBlock = functionData.fields[1].value;
+
+        const value = this.evaluateOperationBlock(operationBlock);
+
+        this.variables[variableName] = value;
+
+        return null
+
+    }
     evaluateRenderBlock(blockData) {
 
         if (blockData === null) {
-            return "ERROR"
+            return ""
         }
 
         switch (blockData.blockType) {
@@ -130,15 +146,37 @@ export default class AutoQuestion {
                 );
 
                 return evaluateResult
-
-                break;
             case "Evaluate":
-                return "op"
+                return this.evaluateOperationBlock(blockData.fields[0].value).toString()
             case "Text":
                 return blockData.value
         }
     }
-    evaluateOperationBlock() {
-        return "op"
+    evaluateOperationBlock(blockData) {
+
+        if (blockData === null) {
+            return new Decimal("0")
+        }
+
+        switch (blockData.blockType) {
+            case "Operation":
+
+                const operationComponents = blockData.fields.map(fieldData => {
+                    const nextBlock = fieldData.value;
+
+                    return this.evaluateOperationBlock(nextBlock);
+                })
+
+                const evaluateResult = getBlockEvaluate(
+                    blockData,
+                    operationComponents
+                );
+
+                return evaluateResult
+            case "Variable":
+                return this.variables[blockData.variableName]
+            case "Number":
+                return new Decimal(blockData.value)
+        }
     }
 }

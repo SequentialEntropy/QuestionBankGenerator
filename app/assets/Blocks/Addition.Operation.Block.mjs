@@ -18,7 +18,7 @@ export class Addition extends Block {
 }
 
 export function evaluate(fields) {
-    return fields[0].value + fields[1].value
+    return fields[0].plus(fields[1])
 }
 export const template = {
     "blockType": "Operation",
