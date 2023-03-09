@@ -3,12 +3,16 @@ import * as OperationSubtraction from "./Subtraction.Operation.Block.mjs";
 import * as OperationMultiplication from "./Multiplication.Operation.Block.mjs";
 import * as OperationDivision from "./Division.Operation.Block.mjs";
 import * as OperationPower from "./Power.Operation.Block.mjs";
+import * as OperationSquareRoot from "./SquareRoot.Operation.Block.mjs";
+import * as OperationNthRoot from "./NthRoot.Operation.Block.mjs";
 
 import * as RenderAddition from "./Addition.Render.Block.mjs";
 import * as RenderSubtraction from "./Subtraction.Render.Block.mjs";
 import * as RenderMultiplication from "./Multiplication.Render.Block.mjs";
 import * as RenderDivision from "./Division.Render.Block.mjs";
 import * as RenderPower from "./Power.Render.Block.mjs";
+import * as RenderSquareRoot from "./SquareRoot.Render.Block.mjs";
+import * as RenderNthRoot from "./NthRoot.Render.Block.mjs";
 
 import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
@@ -26,14 +30,18 @@ const blockTypes = {
         Subtraction: OperationSubtraction,
         Multiplication: OperationMultiplication,
         Division: OperationDivision,
-        Power: OperationPower
+        Power: OperationPower,
+        SquareRoot: OperationSquareRoot,
+        NthRoot: OperationNthRoot
     },
     Render: {
         Addition: RenderAddition,
         Subtraction: RenderSubtraction,
         Multiplication: RenderMultiplication,
         Division: RenderDivision,
-        Power: RenderPower
+        Power: RenderPower,
+        SquareRoot: RenderSquareRoot,
+        NthRoot: RenderNthRoot
     }
 }
 
