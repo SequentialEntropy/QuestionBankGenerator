@@ -25,9 +25,14 @@ export default class VariableConfig {
         this.root = this.createRoot();
         this.area = this.root.querySelector(".section__area");
         this.shelf = this.root.querySelector(".function-menu__shelf");
+        this.variableInstances = [];
 
         variables.forEach(variableName => {
-            this.shelf.appendChild((new Variable(variableName)).root);
+            const newVariable = new Variable(variableName);
+
+            this.shelf.appendChild(newVariable.root);
+
+            this.variableInstances.push(newVariable);
         })
     }
 }
@@ -76,6 +81,22 @@ class Variable {
         this.shelf = this.root.querySelector(".function__shelf");
         this.variable = this.shelf.querySelector(".block--variable");
 
+        const fields = Array.from(this.shelf.querySelectorAll(".block--input"));
+
+        this.minimumField = fields[0];
+        this.maximumField = fields[1];
+        this.orderField = fields[2];
+
         this.variable.textContent = variableName;
+    }
+    getValues() {
+        return {
+            minimum: this.minimumField.value,
+            maximum: this.maximumField.value,
+            order: this.orderField.value
+        }
+    }
+    getVariableName() {
+        return this.variable.textContent
     }
 }

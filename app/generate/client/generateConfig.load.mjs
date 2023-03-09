@@ -13,5 +13,5 @@ generateConfig.appendChild(variableSection.root);
 const generateSection = new GenerateConfig();
 generateConfig.appendChild(generateSection.root);
 
-const generateButton = new GenerateButton();
+const generateButton = new GenerateButton(variableSection, generateSection);
 generateConfig.appendChild(generateButton.root);
