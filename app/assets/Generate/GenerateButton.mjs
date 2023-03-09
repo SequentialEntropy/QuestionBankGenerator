@@ -58,13 +58,13 @@ export default class GenerateButton extends ButtonSection {
                 return;
             }
 
+            generatedQuestions.textContent = "";
+
             for (let questionNumber = 1; questionNumber <= questionCount; questionNumber++) {
                 const newQuestion = new AutoQuestion(questionNumber, variableOptions);
 
                 generatedQuestions.appendChild(newQuestion.root);
             }
         })
-
-
     }
 }
