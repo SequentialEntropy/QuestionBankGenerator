@@ -59,8 +59,8 @@ function getBlockTemplate(data) {
     return getBlockType(data).template
 }
 
-function getBlockExecute(data) {
-    return getBlockType(data).execute
+function getBlockEvaluate(blockData, fields) {
+    return getBlockType(blockData).evaluate(fields)
 }
 
-export { blockTypes, createBlock, getBlockTemplate, getBlockExecute }
+export { blockTypes, createBlock, getBlockTemplate, getBlockEvaluate }

@@ -17,7 +17,7 @@ export class Subtraction extends Block {
     }
 }
 
-export function execute(fields) {
+export function evaluate(fields) {
     return fields[0].value - fields[1].value
 }
 export const template = {

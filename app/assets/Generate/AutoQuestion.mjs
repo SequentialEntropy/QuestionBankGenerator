@@ -1,6 +1,7 @@
 import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.mjs';
 
 import Decimal from "../../libs/decimal.mjs";
+import { getBlockEvaluate } from '../Blocks/Block.routes.mjs';
 
 export default class AutoQuestion {
     createRoot() {
@@ -27,9 +28,6 @@ export default class AutoQuestion {
 
         this.variables = {};
         this.rollVariables(variableOptions);
-
-        console.log(prompt);
-        console.log(steps);
 
         this.autoArea = this.root.querySelector(".auto-area");
 
@@ -69,11 +67,9 @@ export default class AutoQuestion {
         root.classList.add("auto-step");
 
         stepData.forEach(functionData => {
-            console.log(functionData)
             const result = this.evaluateFunction(functionData);
 
             if (result !== null) {
-                console.log(result)
                 root.appendChild(result);
             }
         })
@@ -85,7 +81,7 @@ export default class AutoQuestion {
             case "Text":
                 return this.evaluateTextFunction(functionData)
             case "Render":
-                return null
+                return this.evaluateRenderFunction(functionData)
             case "Set":
                 return null
         }
@@ -98,5 +94,51 @@ export default class AutoQuestion {
         textElement.textContent = functionData.value;
 
         return textElement
+    }
+    evaluateRenderFunction(functionData) {
+        const renderElement = document.createElement("div");
+        renderElement.classList.add("auto-step__render");
+
+        const render = this.evaluateRenderBlock(functionData["fields"][0]["value"]);
+
+        katex.render(
+            render
+            , renderElement, {
+            throwOnError: false
+        });
+
+        return renderElement
+    }
+    evaluateRenderBlock(blockData) {
+
+        if (blockData === null) {
+            return "ERROR"
+        }
+
+        switch (blockData.blockType) {
+            case "Render":
+                
+                const renderComponents = blockData.fields.map(fieldData => {
+                    const nextBlock = fieldData.value;
+
+                    return this.evaluateRenderBlock(nextBlock);
+                })
+
+                const evaluateResult = getBlockEvaluate(
+                    blockData,
+                    renderComponents
+                );
+
+                return evaluateResult
+
+                break;
+            case "Evaluate":
+                return "op"
+            case "Text":
+                return blockData.value
+        }
+    }
+    evaluateOperationBlock() {
+        return "op"
     }
 }
