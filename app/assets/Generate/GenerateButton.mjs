@@ -16,7 +16,7 @@ export default class GenerateButton extends ButtonSection {
 
         this.button.addEventListener("click", () => {
 
-            let variableOptions = {};
+            let variableOptions = [];
 
             for (let index = 0; index < this.variableSection.variableInstances.length; index++) {
 
@@ -38,11 +38,17 @@ export default class GenerateButton extends ButtonSection {
                         return;
                     }
 
-                    variableOptions[variableName] = {
+                    if (minimum.greaterThanOrEqualTo(maximum)) {
+                        alert(`Minimum must be smaller than maximum for variable named "${variableName}"`);
+                        return;
+                    }
+
+                    variableOptions.push({
+                        variableName,
                         minimum,
                         maximum,
-                        log10
-                    }
+                        order
+                    })
                 } catch (e) {
                     if ( e instanceof Error && /DecimalError/.test(e.message) ) {
                         alert(`Missing fields for variable named "${variableName}"!`);
