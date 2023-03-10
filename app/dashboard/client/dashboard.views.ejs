@@ -5,10 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="./dashboard/client/dashboard.styles.css">
+    <meta name="userId" content="<%= userId %>">
 </head>
 <body>
+
     <h1>Welcome Back, <%= userId %></h1>
-    <p><%= sessionId %></p>
     <a href="/login/logout">Logout</a>
+
+    <%- include("questionMenu.partial.ejs") %>
+
 </body>
 </html>

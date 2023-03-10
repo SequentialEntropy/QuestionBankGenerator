@@ -8,9 +8,8 @@ const __dirname = dirname(__filename);
 
 export default function dashboard(req, res) {
     if (req.session.hasOwnProperty("userId")) {
-        res.render(`${__dirname}/dashboard.views.ejs`, {
-            userId: req.session.userId,
-            sessionId: req.sessionID
+        res.render(`${__dirname}/client/dashboard.views.ejs`, {
+            userId: req.session.userId
         });
     } else {
         res.redirect("/login");
