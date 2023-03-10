@@ -12,7 +12,10 @@ export default class RenderInput extends DropDown {
         this.list.appendChild(createEvaluateChoice());
 
         for (const [operationName, _] of Object.entries(blockTypes.Render)) {
-            this.list.appendChild(createRenderChoice(operationName));
+
+            const splitOperationName = operationName.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+            this.list.appendChild(createRenderChoice(splitOperationName));
         }
     }
 }

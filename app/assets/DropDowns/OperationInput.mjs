@@ -22,7 +22,10 @@ export default class OperationInput extends DropDown {
             });
 
             for (const [operationName, _] of Object.entries(blockTypes.Operation)) {
-                this.list.appendChild(createOperationChoice(operationName));
+
+                const splitOperationName = operationName.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+                this.list.appendChild(createOperationChoice(splitOperationName));
             }
         })
     }
