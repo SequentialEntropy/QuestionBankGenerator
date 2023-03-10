@@ -87,8 +87,6 @@ class Variable {
         this.maximumField = fields[1];
         this.orderField = fields[2];
 
-        console.log("TEST VariableConfig Line 90");
-
         this.minimumField.value = "0";
         this.maximumField.value = "10";
         this.orderField.value = "0.1";

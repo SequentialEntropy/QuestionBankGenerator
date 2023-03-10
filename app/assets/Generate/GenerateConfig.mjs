@@ -43,7 +43,6 @@ export default class GenerateConfig {
         this.area = this.root.querySelector(".section__area");
         this.shelf = this.root.querySelector(".function-menu__shelf");
 
-        console.log("TEST GenerateConfig Line 46");
         this.root.querySelector(".block--input").value = 10
     }
     getCount() {
