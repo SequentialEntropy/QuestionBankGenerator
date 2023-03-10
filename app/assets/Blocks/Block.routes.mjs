@@ -5,6 +5,7 @@ import * as OperationDivision from "./Division.Operation.Block.mjs";
 import * as OperationPower from "./Power.Operation.Block.mjs";
 import * as OperationSquareRoot from "./SquareRoot.Operation.Block.mjs";
 import * as OperationNthRoot from "./NthRoot.Operation.Block.mjs";
+import * as OperationPi from "./Pi.Operation.Block.mjs";
 
 import * as RenderAddition from "./Addition.Render.Block.mjs";
 import * as RenderSubtraction from "./Subtraction.Render.Block.mjs";
@@ -13,6 +14,7 @@ import * as RenderDivision from "./Division.Render.Block.mjs";
 import * as RenderPower from "./Power.Render.Block.mjs";
 import * as RenderSquareRoot from "./SquareRoot.Render.Block.mjs";
 import * as RenderNthRoot from "./NthRoot.Render.Block.mjs";
+import * as RenderPi from "./Pi.Render.Block.mjs";
 
 import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
@@ -32,7 +34,8 @@ const blockTypes = {
         Division: OperationDivision,
         Power: OperationPower,
         SquareRoot: OperationSquareRoot,
-        NthRoot: OperationNthRoot
+        NthRoot: OperationNthRoot,
+        Pi: OperationPi
     },
     Render: {
         Addition: RenderAddition,
@@ -41,7 +44,8 @@ const blockTypes = {
         Division: RenderDivision,
         Power: RenderPower,
         SquareRoot: RenderSquareRoot,
-        NthRoot: RenderNthRoot
+        NthRoot: RenderNthRoot,
+        Pi: RenderPi
     }
 }
 

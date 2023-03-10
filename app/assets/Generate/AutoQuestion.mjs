@@ -134,11 +134,15 @@ export default class AutoQuestion {
         switch (blockData.blockType) {
             case "Render":
                 
-                const renderComponents = blockData.fields.map(fieldData => {
-                    const nextBlock = fieldData.value;
+                let renderComponents;
 
-                    return this.evaluateRenderBlock(nextBlock);
-                })
+                if (blockData.hasOwnProperty("fields")) {
+                    renderComponents = blockData.fields.map(fieldData => {
+                        const nextBlock = fieldData.value;
+    
+                        return this.evaluateRenderBlock(nextBlock);
+                    })
+                }
 
                 const evaluateResult = getBlockEvaluate(
                     blockData,
@@ -161,11 +165,15 @@ export default class AutoQuestion {
         switch (blockData.blockType) {
             case "Operation":
 
-                const operationComponents = blockData.fields.map(fieldData => {
-                    const nextBlock = fieldData.value;
+                let operationComponents;
 
-                    return this.evaluateOperationBlock(nextBlock);
-                })
+                if (blockData.hasOwnProperty("fields")) {
+                    operationComponents = blockData.fields.map(fieldData => {
+                        const nextBlock = fieldData.value;
+    
+                        return this.evaluateOperationBlock(nextBlock);
+                    })
+                }
 
                 const evaluateResult = getBlockEvaluate(
                     blockData,

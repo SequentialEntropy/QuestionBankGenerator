@@ -72,6 +72,10 @@ export default class Block {
     initialiseFields(data) {
         const fieldsData = data.fields;
 
+        if (fieldsData === undefined) {
+            return
+        }
+
         const fieldElements = Array.from(this.shelf.children)
         .filter(fieldElement => {
             return fieldElement.matches(".block__field");
