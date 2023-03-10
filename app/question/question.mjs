@@ -234,19 +234,16 @@ class Question {
         const field = this.getFieldFromPath(sectionIndex, functionIndex, pathArray);
 
         if (field === false) {
-            console.log("Field does not exist");
             return false;
         }
 
         if (field.value !== null) {
-            console.log("Block already exists in Field");
             return false;
         }
 
         const acceptedBlockTypes = getFieldAcceptedBlockTypes(field.fieldType);
 
         if (!acceptedBlockTypes.includes(data.blockType)) {
-            console.log("Block type not accepted in Field");
             return false;
         }
 
@@ -257,7 +254,6 @@ class Question {
                 break;
             case "Variable":
                 if (!this.getVariables().includes(data.variableName)) {
-                    console.log("Variable name does not exist");
                     return false;
                 }
                 newBlock.variableName = data.variableName;
