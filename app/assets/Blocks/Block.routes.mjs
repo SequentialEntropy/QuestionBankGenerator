@@ -17,6 +17,7 @@ import * as RenderNthRoot from "./NthRoot.Render.Block.mjs";
 import * as RenderPi from "./Pi.Render.Block.mjs";
 
 import * as RenderImplicitMultiplication from "./ImplicitMultiplication.Render.Block.mjs";
+import * as RenderParentheses from "./Parentheses.Render.Block.mjs";
 
 import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
@@ -48,7 +49,8 @@ const blockTypes = {
         SquareRoot: RenderSquareRoot,
         NthRoot: RenderNthRoot,
         Pi: RenderPi,
-        ImplicitMultiplication: RenderImplicitMultiplication
+        ImplicitMultiplication: RenderImplicitMultiplication,
+        Parentheses: RenderParentheses
     }
 }
 
