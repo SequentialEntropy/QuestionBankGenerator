@@ -6,12 +6,6 @@ const __filename = fileURLToPath(
 
 const __dirname = dirname(__filename);
 
-// export default function login(req, res) {
-//     res.render(`${__dirname}/login.views.ejs`, {
-//         isInvalid: req.session.isInvalid
-//     });
-// }
-
 export default function dashboard(req, res) {
     if (req.session.hasOwnProperty("userId")) {
         res.render(`${__dirname}/dashboard.views.ejs`, {
