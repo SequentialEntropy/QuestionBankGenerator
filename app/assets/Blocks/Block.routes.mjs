@@ -42,17 +42,17 @@ const blockTypes = {
         Pi: OperationPi
     },
     Render: {
+        Equals: RenderEquals,
         Addition: RenderAddition,
         Subtraction: RenderSubtraction,
         Multiplication: RenderMultiplication,
+        ImplicitMultiplication: RenderImplicitMultiplication,
         Division: RenderDivision,
         Parentheses: RenderParentheses,
-        Equals: RenderEquals,
         Power: RenderPower,
         SquareRoot: RenderSquareRoot,
         NthRoot: RenderNthRoot,
-        Pi: RenderPi,
-        ImplicitMultiplication: RenderImplicitMultiplication
+        Pi: RenderPi
     }
 }
 
