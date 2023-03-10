@@ -11,7 +11,7 @@ export default class RenderInput extends DropDown {
 
         this.list.appendChild(createEvaluateChoice());
 
-        for (const [operationName, _] of Object.entries(blockTypes.Operation)) {
+        for (const [operationName, _] of Object.entries(blockTypes.Render)) {
             this.list.appendChild(createRenderChoice(operationName));
         }
     }
