@@ -39,7 +39,7 @@ export class Text extends Function {
             shelf.style.minHeight = "";
         })
         
-        shelf.addEventListener("input", e => {
+        shelf.addEventListener("blur", e => {
             QuestionAPI.editFunction(this.getPath(), {
                 newValue: shelf.textContent
             });

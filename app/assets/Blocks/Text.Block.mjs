@@ -23,7 +23,7 @@ export class Text extends Block {
         this.shelf.addEventListener("dragover", e => {
             e.preventDefault();
         })
-        this.shelf.addEventListener("input", e => {
+        this.shelf.addEventListener("blur", e => {
 
             const field = this.root.closest(".block__field");
             const event = new CustomEvent("editBlock", {

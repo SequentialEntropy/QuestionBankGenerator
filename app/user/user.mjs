@@ -51,6 +51,10 @@ class User {
         log(`User user${this._data().id}.json`, text, postfix);
     }
 
+    getId() {
+        return this._data().id;
+    }
+
     getName() {
         return this._data().username;
     }
@@ -112,6 +116,10 @@ function getUserIdByName(username) {
     return false;
 }
 
+function createUser(data) {
+    return User.init(data)
+}
+
 const counter = await Tracker.init(join(dirname(dirname(__dirname)), "database", "userList.json"));
 const nameToId = await jsonReader.init(join(dirname(dirname(__dirname)), "database", "userNameToId.json"));
-export { User, getUserByName, getUserById, getUserIdByName };
+export { User, getUserByName, getUserById, getUserIdByName, createUser };
