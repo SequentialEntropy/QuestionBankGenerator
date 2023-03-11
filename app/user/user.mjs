@@ -64,6 +64,16 @@ class User {
         this._data().questions.push(id);
         this._save();
     }
+    removeQuestion(id) {
+        const index = this._data().questions.indexOf(id);
+        if (index == -1) {
+            return false
+        }
+
+        this._data().questions.splice(index, 1);
+        this._save();
+        return true
+    }
 }
 
 function getUserByName(username) {
