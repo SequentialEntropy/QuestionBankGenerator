@@ -16,7 +16,7 @@ const defaults = {
     username: "New User",
     password: "",
     questions: [],
-    sets: []
+    sharedQuestions: []
 };
 
 class User {
@@ -57,7 +57,7 @@ class User {
     getQuestions() {
         return this._data().questions;
     }
-    getSets() {
+    getSharedQuestions() {
         return this._data().sets;
     }
     addQuestion(id) {
