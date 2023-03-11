@@ -1,7 +1,11 @@
-let isLogging = false;
+let isLogging = true;
 
 function enableLog() {
     isLogging = true;
+}
+
+function disableLog() {
+    isLogging = false;
 }
 
 function getDateTimeNow() {
