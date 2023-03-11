@@ -360,10 +360,9 @@ function getQuestionById(id) {
     return false;
 }
 
-function createQuestion(owner, name) {
+function createQuestion(owner) {
     return Question.init({
-        owner,
-        name
+        owner
     })
 }
 
