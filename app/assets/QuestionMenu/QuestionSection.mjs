@@ -1,6 +1,105 @@
 import DashboardAPI from "../../dashboard/client/dashboard.api.mjs";
 
-export class QuestionSection {
+export class SharedQuestionSection {
+    createRoot() {
+        const range = document.createRange();
+
+        range.selectNode(document.body);
+
+        return range.createContextualFragment(`
+        <div class="section theme__background--drop-down">
+            <div class="section__area theme__color--default">
+                <div class="section__heading">
+                    <div class="section__title">Inbox</div>
+                </div>
+                <div class="function-menu">
+                    <div class="function-menu__shelf"></div>
+                </div>
+            </div>
+            <div class="section-drop-zone"></div>
+        </div>
+        `).children[0];
+    }
+    constructor(questions=[]) {
+        this.root = this.createRoot();
+        this.area = this.root.querySelector(".section__area");
+        this.title = this.root.querySelector(".section__title");
+        this.shelf = this.root.querySelector(".function-menu__shelf");
+
+        this.shelf.addEventListener("copyQuestion", async e => {
+        })
+
+        this.shelf.addEventListener("dismissQuestion", async e => {
+        })
+
+        questions.forEach(questionData => {
+            this.shelf.appendChild((new SharedQuestion(questionData.id, questionData.name, questionData.sender)).root);
+        })
+    }
+}
+
+class SharedQuestion {
+    createRoot() {
+        const range = document.createRange();
+
+        range.selectNode(document.body);
+
+        return range.createContextualFragment(`
+
+        <div class="function function--full-width" draggable="false">
+            <div class="function__shelf theme__color--default">
+                <div class="function__sub-shelf">
+                    <div class="block__prompt question__name">
+                    </div>
+                    <div class="block__spacer">
+                    </div>
+                    <div>
+                        <button class="share-button theme__color--accept">
+                            Copy to My Questions
+                        </button>
+                    </div>
+                    <div>
+                        <button class="share-button theme__color--delete">
+                            Dismiss
+                        </button>
+                    </div>
+                </div>
+                <div class="function__sub-shelf">
+
+                    <div class="block__prompt question__sender">
+                        Shared by
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        `).children[0];
+    }
+    constructor(questionId, questionName, senderName) {
+        this.root = this.createRoot();
+        this.shelf = this.root.querySelector(".function__shelf");
+        this.question = this.root.querySelector(".question__name");
+        this.sender = this.root.querySelector(".question__sender");
+        // this.deleteButton = this.root.querySelector(".block__delete");
+        // this.username = this.root.querySelector(".block--input");
+
+        // this.editLink = this.root.querySelector(".edit-link");
+        // this.editLink.href = `/question/${questionId}`;
+
+        // this.generateLink = this.root.querySelector(".generate-link");
+        // this.generateLink.href = `/generate/${questionId}`;
+
+        this.question.textContent = questionName;
+        this.sender.textContent = `Shared by ${senderName}`;
+
+        this.questionId = questionId;
+        this.questionName = questionName;
+        this.senderName = senderName;
+
+    }
+}
+
+export class MyQuestionSection {
     createRoot() {
         const range = document.createRange();
 
@@ -62,7 +161,7 @@ class Question {
         <div class="function function--full-width" draggable="false">
             <div class="function__shelf theme__color--default">
                 <div class="function__sub-shelf">
-                    <div class="block__prompt">
+                    <div class="block__prompt question__name">
                     </div>
                     <div class="block__spacer">
                     </div>
@@ -106,7 +205,7 @@ class Question {
     constructor(questionId, questionName) {
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".function__shelf");
-        this.question = this.root.querySelector(".block__prompt");
+        this.question = this.root.querySelector(".question__name");
         this.deleteButton = this.root.querySelector(".block__delete");
         this.username = this.root.querySelector(".block--input")
 
