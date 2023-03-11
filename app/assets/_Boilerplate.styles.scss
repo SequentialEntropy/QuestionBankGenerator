@@ -4,6 +4,12 @@ body, div, input, button {
     font-family: sans-serif;
 }
 
+a {
+    &:link, &:visited, &:hover, &:active {
+        text-decoration: none;
+    }
+}
+
 :root {
     --field-padding: 0.5rem;
     --field-padding-vertical: calc(var(--field-padding) * 1.5);

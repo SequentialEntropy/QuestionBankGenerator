@@ -1,3 +1,11 @@
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(
+    import.meta.url);
+
+const __dirname = dirname(__filename);
+
 import { getQuestionById } from "./question.mjs";
 
 export default async function auth(req, res, next) {
@@ -16,9 +24,14 @@ export default async function auth(req, res, next) {
         return;
     }
 
-    if (req.session.userId != question.getOwner()) {
+    if (!req.session.hasOwnProperty("userId")) {
         req.session.redirect = `/question${req.url}`;
         res.redirect("/login");
+        return;
+    }
+
+    if (req.session.userId != question.getOwner()) {
+        res.render(`${__dirname}/client/noPermission.views.ejs`);
         return;
     }
 
