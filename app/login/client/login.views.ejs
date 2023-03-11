@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./login/client/login.styles.css">
+    <script src="./client/login.load.mjs" type="module" defer></script>
+</head>
+<body>
+
+    <div class="section theme__color--default">
+        <div class="section__area theme__color--default theme__outline--default">
+            <form action="/login/auth" method="post">
+
+                <div class="section__heading">
+                    <div class="section__title">Login</div>
+                </div>
+                
+                <div class="function-menu__shelf">
+                    <div class="function-menu__group">
+                        <input type="text" name="username" placeholder="Username" class="function-menu__input theme__color--default theme__outline--default">
+                        <input type="password" name="password" placeholder="Password" class="function-menu__input theme__color--default theme__outline--default">
+                    </div>
+                    <div class="function-menu__divider"></div>
+                    <div class="function-menu__group">
+                        <input type="submit" value="Login" class="section__button theme__color--operation">
+                        <a href="/login/signup"><button class="section__button theme__color--delete">Sign Up</button></a>
+                        <% if (isInvalid) { %>
+                            <div class="indicator indicator--invalid">
+                                Invalid Credentials
+                            </div>
+                        <% } else { %>
+                            <div class="indicator">
+                                Sign Up to Create Account
+                                <!-- Sign Up? -->
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

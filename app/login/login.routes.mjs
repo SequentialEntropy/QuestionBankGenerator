@@ -15,8 +15,4 @@ router.post("/auth", auth);
 
 router.get("/logout", logout);
 
-router.get("/test", (req, res) => {
-    res.sendStatus(200);
-})
-
 export { router };

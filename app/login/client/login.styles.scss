@@ -1,0 +1,84 @@
+@use "../../assets/_Boilerplate.styles.scss";
+@use "../../assets/_Themes.styles.scss";
+
+@use "../../assets/DropDowns/_DropDown.styles.scss";
+@use "../../assets/_DeleteButton.styles.scss";
+@use "../../assets/Sections/_Section.styles.scss";
+@use "../../assets/VariableMenu/_VariableSection.styles.scss";
+@use "../../assets/Functions/_Function.styles.scss";
+@use "../../assets/Blocks/_Block.styles.scss";
+
+@use "../../assets/_Overrides.styles.scss";
+
+.section__title {
+    font-size: 2rem;
+}
+
+.section {
+    padding: 5rem;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section__area {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius);
+    overflow: hidden;
+    width: fit-content;
+    margin: auto;
+}
+
+.function-menu {
+    &__shelf {
+        justify-content: center;
+        flex-grow: 1;
+        width: 100%;
+    }
+    &__group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+        height: fit-content;
+        gap: 0.5rem;
+    }
+    &__divider {
+        flex-grow: 1;
+    }
+    &__input {
+        &:hover, &:focus{
+            outline-width: 0.2rem;
+            outline-style: solid;
+            outline-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+.indicator {
+    width: fit-content;
+    min-width: 11.9rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--default-text-color);
+
+    &--invalid {
+        color: #ffa0a0;
+    }
+}
+
+input {
+    border: none;
+}
+
+a {
+    width: 100%;
+}
+
+form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}

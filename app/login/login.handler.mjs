@@ -7,7 +7,7 @@ const __filename = fileURLToPath(
 const __dirname = dirname(__filename);
 
 export default function login(req, res) {
-    res.render(`${__dirname}/login.views.ejs`, {
+    res.render(`${__dirname}/client/login.views.ejs`, {
         isInvalid: req.session.isInvalid
     });
 }
