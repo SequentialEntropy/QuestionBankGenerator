@@ -1,7 +1,7 @@
 import { createQuestion as cQ } from "../../question/question.mjs"
 
 export default async function createQuestion(req, res) {
-    const questionName = req.body.questionName;
+    const questionName = req.body.name;
 
     const question = await cQ({
         owner: req.session.userId,

@@ -13,9 +13,7 @@ export default class RenderInput extends DropDown {
 
         for (const [operationName, _] of Object.entries(blockTypes.Render)) {
 
-            const splitOperationName = operationName.replace(/([a-z])([A-Z])/g, '$1 $2');
-
-            this.list.appendChild(createRenderChoice(splitOperationName));
+            this.list.appendChild(createRenderChoice(operationName));
         }
     }
 }
@@ -59,7 +57,9 @@ function createEvaluateChoice() {
 }
 
 function createRenderChoice(operationName) {
-    const choice = createChoice(`Render ${operationName}`);
+    const splitOperationName = operationName.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+    const choice = createChoice(`Render ${splitOperationName}`);
     choice.classList.add("theme__color--render");
 
     choice.addEventListener("click", () => {

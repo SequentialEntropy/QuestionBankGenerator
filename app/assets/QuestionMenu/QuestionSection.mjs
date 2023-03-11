@@ -13,7 +13,7 @@ export class SharedQuestionSection {
                     <div class="section__title">Inbox</div>
                 </div>
                 <div class="function-menu">
-                    <div class="function-menu__shelf"></div>
+                    <div class="function-menu__shelf question__shared-questions"></div>
                 </div>
             </div>
             <div class="section-drop-zone"></div>
@@ -27,9 +27,20 @@ export class SharedQuestionSection {
         this.shelf = this.root.querySelector(".function-menu__shelf");
 
         this.shelf.addEventListener("copyQuestion", async e => {
+            const questionId = e.detail.questionId;
+
+            const result = await DashboardAPI.copyQuestion(questionId);
+
+            const myQuestionShelf = document.querySelector(".question__my-questions");
+            myQuestionShelf.appendChild((new Question(result.id, result.name)).root);
         })
 
         this.shelf.addEventListener("dismissQuestion", async e => {
+
+            const questionId = e.detail.questionId;
+
+            DashboardAPI.dismissQuestion(questionId);
+            
         })
 
         questions.forEach(questionData => {
@@ -54,12 +65,12 @@ class SharedQuestion {
                     <div class="block__spacer">
                     </div>
                     <div>
-                        <button class="share-button theme__color--accept">
+                        <button class="share-button theme__color--accept question__copy">
                             Copy to My Questions
                         </button>
                     </div>
                     <div>
-                        <button class="share-button theme__color--delete">
+                        <button class="share-button theme__color--delete question__dismiss">
                             Dismiss
                         </button>
                     </div>
@@ -80,14 +91,9 @@ class SharedQuestion {
         this.shelf = this.root.querySelector(".function__shelf");
         this.question = this.root.querySelector(".question__name");
         this.sender = this.root.querySelector(".question__sender");
-        // this.deleteButton = this.root.querySelector(".block__delete");
-        // this.username = this.root.querySelector(".block--input");
 
-        // this.editLink = this.root.querySelector(".edit-link");
-        // this.editLink.href = `/question/${questionId}`;
-
-        // this.generateLink = this.root.querySelector(".generate-link");
-        // this.generateLink.href = `/generate/${questionId}`;
+        this.copy = this.root.querySelector(".question__copy");
+        this.dismiss = this.root.querySelector(".question__dismiss");
 
         this.question.textContent = questionName;
         this.sender.textContent = `Shared by ${senderName}`;
@@ -95,6 +101,38 @@ class SharedQuestion {
         this.questionId = questionId;
         this.questionName = questionName;
         this.senderName = senderName;
+
+        this.copy.addEventListener("click", e => {
+            const shelf = this.root.closest(".function-menu__shelf");
+
+            const event = new CustomEvent("copyQuestion", {
+                detail: {
+                    questionId: this.questionId
+                }
+            });
+
+            shelf.dispatchEvent(event);
+        })
+
+        this.dismiss.addEventListener("click", e => {
+            if (!confirm(`Are you sure you want to dismiss the question named "${this.questionName}"?`)) {
+                return
+            }
+
+            const shelf = this.root.closest(".function-menu__shelf");
+
+            const event = new CustomEvent("dismissQuestion", {
+                detail: {
+                    questionId: this.questionId
+                }
+            });
+            
+            shelf.dispatchEvent(event);
+
+            shelf.removeChild(this.root);
+        })
+
+
 
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();
@@ -120,7 +158,7 @@ export class MyQuestionSection {
                     <div class="section__title">My Questions</div>
                 </div>
                 <div class="function-menu">
-                    <div class="function-menu__shelf"></div>
+                    <div class="function-menu__shelf question__my-questions"></div>
                     <div class="function-menu__create-text-field"></div>
                 </div>
             </div>
@@ -150,6 +188,15 @@ export class MyQuestionSection {
             const questionId = e.detail.questionId;
 
             DashboardAPI.deleteQuestion(questionId);
+        })
+
+        this.shelf.addEventListener("shareQuestion", async e => {
+            const questionId = e.detail.questionId;
+            const recipentName = e.detail.recipentName;
+
+            const result = await DashboardAPI.shareQuestion(questionId, recipentName);
+
+            alert(result.message);
         })
 
         questions.forEach(questionData => {
@@ -191,13 +238,11 @@ class Question {
                     </div>
 
                     <div class="block block__spacer">
-                        <div contenteditable class="block__shelf theme__color--white block--input override__text--default">
-                            Username
-                        </div>
+                        <div contenteditable class="block__shelf theme__color--white block--input override__text--default">Username</div>
                     </div>
 
                     <div>
-                        <button class="share-button theme__color--accept">
+                        <button class="share-button theme__color--accept question__share">
                             Share
                         </button>
                     </div>
@@ -226,6 +271,26 @@ class Question {
         this.question.textContent = questionName;
         this.questionId = questionId;
         this.questionName = questionName;
+
+        this.shareButton = this.root.querySelector(".question__share");
+
+        this.shareButton.addEventListener("click", () => {
+            if (this.username.classList.contains("override__text--default")) {
+                alert("The username field is empty");
+                return
+            }
+
+            const shelf = this.root.closest(".function-menu__shelf");
+
+            const event = new CustomEvent("shareQuestion", {
+                detail: {
+                    questionId: this.questionId,
+                    recipentName: this.username.textContent
+                }
+            });
+
+            shelf.dispatchEvent(event);
+        })
 
         this.root.addEventListener("mouseover", e => {
             e.stopPropagation();

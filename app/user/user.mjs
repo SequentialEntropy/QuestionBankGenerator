@@ -51,6 +51,10 @@ class User {
         log(`User user${this._data().id}.json`, text, postfix);
     }
 
+    getName() {
+        return this._data().username;
+    }
+
     getPasswordHash() {
         return this._data().password;
     }
@@ -58,7 +62,7 @@ class User {
         return this._data().questions;
     }
     getSharedQuestions() {
-        return this._data().sets;
+        return this._data().sharedQuestions;
     }
     addQuestion(id) {
         this._data().questions.push(id);
@@ -74,6 +78,20 @@ class User {
         this._save();
         return true
     }
+    shareQuestion(id) {
+        this._data().sharedQuestions.push(id);
+        this._save();
+    }
+    dismissQuestion(id) {
+        const index = this._data().sharedQuestions.indexOf(id);
+        if (index == -1) {
+            return false
+        }
+    
+        this._data().sharedQuestions.splice(index, 1);
+        this._save();
+        return true
+    }
 }
 
 function getUserByName(username) {
@@ -81,14 +99,14 @@ function getUserByName(username) {
 }
 
 function getUserById(id) {
-    if (id in counter._data().list) {
+    if (counter._data().list.includes(id)) {
         return User.init({ id: id });
     }
     return false;
 }
 
 function getUserIdByName(username) {
-    if (username in nameToId.data) {
+    if (nameToId.data.hasOwnProperty(username)) {
         return nameToId.data[username];
     }
     return false;

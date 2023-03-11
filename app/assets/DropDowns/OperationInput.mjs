@@ -23,9 +23,7 @@ export default class OperationInput extends DropDown {
 
             for (const [operationName, _] of Object.entries(blockTypes.Operation)) {
 
-                const splitOperationName = operationName.replace(/([a-z])([A-Z])/g, '$1 $2');
-
-                this.list.appendChild(createOperationChoice(splitOperationName));
+                this.list.appendChild(createOperationChoice(operationName));
             }
         })
     }
@@ -51,7 +49,9 @@ function createNumberChoice() {
 }
 
 function createOperationChoice(operationName) {
-    const choice = createChoice(`${operationName} Operation`);
+    const splitOperationName = operationName.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+    const choice = createChoice(`${splitOperationName} Operation`);
     choice.classList.add("theme__color--operation");
 
     choice.addEventListener("click", () => {
