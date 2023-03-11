@@ -2,20 +2,18 @@
   "name": "ia",
   "version": "1.0.0",
   "description": "A question bank generator using templates",
-  "main": "use.js",
+  "main": "server.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Skytec711/IA.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Skytec711/IA/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/Skytec711/IA#readme",
+  "homepage": "",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
