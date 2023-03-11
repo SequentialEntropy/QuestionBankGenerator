@@ -67,6 +67,7 @@ export default class AutoQuestion {
         root.classList.add("auto-step");
 
         stepData.forEach(functionData => {
+
             const result = this.evaluateFunction(functionData);
 
             if (result !== null) {
@@ -110,8 +111,9 @@ export default class AutoQuestion {
         return renderElement
     }
     evaluateSetFunction(functionData) {
+        
         if (functionData.fields[0].value === null) {
-            return;
+            return null;
         }
         
         const variableName = functionData.fields[0].value.variableName;
@@ -123,7 +125,6 @@ export default class AutoQuestion {
         this.variables[variableName] = value;
 
         return null
-
     }
     evaluateRenderBlock(blockData) {
 
@@ -158,6 +159,8 @@ export default class AutoQuestion {
     }
     evaluateOperationBlock(blockData) {
 
+        const test = parseInt(Math.random() * 100)
+
         if (blockData === null) {
             return new Decimal("0")
         }
@@ -182,6 +185,10 @@ export default class AutoQuestion {
 
                 return evaluateResult
             case "Variable":
+                if (!this.variables.hasOwnProperty(blockData.variableName)) {
+                    return null
+                }
+
                 return this.variables[blockData.variableName]
             case "Number":
                 return new Decimal(blockData.value)
