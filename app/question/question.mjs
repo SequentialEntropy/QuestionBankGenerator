@@ -18,8 +18,8 @@ import { getFieldAcceptedBlockTypes } from "../assets/Fields/Field.routes.mjs";
 const defaults = {
     id: -1,
     owner: -1,
+    name: "A New Question",
     variables: [],
-    type: "numerical",
     prompt: [],
     steps: []
 };
@@ -360,5 +360,25 @@ function getQuestionById(id) {
     return false;
 }
 
+function createQuestion(owner, name) {
+    return Question.init({
+        owner,
+        name
+    })
+}
+
+async function deleteQuestion(id) {
+    const index = counter._data().list.indexOf(id);
+    if (index != -1) {
+        const question = await Question.init({ id: id })
+
+        await question._jsonRW.delete()
+        
+        counter.remove(id);
+        return true
+    }
+    return false
+}
+
 const counter = await Tracker.init(join(dirname(dirname(__dirname)), "database", "questionList.json"));
-export { Question, getQuestionById };
+export { getQuestionById, createQuestion, deleteQuestion };

@@ -41,10 +41,16 @@ class jsonReader {
         const rawData = JSON.stringify(await data, null, 4);
         return fs.writeFile(filePath, rawData);
     }
+    static _deleteFile(filePath) {
+        fs.unlink(filePath);
+    }
     async save() {
         this._log("save() function called");
         jsonReader._writeToFile(this.data, this._filePath);
         this._log("Wrote stored data to file", this.data);
+    }
+    async delete() {
+        jsonReader._deleteFile(this._filePath);
     }
     fileName() {
         return getFileName(this._filePath);
