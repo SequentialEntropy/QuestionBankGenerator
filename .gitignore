@@ -1,11 +1,5 @@
-database/classroomList.json
-database/classroomNameToId.json
-
 database/userList.json
 database/userNameToId.json
-
-database/setList.json
-database/setNameToId.json
 
 database/questionList.json
 
