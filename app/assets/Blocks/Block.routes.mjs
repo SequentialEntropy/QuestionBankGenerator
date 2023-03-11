@@ -19,6 +19,7 @@ import * as RenderPi from "./Pi.Render.Block.mjs";
 import * as RenderImplicitMultiplication from "./ImplicitMultiplication.Render.Block.mjs";
 import * as RenderParentheses from "./Parentheses.Render.Block.mjs";
 import * as RenderEquals from "./Equals.Render.Block.mjs";
+import * as RenderSubscript from "./Subscript.Render.Block.mjs";
 
 import * as Text from "./Text.Block.mjs";
 import * as Number from "./Number.Block.mjs";
@@ -50,6 +51,7 @@ const blockTypes = {
         Division: RenderDivision,
         Parentheses: RenderParentheses,
         Power: RenderPower,
+        Subscript: RenderSubscript,
         SquareRoot: RenderSquareRoot,
         NthRoot: RenderNthRoot,
         Pi: RenderPi

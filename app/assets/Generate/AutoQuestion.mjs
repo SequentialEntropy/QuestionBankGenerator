@@ -55,7 +55,7 @@ export default class AutoQuestion {
         });
     }
     roll(min, max, order) {
-        const result = Decimal.random().times(max.minus(min).plus(min));
+        const result = Decimal.random().times(max.minus(min)).plus(min);
 
         const rounded = ((result.dividedBy(order)).round(order)).times(order);
 

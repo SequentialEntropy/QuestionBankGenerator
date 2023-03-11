@@ -90,7 +90,7 @@ class Variable {
         this.minimumField.value = "0";
         this.maximumField.value = "10";
         this.orderField.value = "0.1";
-
+        
         this.variable.textContent = variableName;
     }
     getValues() {
