@@ -13,12 +13,12 @@ class jsonReader {
         let data = defaults;
         try {
             data = await jsonReader._readFromFile(filePath);
-            log(`jsonReader ${filePath.split("/").pop().split("\\").pop()}`, "Existing file found");
+            log(`jsonReader ${getFileName(filePath)}`, "Existing file found");
         } catch (err) {
             if (err.code === "ENOENT") { // File not found
-                log(`jsonReader ${filePath.split("/").pop().split("\\").pop()}`, "File not found");
+                log(`jsonReader ${getFileName(filePath)}`, "File not found");
                 jsonReader._writeToFile(data, filePath);
-                log(`jsonReader ${filePath.split("/").pop().split("\\").pop()}`, "Created default file", filePath);
+                log(`jsonReader ${getFileName(filePath)}`, "Created default file", filePath);
             } else {
                 throw err;
             }
@@ -26,8 +26,10 @@ class jsonReader {
         return new jsonReader(data, filePath);
     }
     static async _readFromFile(filePath) {
+        log(`jsonReader ${getFileName(filePath)}`, "Reading from file...", filePath);
         const rawData = await fs.readFile(filePath);
         const data = JSON.parse(rawData);
+        log(`jsonReader ${getFileName(filePath)}`, "Reading from file successful");
         return data;
     }
     async load() {
@@ -45,11 +47,15 @@ class jsonReader {
         this._log("Wrote stored data to file", this.data);
     }
     fileName() {
-        return this._filePath.split("/").pop().split("\\").pop();
+        return getFileName(this._filePath);
     }
     _log(text, postfix=false) {
         log(`jsonReader ${this.fileName()}`, text, postfix);
     }
+}
+
+function getFileName(filePath) {
+    return filePath.split("/").pop().split("\\").pop()
 }
 
 export { jsonReader };
