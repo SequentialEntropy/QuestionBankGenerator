@@ -364,10 +364,8 @@ function getQuestionById(id) {
     return false;
 }
 
-function createQuestion(owner) {
-    return Question.init({
-        owner
-    })
+function createQuestion(data) {
+    return Question.init(data)
 }
 
 async function deleteQuestion(id) {
