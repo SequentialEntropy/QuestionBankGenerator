@@ -53,6 +53,10 @@ class Question {
     getId() {
         return this._data().id;
     }
+    
+    getName() {
+        return this._data().name;
+    }
 
     getOwner() {
         return this._data().owner;
@@ -358,7 +362,8 @@ class Question {
 }
 
 function getQuestionById(id) {
-    if (id in counter._data().list) {
+    const qList = counter._data().list
+    if (counter._data().list.includes(id)) {
         return Question.init({ id: id });
     }
     return false;

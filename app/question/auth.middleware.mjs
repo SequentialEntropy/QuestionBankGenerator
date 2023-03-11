@@ -1,7 +1,15 @@
 import { getQuestionById } from "./question.mjs";
 
 export default async function auth(req, res, next) {
-    const question = await getQuestionById(req.params.questionId);
+
+    const questionId = parseInt(req.params.questionId);
+
+    if (isNaN(questionId)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    const question = await getQuestionById(questionId);
 
     if (!question) {
         res.sendStatus(404);
