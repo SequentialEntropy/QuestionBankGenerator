@@ -50,6 +50,10 @@ class Question {
         log(`Question question${this._data().id}.json`, text, postfix);
     }
 
+    getId() {
+        return this._data().id;
+    }
+
     getOwner() {
         return this._data().owner;
     }

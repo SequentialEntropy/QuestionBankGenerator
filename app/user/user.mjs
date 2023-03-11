@@ -60,6 +60,10 @@ class User {
     getSets() {
         return this._data().sets;
     }
+    addQuestion(id) {
+        this._data().questions.push(id);
+        this._save();
+    }
 }
 
 function getUserByName(username) {

@@ -1,3 +1,5 @@
+import { getUserById } from "../user/user.mjs";
+
 export default async function auth(req, res, next) {
         
     if (!req.session.hasOwnProperty("userId")) {
@@ -6,5 +8,6 @@ export default async function auth(req, res, next) {
         return;
     }
 
+    req.user = await getUserById(req.session.userId);
     next();
 }

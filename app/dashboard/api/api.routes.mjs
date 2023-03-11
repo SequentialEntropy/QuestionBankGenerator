@@ -5,6 +5,6 @@ import createQuestion from "./createQuestion.handler.mjs";
 
 const router = express.Router();
 
-router.get("/createQuestion", auth, createQuestion)
+router.get("/createQuestion", auth, createQuestion);
 
 export { router };
