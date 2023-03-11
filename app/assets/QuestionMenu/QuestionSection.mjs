@@ -96,6 +96,14 @@ class SharedQuestion {
         this.questionName = questionName;
         this.senderName = senderName;
 
+        this.root.addEventListener("mouseover", e => {
+            e.stopPropagation();
+            this.shelf.classList.add("function__shelf--hover");
+        })
+        this.root.addEventListener("mouseout", e => {
+            e.stopPropagation();
+            this.shelf.classList.remove("function__shelf--hover");
+        })
     }
 }
 
