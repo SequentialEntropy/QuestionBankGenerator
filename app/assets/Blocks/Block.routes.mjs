@@ -7,6 +7,8 @@ import * as OperationSquareRoot from "./SquareRoot.Operation.Block.mjs";
 import * as OperationNthRoot from "./NthRoot.Operation.Block.mjs";
 import * as OperationPi from "./Pi.Operation.Block.mjs";
 
+import * as OperationRound from "./Round.Operation.Block.mjs";
+
 import * as RenderAddition from "./Addition.Render.Block.mjs";
 import * as RenderSubtraction from "./Subtraction.Render.Block.mjs";
 import * as RenderMultiplication from "./Multiplication.Render.Block.mjs";
@@ -40,7 +42,8 @@ const blockTypes = {
         Power: OperationPower,
         SquareRoot: OperationSquareRoot,
         NthRoot: OperationNthRoot,
-        Pi: OperationPi
+        Pi: OperationPi,
+        Round: OperationRound
     },
     Render: {
         Equals: RenderEquals,
