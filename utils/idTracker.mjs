@@ -49,7 +49,7 @@ class Tracker {
         this._data().list.splice(index, 1);
         this._log("Spliced index", index);
 
-        Tracker._writeToFile(this._save(), this._data()._filePath);
+        this._save();
         this._log("Updated file to reflect removed ID", id);
     }
     _log(text, postfix=false) {
