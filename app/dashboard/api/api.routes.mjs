@@ -7,7 +7,7 @@ import getQuestions from "./getQuestions.handler.mjs";
 
 const router = express.Router();
 
-router.get("/createQuestion", auth, createQuestion);
+router.post("/createQuestion", auth, createQuestion);
 router.get("/deleteQuestion/:questionId", auth, deleteQuestion);
 router.get("/getQuestions", auth, getQuestions);
 

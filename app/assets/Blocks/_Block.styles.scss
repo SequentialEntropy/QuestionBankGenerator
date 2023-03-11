@@ -31,10 +31,15 @@
         line-height: calc(var(--function-font-size) + 1.5 * var(--field-padding-vertical));
     }
 
+    &__spacer {
+        flex-grow: 1;
+    }
+
     &--input {
         font-size: var(--field-font-size);
         border: none;
         padding: var(--field-padding-vertical) var(--field-padding);
+        justify-content: flex-start;
         
         &:focus {
             outline-color: rgba(0, 0, 0, 0.5);

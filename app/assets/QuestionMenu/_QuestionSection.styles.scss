@@ -1,0 +1,32 @@
+.function__shelf {
+    &:not(.function__shelf--hover) {
+        outline: 0.1rem solid var(--default-outline-color);
+    }
+}
+
+.block__shelf {
+    &:not(.block__shelf--hover):not(.block__shelf--focus) {
+        outline: 0.1rem solid var(--default-outline-color);
+    }
+    &--focus {
+        outline-width: 0.2rem;
+        outline-style: solid;
+        outline-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+.share-button {
+    border-radius: var(--radius);
+    padding: var(--field-padding-vertical) var(--field-padding);
+    font-size: var(--field-font-size);
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.1s;
+    text-align: center;
+    &:hover {
+        filter: brightness(0.9);
+    }
+    &:active{
+        filter: none;
+    }
+}

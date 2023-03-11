@@ -14,7 +14,7 @@ export class VariableSection {
                 </div>
                 <div class="function-menu">
                     <div class="function-menu__shelf"></div>
-                    <div class="function-menu__create-variable"></div>
+                    <div class="function-menu__create-text-field"></div>
                 </div>
             </div>
             <!--
@@ -29,7 +29,7 @@ export class VariableSection {
         this.area = this.root.querySelector(".section__area");
         this.title = this.root.querySelector(".section__title");
         this.shelf = this.root.querySelector(".function-menu__shelf");
-        this.root.querySelector(".function-menu__create-variable").appendChild((new CreateVariableButton).root);
+        this.root.querySelector(".function-menu__create-text-field").appendChild((new CreateVariableButton).root);
 
         this.shelf.addEventListener("createVariable", async e => {
             const variableName = e.detail.variableName;
