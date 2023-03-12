@@ -14,7 +14,6 @@ export class NthRoot extends Block {
     }
     constructor(data) {
         super(data);
-        this.blockType = "NthRoot";
     }
 }
 

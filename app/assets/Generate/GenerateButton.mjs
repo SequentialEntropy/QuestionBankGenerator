@@ -20,11 +20,11 @@ export default class GenerateButton extends ButtonSection {
 
             let variableOptions = [];
 
-            for (let index = 0; index < this.variableSection.variableInstances.length; index++) {
+            for (let index = 0; index < this.variableSection.variableInstances.length; index++) { // Loop through each variable
 
                 const variableName = this.variableSection.variableInstances[index].getVariableName();
 
-                const values = this.variableSection.variableInstances[index].getValues();
+                const values = this.variableSection.variableInstances[index].getValues(); // Get user input values
 
                 try {
                     const minimum = new Decimal(values.minimum); // Converts string to Decimal
@@ -45,7 +45,7 @@ export default class GenerateButton extends ButtonSection {
                         return;
                     }
 
-                    variableOptions.push({
+                    variableOptions.push({ // Processed data - variable ready to be randomised
                         variableName,
                         minimum,
                         maximum,

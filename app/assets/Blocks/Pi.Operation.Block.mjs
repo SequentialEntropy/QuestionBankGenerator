@@ -11,7 +11,6 @@ export class Pi extends Block {
     constructor(data) {
         super(data);
         this.shelf.textContent = "pi";
-        this.blockType = "Pi";
     }
 }
 

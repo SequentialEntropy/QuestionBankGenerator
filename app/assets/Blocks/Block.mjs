@@ -1,13 +1,13 @@
 import { createField } from "../Fields/Field.routes.mjs";
 
 export default class Block {
-    shelfContent() { return [
+    shelfContent() { return [ // Template that determines the contents of the block
         ["Prompt", "Default Block"]
     ]}
-    shelfStyles() {
+    shelfStyles() { // Array of classnames for CSS
         return [
             "theme__color--default"
-        ]
+        ];
     }
     createRoot() {
         const range = document.createRange();
@@ -15,7 +15,6 @@ export default class Block {
         range.selectNode(document.body);
 
         const root = range.createContextualFragment(`
-
         <div class="block" draggable="false">
             <div class="block__shelf">
             </div>
@@ -23,40 +22,36 @@ export default class Block {
             ×
             </button>
         </div>
-
-        `).children[0];
+        `).children[0]; // HTML template
 
         this.shelfContent().forEach(fieldData => {
-            const newField = createField(...fieldData);
+            const newField = createField(...fieldData); // Creates the actual fields from the template defined in line 4 shelfContent
             root.querySelector(".block__shelf").appendChild(newField.root);
         });
-
-        this.shelfStyles().forEach(className => {
+        this.shelfStyles().forEach(className => { // Applies classes defined in line 7 shelfStyles, determines colour of block
             root.querySelector(".block__shelf").classList.add(className);
         })
         
         return root;
     }
     constructor(data) {
-        this.type = "?";
-
         this.root = this.createRoot();
         this.shelf = this.root.querySelector(".block__shelf");
         this.deleteButton = this.root.querySelector(".block__delete");
 
-        this.root.addEventListener("mouseover", e => {
+        this.root.addEventListener("mouseover", e => { // Add outline & show delete badge
             e.stopPropagation();
             this.shelf.classList.add("block__shelf--hover");
             this.deleteButton.classList.add("block__delete--show");
         });
-        this.root.addEventListener("mouseout", e => {
+        this.root.addEventListener("mouseout", e => { // Remove outline & hide delete badge
             e.stopPropagation();
             this.shelf.classList.remove("block__shelf--hover");
             this.deleteButton.classList.remove("block__delete--show");
         })
 
         this.deleteButton.addEventListener("click", e => {
-            if (!confirm(`Are you sure you want to delete the selected Block?`)) {
+            if (!confirm(`Are you sure you want to delete the selected Block?`)) { // Confirm before deleting
                 return;
             }
 
@@ -64,37 +59,35 @@ export default class Block {
 
             const parentField = this.root.closest(".block__field");
 
-            parentField.dispatchEvent(event);
+            parentField.dispatchEvent(event); // Tell parent field to delete this block
         })
 
-        this.initialiseFields(data);
+        this.initialiseFields(data); // Dynamically populate fields
     }
     initialiseFields(data) {
         const fieldsData = data.fields;
 
-        if (fieldsData === undefined) {
-            return
+        if (fieldsData === undefined) { // Some blocks don't have any fields - eg. pi
+            return;
         }
 
-        const fieldElements = Array.from(this.shelf.children)
+        const fieldElements = Array.from(this.shelf.children) // Only parse fields
         .filter(fieldElement => {
             return fieldElement.matches(".block__field");
-        })
+        });
 
-        for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
-
+        for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) { // Loop through child fields
             const fieldData = fieldsData[fieldIndex];
 
-            if (fieldData.value == null) {
+            if (fieldData.value == null) { // Skip blank field
                 continue;
             }
-
-            const fieldElement = fieldElements[fieldIndex];
-
-            const event = new CustomEvent("loadBlock", {
+            
+            const event = new CustomEvent("loadBlock", { // Populate child field
                 detail: fieldData.value
             });
-
+            
+            const fieldElement = fieldElements[fieldIndex];
             fieldElement.dispatchEvent(event);
         }
     }

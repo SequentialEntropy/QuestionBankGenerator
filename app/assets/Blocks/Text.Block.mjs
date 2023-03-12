@@ -19,7 +19,6 @@ export class Text extends Block {
     }
     constructor(data) {
         super(data);
-        this.type = "Text";
         this.shelf.addEventListener("dragover", e => {
             e.preventDefault();
         })

@@ -1,19 +1,18 @@
 import Block from "./Block.mjs";
 
 export class Addition extends Block {
-    shelfContent() { return [
+    shelfContent() { return [ // Override shelfContent to determine the contents of the "Addition" block
         ["Operation"],
         ["Prompt", "+"],
         ["Operation"]
     ]}
-    shelfStyles() {
+    shelfStyles() { // Override CSS default color styles to match block colour
         return [
             "theme__color--operation"
         ]
     }
     constructor(data) {
-        super(data);
-        this.blockType = "Addition";
+        super(data); // Inherit "Block" superclass fields and methods
     }
 }
 

@@ -13,7 +13,6 @@ export class Multiplication extends Block {
     }
     constructor(data) {
         super(data);
-        this.blockType = "Multiplication";
     }
 }
 

@@ -12,7 +12,6 @@ export class SquareRoot extends Block {
     }
     constructor(data) {
         super(data);
-        this.blockType = "SquareRoot";
     }
 }
 

@@ -20,7 +20,6 @@ export class Variable extends Block {
     }
     constructor(data) {
         super(data);
-        this.type = "variable";
     }
     initialiseFields(data) {
         const variableName = data.variableName;

@@ -132,72 +132,71 @@ export default class AutoQuestion {
 
         return null
     }
-    evaluateRenderBlock(blockData) {
+    evaluateRenderBlock(blockData) { // Takes in a tree of Render Blocks and returns a formatted string result
 
-        if (blockData === null) {
-            return ""
+        if (blockData === null) { // Base case - Empty field - defaults to an empty string when formatting
+            return "";
         }
 
         switch (blockData.blockType) {
             case "Render":
-                
                 let renderComponents;
 
-                if (blockData.hasOwnProperty("fields")) {
-                    renderComponents = blockData.fields.map(fieldData => {
-                        const nextBlock = fieldData.value;
+                if (blockData.hasOwnProperty("fields")) { // Some blockTypes don't have fields - like pi
+                    renderComponents = blockData.fields.map(fieldData => { // Loop for each child node
+                        const nextBlock = fieldData.value; // Move down to child node
     
-                        return this.evaluateRenderBlock(nextBlock);
-                    })
+                        return this.evaluateRenderBlock(nextBlock); // Recurse and return the formatted result
+                    });
                 }
 
-                const evaluateResult = getBlockEvaluate(
+                const evaluateResult = getBlockEvaluate( // Format - concatenate the strings
                     blockData,
                     renderComponents
                 );
 
-                return evaluateResult
+                return evaluateResult; // Return the result - a string
+
             case "Evaluate":
-                return this.evaluateOperationBlock(blockData.fields[0].value).toString()
+                return this.evaluateOperationBlock(blockData.fields[0].value).toString(); // Convert Operation into a string
+
             case "Text":
-                return blockData.value
+                return blockData.value; // Base case - texts don't have children - must be a leaf node
         }
     }
-    evaluateOperationBlock(blockData) {
-
-        const test = parseInt(Math.random() * 100)
-
-        if (blockData === null) {
-            return new Decimal("0")
+    evaluateOperationBlock(blockData) { // Takes in a tree of Operation Blocks and returns a calculated integer result
+        if (blockData === null) { // Base case - Empty field - defaults to 0 when evaluating
+            return new Decimal("0");
         }
 
         switch (blockData.blockType) {
             case "Operation":
-
                 let operationComponents;
 
-                if (blockData.hasOwnProperty("fields")) {
-                    operationComponents = blockData.fields.map(fieldData => {
-                        const nextBlock = fieldData.value;
+                if (blockData.hasOwnProperty("fields")) { // Some blockTypes don't have fields - like pi
+                    operationComponents = blockData.fields.map(fieldData => { // Loop for each child node
+                        const nextBlock = fieldData.value; // Move down to child node
     
-                        return this.evaluateOperationBlock(nextBlock);
+                        return this.evaluateOperationBlock(nextBlock); // Recurse and return the evaluated result
                     })
                 }
 
-                const evaluateResult = getBlockEvaluate(
+                const evaluateResult = getBlockEvaluate( // Calculate - apply the operation
                     blockData,
                     operationComponents
                 );
 
-                return evaluateResult
-            case "Variable":
-                if (!this.variables.hasOwnProperty(blockData.variableName)) {
-                    return null
+                return evaluateResult; // Return the result - a number
+
+            case "Variable": // Base case - Variables have no children - must be a leaf node
+                if (!this.variables.hasOwnProperty(blockData.variableName)) { // If variable does not exist
+                    return new Decimal("0"); // Return a default value of 0
                 }
 
-                return this.variables[blockData.variableName]
-            case "Number":
-                return new Decimal(blockData.value)
+                return this.variables[blockData.variableName]; // Return the stored value - a number
+
+            case "Number": // Base case - Numbers have no children - must be a leaf node
+                return new Decimal(blockData.value); // Return a number
         }
     }
 }

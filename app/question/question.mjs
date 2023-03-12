@@ -66,10 +66,6 @@ class Question {
         return this._data().variables;
     }
 
-    getType() {
-        return this._data().type;
-    }
-
     getPrompt() {
         return this._data().prompt;
     }

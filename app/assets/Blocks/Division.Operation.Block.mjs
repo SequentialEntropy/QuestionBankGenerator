@@ -13,7 +13,6 @@ export class Division extends Block {
     }
     constructor(data) {
         super(data);
-        this.blockType = "Division";
     }
 }
 

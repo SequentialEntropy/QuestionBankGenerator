@@ -19,7 +19,6 @@ export class Number extends Block {
     }
     constructor(data) {
         super(data);
-        this.type = "Number";
         this.shelf.addEventListener("dragover", e => {
             e.preventDefault();
         })

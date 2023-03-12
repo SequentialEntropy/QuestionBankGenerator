@@ -1,19 +1,18 @@
 import Block from "./Block.mjs";
 
 export class Subtraction extends Block {
-    shelfContent() { return [
+    shelfContent() { return [ // Override shelfContent to determine the contents of the "Subtraction" block
         ["Operation"],
         ["Prompt", "−"],
         ["Operation"]
     ]}
-    shelfStyles() {
+    shelfStyles() { // Override CSS default color styles to match block colour
         return [
             "theme__color--operation"
         ]
     }
     constructor(data) {
-        super(data);
-        this.blockType = "Subtraction";
+        super(data); // Inherit "Block" superclass fields and methods
     }
 }
 

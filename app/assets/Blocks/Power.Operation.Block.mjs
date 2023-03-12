@@ -13,7 +13,6 @@ export class Power extends Block {
     }
     constructor(data) {
         super(data);
-        this.blockType = "Power";
     }
 }
 

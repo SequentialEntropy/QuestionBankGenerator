@@ -14,7 +14,6 @@ export class Round extends Block {
     }
     constructor(data) {
         super(data);
-        this.blockType = "Round";
     }
 }
 
