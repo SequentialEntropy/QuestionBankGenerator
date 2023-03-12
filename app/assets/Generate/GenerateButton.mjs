@@ -27,21 +27,21 @@ export default class GenerateButton extends ButtonSection {
                 const values = this.variableSection.variableInstances[index].getValues();
 
                 try {
-                    const minimum = new Decimal(values.minimum);
+                    const minimum = new Decimal(values.minimum); // Converts string to Decimal
 
-                    const maximum = new Decimal(values.maximum);
+                    const maximum = new Decimal(values.maximum); // Converts string to Decimal
 
-                    const order = new Decimal(values.order);
+                    const order = new Decimal(values.order); // Converts string to Decimal
 
-                    const log10 = order.log();
+                    const log10 = order.log(); // Converts 10^n to n. If it isn't an integer, line 38 breaks the loop.
 
-                    if (!log10.isInt()) {
+                    if (!log10.isInt()) { // Variable randomisation must be rounded to a digit, eg. 10, 100, 0.1
                         alert(`Order of magnitude for variable named "${variableName}" must be a power of 10.`);
                         return;
                     }
 
-                    if (minimum.greaterThanOrEqualTo(maximum)) {
-                        alert(`Minimum must be smaller than maximum for variable named "${variableName}"`);
+                    if (minimum.greaterThan(maximum)) { // Range cannot be min > max
+                        alert(`Minimum cannot be greater than maximum for variable named "${variableName}".`);
                         return;
                     }
 
@@ -51,7 +51,7 @@ export default class GenerateButton extends ButtonSection {
                         maximum,
                         order
                     })
-                } catch (err) {
+                } catch (err) { // Catches error from conversion in lines 30 ~ 34
                     if ( err instanceof Error && /DecimalError/.test(err.message) ) {
                         alert(`Missing fields for variable named "${variableName}"!`);
                         return;

@@ -49,17 +49,23 @@ export default class AutoQuestion {
             this.autoArea.appendChild(this.evaluateStep(steps[stepNumber - 1]));
         }
     }
-    rollVariables(variableOptions) {
-        variableOptions.forEach(variable => {
+    rollVariables(variableOptions) { // Method to randomise all variables, parameter takes an array of variable generation options
+        variableOptions.forEach(variable => { // Loop through each variable, and roll random values
             this.variables[variable.variableName] = this.roll(variable.minimum, variable.maximum, variable.order);
         });
     }
-    roll(min, max, order) {
-        const result = Decimal.random().times(max.minus(min)).plus(min);
+    roll(min, max, order) { // Method to generate a random, rounded number - the order parameter is in the format 10^n
+        let result;
 
-        const rounded = ((result.dividedBy(order)).round()).times(order);
+        if (min.equals(max)) { // If the minimum value is exactly the same as the maximum, randomisation is not needed
+            result = min;
+        } else {
+            result = Decimal.random().times(max.minus(min)).plus(min); // Generate a random number between min and max
+        }
 
-        return rounded
+        const rounded = ((result.dividedBy(order)).round()).times(order); // Round the number to the nearest order
+
+        return rounded; // Return the random number - this will be assigned to the variables
     }
     evaluateStep(stepData) {
 
