@@ -51,8 +51,8 @@ export default class GenerateButton extends ButtonSection {
                         maximum,
                         order
                     })
-                } catch (e) {
-                    if ( e instanceof Error && /DecimalError/.test(e.message) ) {
+                } catch (err) {
+                    if ( err instanceof Error && /DecimalError/.test(err.message) ) {
                         alert(`Missing fields for variable named "${variableName}"!`);
                         return;
                     }
