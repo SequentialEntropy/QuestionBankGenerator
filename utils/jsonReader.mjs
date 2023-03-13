@@ -18,7 +18,7 @@ class jsonReader {
             if (err.code === "ENOENT") { // File not found
                 log(`jsonReader ${getFileName(filePath)}`, "File not found");
                 jsonReader._writeToFile(data, filePath); // Create new file
-                log(`jsonReader ${getFileName(filePath)}`, "Created default file", filePath);
+                log(`jsonReader ${getFileName(filePath)}`, "Created default file");
             } else {
                 throw err;
             }
@@ -26,7 +26,7 @@ class jsonReader {
         return new jsonReader(data, filePath); // Return class instance
     }
     static async _readFromFile(filePath) { // Read from file, parse JSON
-        log(`jsonReader ${getFileName(filePath)}`, "Reading from file...", filePath);
+        log(`jsonReader ${getFileName(filePath)}`, "Reading from file...");
         const rawData = await fs.readFile(filePath);
         const data = JSON.parse(rawData);
         log(`jsonReader ${getFileName(filePath)}`, "Reading from file successful");
