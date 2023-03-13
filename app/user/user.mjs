@@ -9,7 +9,6 @@ const __dirname = dirname(__filename);
 import { log } from "../../utils/logger.mjs";
 
 import { Tracker } from "../../utils/idTracker.mjs";
-import { jsonReader } from "../../utils/jsonReader.mjs";
 
 const defaults = {
     id: -1,
@@ -19,6 +18,8 @@ const defaults = {
     sharedQuestions: []
 };
 
+import { jsonReader } from "../../utils/jsonReader.mjs";
+
 class User {
     constructor(jsonRW) {
         this._jsonRW = jsonRW;
@@ -26,7 +27,7 @@ class User {
         this._log("Initialised");
     }
     static async init(options) {
-        if (!("id" in options)) {
+        if (!("id" in options)) { // If no ID provided, create new User
             log("User", "ID not specified");
             options = Object.assign(defaults, options);
             if (options.username in nameToId.data) {
@@ -37,14 +38,21 @@ class User {
             nameToId.data[options.username] = options.id;
             nameToId.save();
             log(`User user${options.id}.json`, "Creating new user");
-        }
-        let jsonRW = jsonReader.init(join(dirname(dirname(__dirname)), "database", "userFiles", `user${options.id}.json`), options);
+        } // If ID provided, load existing user
+        let jsonRW = jsonReader.init( // Aggregation, internally using jsonReader
+            join( // Path to User file
+                dirname(dirname(__dirname)),
+                "database",
+                "userFiles",
+                `user${options.id}.json`
+            )
+            , options);
         return new User(await jsonRW);
     }
-    _data() {
+    _data() { // Get internal data of jsonReader Instance
         return this._jsonRW.data;
     }
-    _save() {
+    _save() { // Save user data to JSON using jsonReader's method
         this._jsonRW.save();
     }
     _log(text, postfix=false) {
@@ -59,7 +67,7 @@ class User {
         return this._data().username;
     }
 
-    getPasswordHash() {
+    getPasswordHash() { // Get hash from JSON
         return this._data().password;
     }
     getQuestions() {

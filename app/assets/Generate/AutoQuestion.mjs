@@ -103,17 +103,21 @@ export default class AutoQuestion {
         return textElement
     }
     evaluateRenderFunction(functionData) {
-        const renderElement = document.createElement("div");
+        const renderElement = document.createElement("div"); // Create HTML element
         renderElement.classList.add("auto-step__render");
 
+        // Get formatted string in TeX format
         const render = this.evaluateRenderBlock(functionData["fields"][0]["value"]);
 
-        katex.render(
+        
+
+        // Convert formatted string into rendered equation
+        katex.render( // Using the KaTex library to render TeX
             render
             , renderElement, {
             throwOnError: false
         });
-
+        // Return HTML element
         return renderElement
     }
     evaluateSetFunction(functionData) {

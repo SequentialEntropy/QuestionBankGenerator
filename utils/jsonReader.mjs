@@ -5,8 +5,8 @@ import { log } from "../utils/logger.mjs";
 class jsonReader {
     constructor(data, filePath) {
         this._filePath = filePath;
+        // Store loaded JSON as a class property
         this.data = data;
-
         this._log("Initialised");
     }
     static async init(filePath, defaults={}) { // Asynchronously initialise class instance
@@ -41,13 +41,13 @@ class jsonReader {
         const rawData = JSON.stringify(await data, null, 4);
         return fs.writeFile(filePath, rawData);
     }
-    static _deleteFile(filePath) {
-        fs.unlink(filePath);
-    }
     async save() { // Store data into file
         this._log("save() function called");
         jsonReader._writeToFile(this.data, this._filePath);
         this._log("Wrote stored data to file", this.data);
+    }
+    static _deleteFile(filePath) {
+        fs.unlink(filePath);
     }
     async delete() { // Delete this file
         jsonReader._deleteFile(this._filePath);
