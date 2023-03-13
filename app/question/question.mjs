@@ -74,15 +74,17 @@ class Question {
         return this._data().steps;
     }
     createStep() {
-        const length = this.getSteps().push([]); // Return index of new step
+        // Return index of new step, push new secondary array into primary array
+        const length = this.getSteps().push([]);
         this._save();
         return length;
     }
     moveStep(selected, targeted) {
+        // Check if queried indexes are in range
         if (selected < 0 || selected > (this.getSteps().length - 1) || targeted < 0 || targeted > this.getSteps().length) {
             return false;
         }
-
+        // Check if no moving required
         if (selected == targeted || selected == (targeted - 1)) {
             return true;
         }
@@ -92,6 +94,7 @@ class Question {
         if (selected > targeted) {
             selected++;
         }
+        // Swap secondary array's positions inside primary array
         this.getSteps().splice(targeted, 0, step);
         this.getSteps().splice(selected, 1);
         this._save();
@@ -99,10 +102,11 @@ class Question {
         return true;
     }
     deleteStep(selected) {
+        // Check if queried index is in range
         if (selected < 0 || selected > (this.getSteps().length - 1)) {
             return false;
         }
-
+        // Remove secondary array at selected index from primary array
         this.getSteps().splice(selected, 1);
         this._save();
 
@@ -189,14 +193,13 @@ class Question {
         return true;
     }
     getFieldFromPath(sectionIndex, functionIndex, pathArray) {
+        // Check if Section address exists
         let selectedSection = this.getSection(sectionIndex);
-
         if (selectedSection === false) {
             return false;
         }
-
+        // Check if Function address exists
         let selectedFunction = this.getFunction(selectedSection, functionIndex)
-        
         if (selectedFunction === false) {
             return false;
         }
@@ -204,34 +207,29 @@ class Question {
         let field = {
             value: selectedFunction
         };
-
+        // Traverse through nodes
         pathArray.forEach(component => {
-
+            // Check if field and block exists
             if (!field.hasOwnProperty("value")) {
                 return false;
             }
-
             const block = field.value;
-
             if (!block.hasOwnProperty("fields")) {
                 return false;
             }
-            
             const fields = block.fields;
-            
+            // Check if index is a number and in range
             const index = parseInt(component);
-
             if (isNaN(index)) {
                 return false;
             }
-
             if (index < 0 || index > fields.length - 1) {
                 return false;
             }
-
+            // Move down a node
             field = fields[index];
         })
-
+        // Node found
         return field;
     }
     createBlock(sectionIndex, functionIndex, pathArray, data) {

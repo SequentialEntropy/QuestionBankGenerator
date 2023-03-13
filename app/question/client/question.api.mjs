@@ -61,19 +61,19 @@ export default class QuestionAPI {
         return json;
     }
 }
-
+// Convert block path array into _ delimited string
 function blockAddressToEndpoint(blockAddress) {
     return `${blockAddress.sectionIndex}/${blockAddress.functionIndex}/${blockAddress.path.join("_")}`;
 }
-
+// Convert function path array into _ delimited string
 function functionAddressToEndpoint(functionAddress) {
     return `${functionAddress.sectionIndex}/${functionAddress.functionIndex}`;
 }
 
-function getQuestionId() {
+function getQuestionId() { // Get questionId through URL
     return parseInt(window.location.pathname.match(/([0-9]+)$\/?/g)[0]);
 }
-
+// Send HTTP request to server with request body
 async function send(method, endpoint, body) {
     return await fetch(`/question/api/${getQuestionId()}/${endpoint}`, {
         method,

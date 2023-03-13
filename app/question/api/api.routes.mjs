@@ -1,4 +1,5 @@
 import express from "express";
+// Import Auth middleware
 import auth from "../auth.middleware.mjs";
 
 import createStep from "./createStep.handler.mjs";
@@ -18,6 +19,7 @@ import deleteVariable from "./deleteVariable.handler.mjs";
 
 const router = express.Router();
 
+// Use Auth middleware to ensure all endpoints are protected
 router.get("/:questionId/createStep", auth, createStep)
 router.get("/:questionId/getSteps", auth, getSteps)
 router.get("/:questionId/moveStep/:selected/:targeted", auth, moveStep)
@@ -32,10 +34,5 @@ router.put("/:questionId/editBlock/:sectionIndex/:functionIndex/:path", auth, ed
 router.put("/:questionId/editFunction/:sectionIndex/:functionIndex", auth, editFunction)
 router.post("/:questionId/createVariable", auth, createVariable);
 router.put("/:questionId/deleteVariable", auth, deleteVariable);
-
-
-router.get("/test", (req, res) => {
-    res.send("API");
-})
 
 export { router };

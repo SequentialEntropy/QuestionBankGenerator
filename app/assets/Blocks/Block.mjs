@@ -24,11 +24,13 @@ export default class Block {
         </div>
         `).children[0]; // HTML template
 
+        // Creates the actual fields from the template defined in line 4 shelfContent
         this.shelfContent().forEach(fieldData => {
-            const newField = createField(...fieldData); // Creates the actual fields from the template defined in line 4 shelfContent
+            const newField = createField(...fieldData);
             root.querySelector(".block__shelf").appendChild(newField.root);
         });
-        this.shelfStyles().forEach(className => { // Applies classes defined in line 7 shelfStyles, determines colour of block
+        // Applies classes defined in line 7 shelfStyles, determines colour of block
+        this.shelfStyles().forEach(className => {
             root.querySelector(".block__shelf").classList.add(className);
         })
         
@@ -51,8 +53,8 @@ export default class Block {
         })
 
         this.deleteButton.addEventListener("click", e => {
-            if (!confirm(`Are you sure you want to delete the selected Block?`)) { // Confirm before deleting
-                return;
+            if (!confirm(`Are you sure you want to delete the selected Block?`)) {
+                return; // Confirm before deleting
             }
 
             const event = new Event("deleteBlock");
@@ -75,8 +77,9 @@ export default class Block {
         .filter(fieldElement => {
             return fieldElement.matches(".block__field");
         });
-
-        for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) { // Loop through child fields
+        
+        // Loop through child fields
+        for (let fieldIndex = 0; fieldIndex < fieldsData.length; fieldIndex++) {
             const fieldData = fieldsData[fieldIndex];
 
             if (fieldData.value == null) { // Skip blank field

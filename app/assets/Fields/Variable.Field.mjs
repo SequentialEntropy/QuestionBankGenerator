@@ -56,27 +56,23 @@ export class Variable {
         let currentField = this.root;
         let indexes = [];
 
-        // Field # in Block
-
-        while (parentBlock != null) {
+        // Get Field # in Block
+        while (parentBlock != null) { // While root function not reached
             const shelf = parentBlock.querySelector(".block__shelf");
 
             const fieldElements = Array.from(shelf.children)
             .filter(fieldElement => {
                 return fieldElement.matches(".block__field");
             })    
-            
+            // Add index to address list
             indexes.unshift(fieldElements.indexOf(currentField));
-            
+            // Move up a node
             currentField = parentBlock.closest(".block__field");
-
             parentBlock = currentField.closest(".block");
         }
 
-        // Field # in Function
-
+        // Get Field # in Function
         const parentFunction = currentField.closest(".function");
-
         let shelf = parentFunction.querySelector(".function__shelf");
 
         const fieldElements = Array.from(shelf.children)
@@ -86,12 +82,9 @@ export class Variable {
         
         indexes.unshift(fieldElements.indexOf(currentField));
 
-        // Function # in Section
-
+        // Get Function # in Section
         const currentFunction = parentFunction;
-
         const parentSection = currentFunction.closest(".section");
-
         shelf = parentSection.querySelector(".function-menu__shelf");
 
         const functionElements = Array.from(shelf.children)
@@ -101,10 +94,8 @@ export class Variable {
 
         const functionIndex = functionElements.indexOf(currentFunction);
 
-        // Section #
-
+        // Get Section #
         const currentSection = parentSection;
-
         shelf = currentSection.closest(".section-menu__shelf");
 
         const sectionElements = Array.from(shelf.children)
@@ -117,7 +108,9 @@ export class Variable {
         return {
             sectionIndex: sectionIndex,
             functionIndex: functionIndex,
-            path: indexes
+            path: indexes // Address - list of indexes, 0 or 1 of binary tree
+            // 0 for left node
+            // 1 for right node
         };
     }
 }
