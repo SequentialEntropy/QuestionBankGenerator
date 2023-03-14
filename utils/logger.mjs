@@ -13,13 +13,13 @@ function getDateTimeNow() {
 
     // current date
     // adjust 0 before single digit date
-    let date = ("0" + dateNow.getDate()).slice(-2);
+    // let date = ("0" + dateNow.getDate()).slice(-2);
 
     // current month
-    let month = ("0" + (dateNow.getMonth() + 1)).slice(-2);
+    // let month = ("0" + (dateNow.getMonth() + 1)).slice(-2);
 
     // current year
-    let year = ("0" + dateNow.getFullYear()).slice(-2);
+    // let year = ("0" + dateNow.getFullYear()).slice(-2);
 
     // current hours
     let hours = ("0" + dateNow.getHours()).slice(-2);
@@ -30,7 +30,7 @@ function getDateTimeNow() {
     // current seconds
     let seconds = ("0" + dateNow.getSeconds()).slice(-2);
 
-    return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`
+    return `${hours}:${minutes}:${seconds}`
 }
 
 function log(prefix, text, postfix=false) {
